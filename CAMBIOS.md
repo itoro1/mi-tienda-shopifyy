@@ -101,6 +101,29 @@ El botón original abría un Quick Add modal (AJAX) que cargaba el formulario de
 
 ---
 
+## BLOQUE 10 — Fix descuentos en reservas + Carrito PRO ✅
+
+**Descuentos — problema raíz identificado:**
+- **Sternify Bundles** (app instalada): crea un descuento automático tipo `DiscountAutomaticApp` llamado "DÚO" que aplica 15% al detectar 2 productos similares en el carrito, incluyendo reservas. → **Acción requerida del usuario** (ver nota abajo).
+- **Pack 2/3 unidades**: tenían `minimumRequirement.quantity` contando CUALQUIER artículo del carrito. Al tener 2 reservas, se activaban y bloqueaban el uso de códigos como `ITOROBIENVENIDO` aunque el descuento no se aplicase a ningún ítem (sin cables en el carrito).
+
+**Fix descuentos automáticos:**
+- `Pack 2 unidades — 10% Descuento` — ELIMINADO y recreado como BxGy: compra 2 cables → 10% sobre esos cables. No activa con reservas.
+- `Pack 3 unidades — 20% Descuento` — ELIMINADO y recreado como BxGy: compra 3 cables → 20% sobre esos cables. No activa con reservas.
+
+**Fix códigos de descuento (4 códigos):**
+- `PACK-IPHONE-CARGADOR`, `BIENVENIDO`, `ITOROBIENVENIDO`, `DOSIPHONES` — `customerGets.items` actualizado: se añaden explícitamente las 4 colecciones legítimas (Cargadores y Cables, iPhones Segunda Mano, iPhones Nuevos Sellados, Todos los iPhones). Colección "Reservas de Pedido" NO incluida → los 50 € de señal no son descontables.
+
+**Carrito PRO — archivos creados/modificados:**
+- `assets/itoro-cart-pro.css` — NUEVO: estilos para `.itoro-reserva-notice` (banner dorado), `.itoro-cart-trust` (row confianza), `.itoro-reserva-chip` (badge en line item)
+- `sections/main-cart-footer.liquid` — añadidos: banner "Reserva confirmada · Señal de 50 €" (aparece solo si hay items con tag `deposito`) + trust row (candado, camión, escudo) justo antes del botón de pago
+- `sections/main-cart-items.liquid` — añadido chip "Señal de reserva · 50 €" (dorado) bajo el nombre del producto para items con tag `deposito`
+
+**⚠️ Sternify Bundles — requiere acción manual:**
+El descuento "DÚO" es gestionado por la app Sternify Bundles (ID: `gid://shopify/DiscountAutomaticNode/2221449707845`). Para que no aplique a reservas: en el panel de Shopify → Apps → Sternify Bundles → editar el bundle "DÚO" → en "Productos elegibles", excluir la colección "Reservas de Pedido" o el producto `reserva-de-pedido-iphone-itorostore`.
+
+---
+
 ## INTEGRIDAD VERIFICADA
 
 - `assets/itoro-reservar.js` — NO TOCADO ✅
