@@ -83,6 +83,24 @@
 
 ---
 
+## BLOQUE 9 — Botón tarjeta de producto rediseñado (PRO) ✅
+
+**Archivos creados/modificados:**
+- `assets/itoro-card-btn.css` — NUEVO: estilo `.itoro-cardbtn` (oscuro #111114 → hover gradiente dorado, border-radius 12px, flecha animada)
+- `snippets/card-product.liquid` — bloque `<modal-opener>` + `<quick-add-modal>` (quick_add=='standard', variantes>1) reemplazado por `<a href="{{ card_product.url }}" class="itoro-cardbtn">` con markup texto + SVG flecha. CSS cargado en bloque `unless skip_styles`.
+
+**Por qué se cambió la función (no solo el estilo):**
+El botón original abría un Quick Add modal (AJAX) que cargaba el formulario de producto y podía exponer variantes a precio completo, saltándose el flujo de reserva de 50 €. Ahora es un `<a>` directo a la ficha del producto, donde `itoro-reservar.liquid` gestiona el flujo correctamente.
+
+**Alcance exacto:**
+- Rama `quick_add == 'standard'` + `variants_count > 1` → ahora `<a class="itoro-cardbtn">`
+- Rama `quick_add == 'standard'` + variante única → sin cambio (botón "Añadir al carrito" para accesorios)
+- Rama `quick_add == 'bulk'` → sin cambio
+- Botón de reserva en PDP (`itoro-reservar.liquid`) → NO TOCADO
+- El handle `reserva-de-pedido-iphone-itorostore` nunca recibe `quick_add == 'standard'` en colecciones → seguro
+
+---
+
 ## INTEGRIDAD VERIFICADA
 
 - `assets/itoro-reservar.js` — NO TOCADO ✅
@@ -106,3 +124,5 @@
 | B5 Badge | 1 snippet | Expectativas del cliente en colección |
 | B6 Accesibilidad | 2 secciones | Cumplimiento EN 301 549 |
 | B7 SEO | 1 snippet | JSON-LD correcto para dominio custom |
+| B8 Entrega PRO | 2 secciones | Diseño premium, sin JS de fechas |
+| B9 Botón tarjeta | 2 archivos | Flujo reserva protegido, look dorado |
