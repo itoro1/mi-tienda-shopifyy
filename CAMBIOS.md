@@ -149,3 +149,27 @@ El descuento "DÚO" es gestionado por la app Sternify Bundles (ID: `gid://shopif
 | B7 SEO | 1 snippet | JSON-LD correcto para dominio custom |
 | B8 Entrega PRO | 2 secciones | Diseño premium, sin JS de fechas |
 | B9 Botón tarjeta | 2 archivos | Flujo reserva protegido, look dorado |
+| B10 Descuentos + Carrito PRO | 2 nuevos CSS, 2 secciones, 6 descuentos | Reservas sin descuento, carrito profesional |
+| B11 Envío gratis destacado | 4 archivos (1 mod, 1 nuevo, 1 mod, 1 mod) | Shipping gratis anunciado en todo el sitio |
+
+---
+
+## BLOQUE 10 — Fix descuentos en reservas + Carrito PRO ✅
+
+**Ver detalle completo arriba en el resumen de sesión anterior.**
+
+---
+
+## BLOQUE 11 — Envío gratis destacado (PRO) ✅
+
+**Archivos creados/modificados:**
+- `sections/it-announcement-bar.liquid` — REEMPLAZADO: nueva barra `.itoro-anuncio` (fondo #0B0C0F, texto dorado en mayúsculas, icono SVG camión). Schema con ajuste `mensaje` editable desde el editor de temas. Default: "Envío GRATIS en toda España · Entrega 24–48 h con Correos". Se suprimió el ticker animado.
+- `sections/itoro-trust-strip.liquid` — NUEVO: strip de confianza slim (4 items: envío gratis, garantía, pago seguro, WhatsApp). Fondo `--it-surface2`, modo oscuro automático. Insertado entre hero y ventajas en la home.
+- `snippets/itoro-cart-progress.liquid` — MODIFICADO: eliminada la lógica de umbral 30€ y la barra de progreso. Ahora muestra siempre "✓ Envío gratis incluido" en verde. Upsell de cargadores (cuando hay iPhones sin cargador en el carrito) conservado.
+- `templates/index.json` — MODIFICADO: añadida sección `it_trust_strip_jK3mXw` (tipo `itoro-trust-strip`) en el orden entre `it_hero_aX9kQm` e `it_features_dVmWE4`.
+
+**Coherencia garantizada:**
+- Barra superior (todas las páginas): anuncio dorado "ENVÍO GRATIS EN TODA ESPAÑA"
+- Home (debajo del hero): strip de 4 trust items, primero "Envío gratis en todos los pedidos"
+- Carrito: "✓ Envío gratis incluido" siempre visible — no contradice el anuncio superior
+- PDP: `it-features` ya mostraba "Envío 24h gratis" — sin cambio
