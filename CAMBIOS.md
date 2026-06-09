@@ -68,6 +68,21 @@
 
 ---
 
+## BLOQUE 8 — Rediseño sección estimación de entrega ✅
+
+**Archivos creados/modificados:**
+- `sections/itoro-entrega.liquid` — CREADO: diseño PRO completo con tracker animado de 4 pasos, cálculo de fechas en Liquid puro (sin JS), chips de info, banner de garantía y 9 ajustes en el editor de temas
+- `sections/it-cart-delivery.liquid` — REEMPLAZADO: contenido antiguo (JS/truck animado, hardcoded) sustituido por el mismo diseño PRO
+
+**Comportamiento:**
+- Fechas calculadas en Liquid (`'now' | date: '%s'`) respetando fines de semana (sábado +2d, domingo +1d)
+- Esquema oscuro por defecto, modo claro via `data-scheme="light"`
+- Animación `ie-spark` (punto dorado recorriendo el track) + `ie-up` (entrada escalonada); desactivadas con `prefers-reduced-motion`
+- Sin JS de fechas, sin librerías externas, sin urgencia falsa
+- Configurable: transportista, días de despacho (0-5), días de tránsito (1-7), color de acento, padding
+
+---
+
 ## INTEGRIDAD VERIFICADA
 
 - `assets/itoro-reservar.js` — NO TOCADO ✅
