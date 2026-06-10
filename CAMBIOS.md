@@ -152,6 +152,24 @@ El descuento "DÚO" es gestionado por la app Sternify Bundles (ID: `gid://shopif
 | B9 Botón tarjeta | 2 archivos | Flujo reserva protegido, look dorado |
 | B10 Descuentos + Carrito PRO | 2 nuevos CSS, 2 secciones, 6 descuentos | Reservas sin descuento, carrito profesional |
 | B11 Envío gratis destacado | 4 archivos (1 mod, 1 nuevo, 1 mod, 1 mod) | Shipping gratis anunciado en todo el sitio |
+| B12 Mejoras visuales PRO | 5 archivos modificados | Iconos SVG dorados, badges de ahorro, nav de modelos |
+
+---
+
+## BLOQUE 12 — Mejoras visuales PRO ✅
+
+**Archivos modificados:**
+- `sections/it-features.liquid` — emojis reemplazados por SVG inline dorados (camión, escudo, caja, chat, estrella, candado) según el valor del campo `icon`
+- `sections/it-trust-product.liquid` — emojis reemplazados por SVG dorados; icono de garantía/sellado usa contenedor con fondo verde/dorado según tema
+- `sections/it-hero-premium.liquid` — floats del hero (⚡🛡) reemplazados por SVG enmarcados con fondo dorado; savings ahora usa `{{ section.settings.price_save | default: '200' }}` (editable desde el editor); añadido campo `price_save` al schema
+- `sections/it-collection-banner.liquid` — pills de confianza reemplazados por SVG + texto; título `font-weight` 300→600; añadida fila de navegación `.it-col-nav` con chips directos a "Nuevos sellados", "Segunda mano", "iPhone 17 Pro Max", "iPhone 16 Pro Max", "iPhone 15 Pro Max" (solo en colecciones de iPhones)
+- `snippets/card-product.liquid` — badge genérico "En oferta" reemplazado por "Ahorras X€" (verde oscuro #166534) calculado dinámicamente como `compare_at_price - price ÷ 100`. Aplicado en ambas secciones de badge (con y sin media). La lógica `bajo-pedido` no se toca.
+
+**Integración verificada:**
+- Flujo de reserva `bajo-pedido` — NO TOCADO ✅
+- `itoro-reservar.liquid` / `itoro-reservar.js` — NO TOCADOS ✅
+- `reserva-de-pedido-iphone-itorostore` excluido de badge ahorro ✅
+- Apple Pay oculto en bajo-pedido — intacto ✅
 
 ---
 
