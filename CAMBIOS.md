@@ -1,5 +1,6 @@
 # CAMBIOS IMPLEMENTADOS — IToroStore PRO
-**Tema:** Copia de Dawn — PRO (preview) — ID `200413446469`  
+**Tema activo (LIVE):** Copia de Dawn — PRO (preview) — ID `200413446469`  
+**Tema edición (nuevo):** Copia de Dawn — PRO (edición) — ID `201010184517`  
 **Fecha:** 2026-06-09  
 **Estado:** COMPLETADO ✅
 
