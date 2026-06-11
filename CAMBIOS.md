@@ -1,7 +1,7 @@
 # CAMBIOS IMPLEMENTADOS — IToroStore PRO
 **Tema activo (LIVE):** Copia de Dawn — PRO (preview) — ID `200413446469`  
 **Tema edición (nuevo):** Copia de Dawn — PRO (edición) — ID `201010184517`  
-**Fecha:** 2026-06-09  
+**Fecha:** 2026-06-11  
 **Estado:** COMPLETADO ✅
 
 ---
@@ -154,6 +154,7 @@ El descuento "DÚO" es gestionado por la app Sternify Bundles (ID: `gid://shopif
 | B11 Envío gratis destacado | 4 archivos (1 mod, 1 nuevo, 1 mod, 1 mod) | Shipping gratis anunciado en todo el sitio |
 | B12 Mejoras visuales PRO | 5 archivos modificados | Iconos SVG dorados, badges de ahorro, nav de modelos |
 | B13 Auditoría completa | 5 archivos (2 secciones, 1 snippet, 2 templates) | Estrellas dinámicas, footer SVG, WhatsApp fix, crosssell en carrito, urgencia stock PDP |
+| B14 Envío gratis prominente + PRO | 3 archivos (barra, trust strip, tarjetas) | Envío GRATIS siempre visible — barra estática, trust strip premium, badge en cada tarjeta |
 
 ---
 
