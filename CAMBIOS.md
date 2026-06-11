@@ -153,6 +153,29 @@ El descuento "DÚO" es gestionado por la app Sternify Bundles (ID: `gid://shopif
 | B10 Descuentos + Carrito PRO | 2 nuevos CSS, 2 secciones, 6 descuentos | Reservas sin descuento, carrito profesional |
 | B11 Envío gratis destacado | 4 archivos (1 mod, 1 nuevo, 1 mod, 1 mod) | Shipping gratis anunciado en todo el sitio |
 | B12 Mejoras visuales PRO | 5 archivos modificados | Iconos SVG dorados, badges de ahorro, nav de modelos |
+| B13 Auditoría completa | 5 archivos (2 secciones, 1 snippet, 2 templates) | Estrellas dinámicas, footer SVG, WhatsApp fix, crosssell en carrito, urgencia stock PDP |
+
+---
+
+## BLOQUE 13 — Auditoría completa: mejoras funcionales y visuales ✅
+
+**Archivos modificados:**
+
+- `sections/it-reviews.liquid` — REEMPLAZADO: estrellas del encabezado ahora son dinámicas (Liquid math sobre `score`). Nuevas clases: `--partial` (gradiente 60%/40%) y `--empty` (fondo tenue). Badge "Compradores verificados" con SVG checkmark verde. Score en `font-size:36px`. Link "Ver todas las valoraciones →" condicional a `tp_url`. Schema: `score_label` default actualizado a "Excelente · 500+ reseñas", etiqueta `tp_url` mejorada.
+
+- `sections/it-footer.liquid` — Trust items: emojis (✅🛡️📦) reemplazados por SVG inline (camión, escudo, caja) con `stroke:var(--it-hint)`. Badges de pago mejorados visualmente: VISA (azul navy itálica), Mastercard (icono SVG dos círculos rojo/naranja), PayPal (azul), Bizum (teal). Link "Reservar" sin emoji 📦. CSS trust-item actualiza a `display:flex;align-items:center;gap:6px`.
+
+- `snippets/it-whatsapp.liquid` — Typo corregido: "Hola! En que puedo ayudarte?" → "¡Hola! ¿En qué puedo ayudarte?". Añadido botón ✕ (`it-wa-close`) con `sessionStorage` — si el usuario cierra el widget no reaparece en esa sesión. CSS del botón inline (no requiere cambios en `itoro-trust-extras.css`).
+
+- `templates/product.json` — Añadido bloque `inventory` (tipo: `"inventory"`, `inventory_threshold: 10`) en `block_order` entre `price` y `variant_picker`. Muestra urgencia de stock ("Quedan pocas unidades") en PDP cuando el inventario es bajo.
+
+- `templates/cart.json` — Añadida sección `it_crosssell_mP7nYq` (tipo: `it-crosssell`) en el `order` entre `cart-items` y `cart-footer`. Ahora la sección de cargadores recomendados aparece en el carrito.
+
+**Integridad verificada:**
+- Flujo de reserva `bajo-pedido` — NO TOCADO ✅
+- `itoro-reservar.liquid` / `itoro-reservar.js` — NO TOCADOS ✅
+- Apple Pay oculto en bajo-pedido — intacto ✅
+- `reserva-de-pedido-iphone-itorostore` — no afectado ✅
 
 ---
 
