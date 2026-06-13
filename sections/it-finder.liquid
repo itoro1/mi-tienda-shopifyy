@@ -1,0 +1,215 @@
+{%- liquid
+  assign p_17   = all_products['iphone-17']
+  assign p_16   = all_products['iphone-16']
+  assign p_15   = all_products['iphone-15']
+  assign p_14   = all_products['iphone-14']
+  assign p_13   = all_products['iphone-13']
+  assign p_17p  = all_products['iphone-17-pro']
+  assign p_16p  = all_products['iphone-16-pro']
+  assign p_15p  = all_products['iphone-15-pro']
+  assign p_14p  = all_products['iphone-14-pro']
+  assign p_13p  = all_products['iphone-13-pro']
+  assign p_17pm = all_products['iphone-17-pro-max']
+  assign p_16pm = all_products['iphone-16-pro-max']
+  assign p_15pm = all_products['iphone-15-pro-max']
+  assign p_14pm = all_products['iphone-14-pro-max']
+  assign p_13pm = all_products['iphone-13-pro-max']
+-%}
+<div class="it-section it-finder">
+  <div class="it-section-inner">
+    <div class="it-finder-header">
+      <p class="it-sec-label" style="justify-content:center;display:flex">{{ section.settings.eyebrow | default: 'Elige tu modelo' }}</p>
+      <h2 class="it-finder-title">{{ section.settings.title | default: 'Descubre tu iPhone ideal' }}</h2>
+      <p class="it-finder-sub">{{ section.settings.subtitle | default: 'Toca el modelo que te interesa' }}</p>
+    </div>
+
+    <p class="it-finder-row-label">Modelos Standard</p>
+    <div class="it-finder-grid">
+      <a href="/products/iphone-17" class="it-fcard it-fcard--new">
+        <div class="it-fcard-wrap"><span class="it-fcard-hot">Nuevo</span>
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-17-1.jpg?v=1777927708" alt="iPhone 17" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">iPhone 17</p>
+        <p class="it-fcard-price">desde {{ p_17.price_min | money_without_trailing_zeros | default: '899&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--new">Sellado</span>
+      </a>
+      <a href="/products/iphone-16" class="it-fcard">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-16-1.jpg?v=1777927681" alt="iPhone 16" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">iPhone 16</p>
+        <p class="it-fcard-price">desde {{ p_16.price_min | money_without_trailing_zeros | default: '619&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-15" class="it-fcard">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-15-1.jpg?v=1777927657" alt="iPhone 15" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">iPhone 15</p>
+        <p class="it-fcard-price">desde {{ p_15.price_min | money_without_trailing_zeros | default: '499&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-14" class="it-fcard">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-14-1.jpg?v=1777927633" alt="iPhone 14" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">iPhone 14</p>
+        <p class="it-fcard-price">desde {{ p_14.price_min | money_without_trailing_zeros | default: '399&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-13" class="it-fcard">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-13-pro-max-1_31ba6a0e-fec4-4816-8d23-7844730a7879.jpg?v=1779227793" alt="iPhone 13" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">iPhone 13</p>
+        <p class="it-fcard-price">desde {{ p_13.price_min | money_without_trailing_zeros | default: '279&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+    </div>
+
+    <p class="it-finder-row-label" style="margin-top:18px">Modelos Pro</p>
+    <div class="it-finder-grid">
+      <a href="/products/iphone-17-pro" class="it-fcard it-fcard--pro it-fcard--new">
+        <div class="it-fcard-wrap"><span class="it-fcard-hot">Nuevo</span>
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-17-pro-1.jpg?v=1777927713" alt="iPhone 17 Pro" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">17 Pro</p>
+        <p class="it-fcard-price">desde {{ p_17p.price_min | money_without_trailing_zeros | default: '1.229&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--new">Sellado</span>
+      </a>
+      <a href="/products/iphone-16-pro" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-16-pro-1.jpg?v=1777927687" alt="iPhone 16 Pro" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">16 Pro</p>
+        <p class="it-fcard-price">desde {{ p_16p.price_min | money_without_trailing_zeros | default: '859&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-15-pro" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-15-pro-1.jpg?v=1777927664" alt="iPhone 15 Pro" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">15 Pro</p>
+        <p class="it-fcard-price">desde {{ p_15p.price_min | money_without_trailing_zeros | default: '659&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-14-pro" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-14-pro-1.jpg?v=1777927639" alt="iPhone 14 Pro" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">14 Pro</p>
+        <p class="it-fcard-price">desde {{ p_14p.price_min | money_without_trailing_zeros | default: '519&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-13-pro" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-13-pro-max-1_f68cc076-ed83-4d18-80d8-16b897bce8de.jpg?v=1779227826" alt="iPhone 13 Pro" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">13 Pro</p>
+        <p class="it-fcard-price">desde {{ p_13p.price_min | money_without_trailing_zeros | default: '419&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+    </div>
+
+    <p class="it-finder-row-label" style="margin-top:18px">Modelos Pro Max</p>
+    <div class="it-finder-grid">
+      <a href="/products/iphone-17-pro-max" class="it-fcard it-fcard--pro it-fcard--top">
+        <div class="it-fcard-wrap"><span class="it-fcard-hot it-fcard-hot--top">Top</span>
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-17-pro-max-1.jpg?v=1777927720" alt="iPhone 17 Pro Max" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">17 Pro Max</p>
+        <p class="it-fcard-price">{{ p_17pm.price_min | money_without_trailing_zeros | default: '1.449&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--new">Sellado</span>
+      </a>
+      <a href="/products/iphone-16-pro-max" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-16-pro-max-1.jpg?v=1777927693" alt="iPhone 16 Pro Max" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">16 Pro Max</p>
+        <p class="it-fcard-price">desde {{ p_16pm.price_min | money_without_trailing_zeros | default: '1.029&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-15-pro-max" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-15-pro-max-1.jpg?v=1777927669" alt="iPhone 15 Pro Max" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">15 Pro Max</p>
+        <p class="it-fcard-price">desde {{ p_15pm.price_min | money_without_trailing_zeros | default: '859&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-14-pro-max" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-14-pro-max-1.jpg?v=1777927645" alt="iPhone 14 Pro Max" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">14 Pro Max</p>
+        <p class="it-fcard-price">desde {{ p_14pm.price_min | money_without_trailing_zeros | default: '619&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+      <a href="/products/iphone-13-pro-max" class="it-fcard it-fcard--pro">
+        <div class="it-fcard-wrap">
+          <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-13-pro-max-1.jpg?v=1777927620" alt="iPhone 13 Pro Max" loading="lazy"></div>
+        </div>
+        <p class="it-fcard-name">13 Pro Max</p>
+        <p class="it-fcard-price">desde {{ p_13pm.price_min | money_without_trailing_zeros | default: '469&euro;' }}</p>
+        <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
+      </a>
+    </div>
+
+    <div style="text-align:center;margin-top:24px">
+      <a href="/collections/todos-los-iphones" class="it-btn-secondary">Ver cat&aacute;logo completo (17 modelos) &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.it-finder{background:var(--it-bg)}
+.it-finder-header{text-align:center;margin-bottom:22px}
+.it-finder-title{font-size:clamp(20px,3vw,30px);font-weight:300;letter-spacing:-.02em;color:var(--it-text);margin:4px 0 6px}
+.it-finder-sub{font-size:13px;color:var(--it-muted);margin:0}
+.it-finder-row-label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--it-muted);margin:0 0 10px;padding:0 2px}
+.it-finder-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.it-fcard{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit;padding:10px 6px 12px;border:0.5px solid var(--it-border);border-radius:var(--it-radius-lg);background:var(--it-surface);transition:all .2s;text-align:center;gap:5px;cursor:pointer}
+.it-fcard:hover{border-color:var(--it-border2);transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.09)}
+.it-fcard--pro{border-color:rgba(180,140,30,.3);background:linear-gradient(to bottom,rgba(212,175,55,.04),var(--it-surface))}
+.it-fcard--new{border-color:rgba(21,128,61,.25);background:linear-gradient(to bottom,rgba(21,128,61,.04),var(--it-surface))}
+[data-theme=dark] .it-fcard--new{border-color:rgba(212,175,55,.2)}
+.it-fcard--pro.it-fcard--new{border-color:var(--it-accent)!important;background:linear-gradient(to bottom,rgba(212,175,55,.08),var(--it-surface))!important}
+.it-fcard--top{border-color:var(--it-accent)!important;border-width:1.5px!important;background:linear-gradient(to bottom,rgba(212,175,55,.1),var(--it-surface))!important}
+.it-fcard-wrap{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%}
+.it-fcard-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:6px;background:var(--it-surface2)}
+.it-fcard-img img{width:100%;height:100%;object-fit:contain;transition:transform .3s}
+.it-fcard:hover .it-fcard-img img{transform:scale(1.07)}
+.it-fcard-hot{position:absolute;top:0;right:0;font-size:8px;font-weight:700;padding:2px 6px;border-radius:20px;background:#15803d;color:#fff;z-index:2}
+.it-fcard-hot--top{background:var(--it-accent);color:#0d0d0b}
+.it-fcard-name{font-size:11px;font-weight:500;color:var(--it-text);margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.it-fcard-price{font-size:11px;font-weight:700;color:var(--it-text);margin:0}
+[data-theme=dark] .it-fcard--top .it-fcard-price{color:var(--it-accent)}
+.it-fcard-badge{font-size:8px;font-weight:600;padding:2px 6px;border-radius:20px}
+.it-fcard-badge--used{background:rgba(59,130,246,.1);color:#1d4ed8;border:.5px solid rgba(59,130,246,.2)}
+[data-theme=dark] .it-fcard-badge--used{background:rgba(212,175,55,.08);color:var(--it-accent);border-color:rgba(212,175,55,.2)}
+.it-fcard-badge--new{background:rgba(21,128,61,.1);color:#15803d;border:.5px solid rgba(21,128,61,.25)}
+[data-theme=dark] .it-fcard-badge--new{background:rgba(212,175,55,.1);color:var(--it-accent);border-color:rgba(212,175,55,.25)}
+@media(max-width:600px){
+  .it-finder-grid{grid-template-columns:repeat(5,1fr);gap:6px}
+  .it-fcard{padding:7px 3px 9px;gap:4px}
+  .it-fcard-name{font-size:9px}
+  .it-fcard-price{font-size:9px}
+  .it-fcard-badge{font-size:7px;padding:2px 5px}
+  .it-fcard-hot{font-size:7px;padding:1px 5px}
+  .it-finder-title{font-size:18px}
+  .it-finder-row-label{font-size:9px;letter-spacing:1px}
+  .it-finder-header{margin-bottom:14px}
+}
+</style>
+
+{% schema %}
+{
+  "name":"Finder iPhones",
+  "settings":[
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Elige tu modelo"},
+    {"type":"text","id":"title","label":"Titulo","default":"Descubre tu iPhone ideal"},
+    {"type":"textarea","id":"subtitle","label":"Subtitulo","default":"Toca el modelo que te interesa"}
+  ],
+  "presets":[{"name":"Finder iPhones"}]
+}
+{% endschema %}
