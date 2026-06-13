@@ -1,0 +1,287 @@
+<div class="it-section it-wizard-section" style="border-top:0.5px solid var(--it-border)">
+  <div class="it-section-inner">
+    <div style="text-align:center;max-width:560px;margin:0 auto 32px">
+      <p class="it-sec-label" style="justify-content:center;display:flex">&iquest;Qu&eacute; iPhone es el tuyo?</p>
+      <h2 class="it-sec-title" style="text-align:center">Encuentra tu iPhone ideal</h2>
+      <p style="font-size:14px;color:var(--it-muted);margin-top:8px">Responde 3 preguntas y te decimos cu&aacute;l es tu modelo</p>
+    </div>
+
+    <div class="it-wz-step" id="wz-step-1">
+      <p class="it-wz-label">Paso 1 de 3 &mdash; &iquest;Cu&aacute;l es tu presupuesto?</p>
+      <div class="it-wz-grid">
+        <button class="it-wz-card" onclick="wzNext(1,'menos300')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </span>
+          <span class="it-wz-t">Menos de 300&euro;</span>
+          <span class="it-wz-s">iPhone 13 &mdash; lo m&aacute;s accesible</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(1,'300a600')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </span>
+          <span class="it-wz-t">300 &mdash; 600&euro;</span>
+          <span class="it-wz-s">iPhone 14/15 &mdash; calidad-precio</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(1,'600a1000')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </span>
+          <span class="it-wz-t">600 &mdash; 1.000&euro;</span>
+          <span class="it-wz-s">iPhone 15/16 Pro &mdash; premium</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(1,'mas1000')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          <span class="it-wz-t">M&aacute;s de 1.000&euro;</span>
+          <span class="it-wz-s">iPhone 17 Pro Max &mdash; lo mejor</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="it-wz-step" id="wz-step-2" style="display:none">
+      <p class="it-wz-label">Paso 2 de 3 &mdash; &iquest;Para qu&eacute; lo usas m&aacute;s?</p>
+      <div class="it-wz-grid">
+        <button class="it-wz-card" onclick="wzNext(2,'foto')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </span>
+          <span class="it-wz-t">Fotograf&iacute;a</span>
+          <span class="it-wz-s">C&aacute;mara es lo m&aacute;s importante</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(2,'diario')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </span>
+          <span class="it-wz-t">Uso diario</span>
+          <span class="it-wz-s">Llamadas, redes, WhatsApp</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(2,'trabajo')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </span>
+          <span class="it-wz-t">Trabajo</span>
+          <span class="it-wz-s">Productividad y rendimiento</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(2,'gaming')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </span>
+          <span class="it-wz-t">Gaming / video</span>
+          <span class="it-wz-s">Pantalla y potencia al m&aacute;ximo</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="it-wz-step" id="wz-step-3" style="display:none">
+      <p class="it-wz-label">Paso 3 de 3 &mdash; &iquest;Nuevo o segunda mano?</p>
+      <div class="it-wz-grid" style="grid-template-columns:1fr 1fr">
+        <button class="it-wz-card it-wz-card--green" onclick="wzNext(3,'nuevo')">
+          <span class="it-wz-ico it-wz-ico--green" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </span>
+          <span class="it-wz-t">Nuevo sellado</span>
+          <span class="it-wz-s">Garant&iacute;a 3 a&ntilde;os</span>
+        </button>
+        <button class="it-wz-card" onclick="wzNext(3,'segunda')">
+          <span class="it-wz-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </span>
+          <span class="it-wz-t">Segunda mano</span>
+          <span class="it-wz-s">Revisado &middot; 12 meses garant&iacute;a</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="it-wz-result" id="wz-result" style="display:none">
+      <div class="it-wz-result-inner">
+        <p class="it-wz-result-label">Tu iPhone ideal es</p>
+        <h3 class="it-wz-result-model" id="wz-model-name">iPhone 15 Pro</h3>
+        <p class="it-wz-result-why" id="wz-model-why"></p>
+        <div class="it-wz-result-actions">
+          <a href="#" id="wz-result-btn" class="it-btn-primary" style="font-size:14px;padding:14px 28px">Ver este modelo &rarr;</a>
+          <button onclick="wzReset()" class="it-btn-secondary" style="font-size:13px">Empezar de nuevo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="it-wz-progress" id="wz-progress">
+      <div class="it-wz-bar" id="wz-bar" style="width:0%"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.it-wizard-section{ background: var(--it-bg); }
+.it-wz-label{ font-size:12px; color:var(--it-muted); margin-bottom:16px; text-align:center; }
+.it-wz-grid{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.it-wz-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 14px;
+  border: 0.5px solid var(--it-border);
+  border-radius: var(--it-radius-lg);
+  background: var(--it-surface);
+  cursor: pointer;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  font-family: inherit;
+  text-align: center;
+}
+.it-wz-card:hover{
+  border-color: rgba(212,175,55,.35);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(212,175,55,.10);
+}
+.it-wz-card--green{ border-color: rgba(21,128,61,.3); background: linear-gradient(to bottom, rgba(21,128,61,.04), var(--it-surface)); }
+.it-wz-card--green:hover{ border-color:rgba(21,128,61,.5); box-shadow:0 8px 24px rgba(21,128,61,.10); }
+.it-wz-ico{
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  border-radius:50%;
+  background:rgba(212,175,55,.08);
+  border:0.5px solid rgba(212,175,55,.22);
+  transition:background .2s;
+}
+.it-wz-ico svg{
+  width:22px;height:22px;
+  stroke:var(--it-accent,#d4af37);fill:none;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
+.it-wz-card:hover .it-wz-ico{ background:rgba(212,175,55,.15); }
+.it-wz-ico--green{
+  background:rgba(21,128,61,.08);
+  border-color:rgba(21,128,61,.25);
+}
+.it-wz-ico--green svg{ stroke:#15803d; }
+[data-theme=dark] .it-wz-ico--green{ background:rgba(212,175,55,.08); border-color:rgba(212,175,55,.22); }
+[data-theme=dark] .it-wz-ico--green svg{ stroke:var(--it-accent,#d4af37); }
+.it-wz-t{ font-size: 14px; font-weight: 600; color: var(--it-text); line-height: 1.3; }
+.it-wz-s{ font-size: 11px; color: var(--it-muted); line-height: 1.4; }
+.it-wz-result-inner{
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 32px;
+  background: var(--it-surface);
+  border: 0.5px solid var(--it-border);
+  border-radius: 20px;
+}
+.it-wz-result-label{ font-size:12px; color:var(--it-muted); margin:0 0 8px; }
+.it-wz-result-model{ font-size:32px; font-weight:700; color:var(--it-text); margin:0 0 10px; letter-spacing:-.02em; }
+.it-wz-result-why{ font-size:14px; color:var(--it-muted); line-height:1.65; margin:0 0 24px; }
+.it-wz-result-actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.it-wz-progress{
+  height: 3px;
+  background: var(--it-border);
+  border-radius: 2px;
+  margin-top: 28px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+.it-wz-bar{
+  height: 100%;
+  background: var(--it-accent);
+  border-radius: 2px;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+@media (max-width:640px){
+  .it-wz-grid{ grid-template-columns: 1fr 1fr !important; }
+  .it-wz-card{ padding:16px 10px; }
+  .it-wz-ico{ width:40px; height:40px; }
+  .it-wz-ico svg{ width:18px; height:18px; }
+  .it-wz-t{ font-size:13px; }
+}
+</style>
+
+<script>
+(function(){
+  var answers={};
+
+  var models={
+    'menos300,foto,nuevo':    {m:'iPhone 13 Pro',   url:'/products/iphone-13-pro',     why:'Cámara triple, pantalla ProMotion y procesador A15 Pro. Relación calidad-precio imbatible.'},
+    'menos300,foto,segunda': {m:'iPhone 13 Pro',   url:'/products/iphone-13-pro',     why:'Cámara triple y ProMotion revisado con garantía 12 meses. La mejor opción en tu presupuesto.'},
+    'menos300,diario,nuevo': {m:'iPhone 13',       url:'/products/iphone-13',         why:'Chip A15, pantalla excelente y batería para todo el día. Perfecto para el uso diario.'},
+    'menos300,diario,segunda':{m:'iPhone 13',      url:'/products/iphone-13',         why:'El clásico revisado. Todo lo que necesitas a un precio imbatible.'},
+    'menos300,trabajo,nuevo':{m:'iPhone 13 Pro',   url:'/products/iphone-13-pro',     why:'ProMotion 120Hz y potencia A15 Pro para apps exigentes de trabajo.'},
+    'menos300,trabajo,segunda':{m:'iPhone 13',     url:'/products/iphone-13',         why:'Sólido, rápido y fiable para el trabajo diario.'},
+    'menos300,gaming,nuevo': {m:'iPhone 13 Pro',   url:'/products/iphone-13-pro',     why:'ProMotion 120Hz para una experiencia de gaming fluida a este precio.'},
+    'menos300,gaming,segunda':{m:'iPhone 13 Pro',  url:'/products/iphone-13-pro',     why:'La pantalla ProMotion marca la diferencia en gaming. Segunda mano con garantía.'},
+
+    '300a600,foto,nuevo':    {m:'iPhone 15',       url:'/products/iphone-15',         why:'Cámara 48MP con USB-C y Dynamic Island. Gran salto en fotografía frente a modelos anteriores.'},
+    '300a600,foto,segunda':  {m:'iPhone 14 Pro',   url:'/products/iphone-14-pro',     why:'Cámara 48MP con triple sistema y Dynamic Island. El Pro en tu presupuesto.'},
+    '300a600,diario,nuevo':  {m:'iPhone 15',       url:'/products/iphone-15',         why:'USB-C, Dynamic Island y chip A16. Todo lo que necesitas en 2026.'},
+    '300a600,diario,segunda':{m:'iPhone 14',       url:'/products/iphone-14',         why:'Sencillo, rápido y con soporte iOS durante años. Perfecto para el uso diario.'},
+    '300a600,trabajo,nuevo': {m:'iPhone 15',       url:'/products/iphone-15',         why:'USB-C para conectar accesorios profesionales y gran velocidad de transferencia.'},
+    '300a600,trabajo,segunda':{m:'iPhone 14 Pro',  url:'/products/iphone-14-pro',     why:'Dynamic Island, ProMotion 120Hz y rendimiento profesional a precio de segunda mano.'},
+    '300a600,gaming,nuevo':  {m:'iPhone 16',       url:'/products/iphone-16',         why:'Chip A18 con GPU de nueva generación y pantalla ProMotion para gaming.'},
+    '300a600,gaming,segunda':{m:'iPhone 15 Pro',   url:'/products/iphone-15-pro',     why:'A17 Pro con GPU dedicada para gaming. La mejor pantalla ProMotion en este precio.'},
+
+    '600a1000,foto,nuevo':   {m:'iPhone 16 Pro',   url:'/products/iphone-16-pro',     why:'Triple cámara 48MP con zoom 5x, ProRes y Apple Intelligence. La cámara más avanzada.'},
+    '600a1000,foto,segunda': {m:'iPhone 16 Pro',   url:'/products/iphone-16-pro',     why:'Triple cámara 48MP revisado con garantía 12 meses. Mejor cámara en este precio.'},
+    '600a1000,diario,nuevo': {m:'iPhone 16',       url:'/products/iphone-16',         why:'Chip A18, Apple Intelligence y pantalla ProMotion. El equilibrio perfecto.'},
+    '600a1000,diario,segunda':{m:'iPhone 15 Pro',  url:'/products/iphone-15-pro',     why:'Titanio, ProMotion y chip A17 Pro. Todo lo que necesitas a precio de segunda mano.'},
+    '600a1000,trabajo,nuevo':{m:'iPhone 16 Pro',   url:'/products/iphone-16-pro',     why:'Apple Intelligence integrado para productividad. El mejor iPhone para el trabajo.'},
+    '600a1000,trabajo,segunda':{m:'iPhone 16',     url:'/products/iphone-16',         why:'Apple Intelligence, USB-C 3.0 y chip A18. Productividad máxima.'},
+    '600a1000,gaming,nuevo': {m:'iPhone 16 Pro',   url:'/products/iphone-16-pro',     why:'GPU más potente de Apple, ProMotion 120Hz y pantalla de 6.3" para gaming premium.'},
+    '600a1000,gaming,segunda':{m:'iPhone 16 Pro',  url:'/products/iphone-16-pro',     why:'La GPU Pro de Apple marca la diferencia. Gaming de elite a precio asequible.'},
+
+    'mas1000,foto,nuevo':    {m:'iPhone 17 Pro Max',url:'/products/iphone-17-pro-max',why:'El sistema de cámara más avanzado de Apple. 48MP triple, zoom 5x y ProRes 4K.'},
+    'mas1000,foto,segunda':  {m:'iPhone 16 Pro Max',url:'/products/iphone-16-pro-max',why:'El Pro Max anterior revisado. Pantalla enorme y triple cámara de última generación.'},
+    'mas1000,diario,nuevo':  {m:'iPhone 17 Pro Max',url:'/products/iphone-17-pro-max',why:'El iPhone más avanzado de 2026. Pantalla de 6.9", chip A19 Pro y batería todo el día.'},
+    'mas1000,diario,segunda':{m:'iPhone 16 Pro Max',url:'/products/iphone-16-pro-max',why:'Pantalla de 6.9", titanio y chip A18 Pro revisado con garantía 12 meses.'},
+    'mas1000,trabajo,nuevo': {m:'iPhone 17 Pro Max',url:'/products/iphone-17-pro-max',why:'Apple Intelligence, chip A19 Pro y pantalla 120Hz. El mejor iPhone para trabajar.'},
+    'mas1000,trabajo,segunda':{m:'iPhone 16 Pro Max',url:'/products/iphone-16-pro-max',why:'Apple Intelligence, A18 Pro y pantalla ProMotion 6.9". Potencia máxima revisada.'},
+    'mas1000,gaming,nuevo':  {m:'iPhone 17 Pro Max',url:'/products/iphone-17-pro-max',why:'GPU A19 Pro, pantalla ProMotion 120Hz de 6.9" y 1TB de almacenamiento. Imbatible en gaming.'},
+    'mas1000,gaming,segunda':{m:'iPhone 16 Pro Max',url:'/products/iphone-16-pro-max',why:'La GPU Pro más potente revisada. 6.9" ProMotion para la mejor experiencia gaming.'}
+  };
+
+  window.wzNext=function(step, val){
+    answers['step'+step]=val;
+    var bar=document.getElementById('wz-bar');
+    if(step===1){
+      document.getElementById('wz-step-1').style.display='none';
+      document.getElementById('wz-step-2').style.display='block';
+      if(bar)bar.style.width='33%';
+    } else if(step===2){
+      document.getElementById('wz-step-2').style.display='none';
+      document.getElementById('wz-step-3').style.display='block';
+      if(bar)bar.style.width='66%';
+    } else if(step===3){
+      document.getElementById('wz-step-3').style.display='none';
+      if(bar)bar.style.width='100%';
+      var key=answers.step1+','+answers.step2+','+val;
+      var rec=models[key]||{m:'iPhone 15 Pro',url:'/products/iphone-15-pro',why:'Un excelente equilibrio entre precio y prestaciones.'}
+      document.getElementById('wz-model-name').textContent=rec.m;
+      document.getElementById('wz-model-why').textContent=rec.why;
+      var btn=document.getElementById('wz-result-btn');
+      if(btn)btn.href=rec.url;
+      document.getElementById('wz-result').style.display='block';
+    }
+  };
+
+  window.wzReset=function(){
+    answers={};
+    document.getElementById('wz-result').style.display='none';
+    document.getElementById('wz-step-1').style.display='block';
+    document.getElementById('wz-step-2').style.display='none';
+    document.getElementById('wz-step-3').style.display='none';
+    var bar=document.getElementById('wz-bar');
+    if(bar)bar.style.width='0%';
+  };
+})();
+</script>
+
+{% schema %}
+{"name":"Wizard iPhone","settings":[],"presets":[{"name":"Wizard iPhone"}]}
+{% endschema %}

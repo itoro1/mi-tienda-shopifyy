@@ -1,0 +1,226 @@
+{%- liquid
+  assign feat = all_products['cargador-usb-c-20w-apple-original']
+  assign feat_disc = 0
+  if feat != empty and feat.compare_at_price > feat.price
+    assign feat_disc = feat.compare_at_price | minus: feat.price | times: 100.0 | divided_by: feat.compare_at_price | round
+  endif
+  assign usbc = 'pack-cargador-usb-c-20w-cable-usb-c-1m-apple-original,cable-usb-c-a-usb-c-1m-apple' | split: ','
+  assign light = 'cargador-apple-usb-c,cable-usb-c-a-lightning-1m-apple' | split: ','
+-%}
+
+<div class="it-section it-acc">
+  <div class="it-section-inner">
+
+    <div class="it-acc-head">
+      <p class="it-sec-label" style="justify-content:center;display:flex">{{ section.settings.eyebrow | default: 'Accesorios originales Apple' }}</p>
+      <h2 class="it-acc-h2">{{ section.settings.title | default: 'Cargadores y cables' }}</h2>
+      <p class="it-acc-subtitle">{{ section.settings.subtitle | default: 'Encuentra el cargador y el cable exactos para tu iPhone.' }}</p>
+    </div>
+
+    {%- if feat != empty -%}
+    <a href="{{ feat.url }}" class="it-acc-hero">
+      <div class="it-acc-hero-media">
+        <span class="it-acc-hero-glow"></span>
+        {%- if feat_disc > 0 -%}<span class="it-acc-hero-disc">&minus;{{ feat_disc }}%</span>{%- endif -%}
+        {%- if feat.featured_image -%}<img src="{{ feat.featured_image | image_url: width: 800 }}" alt="{{ feat.title | escape }}" width="800" height="800" loading="eager" class="it-acc-hero-img">{%- endif -%}
+      </div>
+      <div class="it-acc-hero-info">
+        <span class="it-acc-hero-tag">El imprescindible</span>
+        <h3 class="it-acc-hero-name">{{ feat.title }}</h3>
+        <p class="it-acc-hero-lead">El adaptador que Apple ya no incluye en la caja. Carga r&aacute;pida y compatible con cualquier iPhone.</p>
+        <ul class="it-acc-hero-feats">
+          <li><span class="it-acc-tick">&#10003;</span> Carga r&aacute;pida de 20W &mdash; hasta 50% en ~30 min</li>
+          <li><span class="it-acc-tick">&#10003;</span> Compatible con <strong>todos los iPhone</strong></li>
+          <li><span class="it-acc-tick">&#10003;</span> 100% original Apple &middot; enchufe europeo</li>
+        </ul>
+        <div class="it-acc-hero-buy">
+          <div class="it-acc-price">
+            {%- if feat.compare_at_price > feat.price -%}<span class="it-acc-old">{{ feat.compare_at_price | money }}</span>{%- endif -%}
+            <span class="it-acc-now it-acc-now--lg">{{ feat.price | money }}</span>
+          </div>
+          <span class="it-acc-hero-cta">{% if feat.available %}Comprar ahora{% else %}Reservar{% endif %} &rarr;</span>
+        </div>
+      </div>
+    </a>
+    {%- endif -%}
+
+    <div class="it-acc-group">
+      <div class="it-acc-group-head">
+        <span class="it-acc-group-ic">USB&#8209;C</span>
+        <span class="it-acc-group-label">Para iPhone 15 &middot; 16 &middot; 17</span>
+        <span class="it-acc-group-line"></span>
+      </div>
+      <div class="it-acc-grid">
+        {%- for h in usbc -%}
+          {%- assign p = all_products[h] -%}
+          {%- if p == empty -%}{%- continue -%}{%- endif -%}
+          {%- assign disc = 0 -%}
+          {%- if p.compare_at_price > p.price -%}{%- assign disc = p.compare_at_price | minus: p.price | times: 100.0 | divided_by: p.compare_at_price | round -%}{%- endif -%}
+          <a href="{{ p.url }}" class="it-acc-card">
+            <div class="it-acc-card-media">
+              {%- if disc > 0 -%}<span class="it-acc-card-disc">&minus;{{ disc }}%</span>{%- endif -%}
+              {%- if p.featured_image -%}<img src="{{ p.featured_image | image_url: width: 500 }}" alt="{{ p.title | escape }}" width="500" height="500" loading="lazy" class="it-acc-card-img">{%- endif -%}
+            </div>
+            <div class="it-acc-card-body">
+              <p class="it-acc-card-name">{{ p.title }}</p>
+              <div class="it-acc-card-foot">
+                <div class="it-acc-price">
+                  {%- if p.compare_at_price > p.price -%}<span class="it-acc-old">{{ p.compare_at_price | money }}</span>{%- endif -%}
+                  <span class="it-acc-now">{{ p.price | money }}</span>
+                </div>
+                <span class="it-acc-card-btn">{% if p.available %}Comprar{% else %}Reservar{% endif %}</span>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="it-acc-group">
+      <div class="it-acc-group-head">
+        <span class="it-acc-group-ic">Lightning</span>
+        <span class="it-acc-group-label">Para iPhone 11 &middot; 12 &middot; 13 &middot; 14</span>
+        <span class="it-acc-group-line"></span>
+      </div>
+      <div class="it-acc-grid">
+        {%- for h in light -%}
+          {%- assign p = all_products[h] -%}
+          {%- if p == empty -%}{%- continue -%}{%- endif -%}
+          {%- assign disc = 0 -%}
+          {%- if p.compare_at_price > p.price -%}{%- assign disc = p.compare_at_price | minus: p.price | times: 100.0 | divided_by: p.compare_at_price | round -%}{%- endif -%}
+          <a href="{{ p.url }}" class="it-acc-card">
+            <div class="it-acc-card-media">
+              {%- if disc > 0 -%}<span class="it-acc-card-disc">&minus;{{ disc }}%</span>{%- endif -%}
+              {%- if p.featured_image -%}<img src="{{ p.featured_image | image_url: width: 500 }}" alt="{{ p.title | escape }}" width="500" height="500" loading="lazy" class="it-acc-card-img">{%- endif -%}
+            </div>
+            <div class="it-acc-card-body">
+              <p class="it-acc-card-name">{{ p.title }}</p>
+              <div class="it-acc-card-foot">
+                <div class="it-acc-price">
+                  {%- if p.compare_at_price > p.price -%}<span class="it-acc-old">{{ p.compare_at_price | money }}</span>{%- endif -%}
+                  <span class="it-acc-now">{{ p.price | money }}</span>
+                </div>
+                <span class="it-acc-card-btn">{% if p.available %}Comprar{% else %}Reservar{% endif %}</span>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="it-acc-trust">
+      <span class="it-acc-trust-item"><span class="it-acc-trust-ic">&#10003;</span> 100% originales Apple</span>
+      <span class="it-acc-trust-item"><span class="it-acc-trust-ic">&#10003;</span> Garant&iacute;a 3 a&ntilde;os</span>
+      <span class="it-acc-trust-item"><span class="it-acc-trust-ic">&#10003;</span> Env&iacute;o 24h gratis</span>
+      <span class="it-acc-trust-item"><span class="it-acc-trust-ic">&#10003;</span> Pago 100% seguro</span>
+    </div>
+
+    <div class="it-acc-promo">
+      <div class="it-acc-promo-left">
+        <span class="it-acc-promo-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </span>
+        <div>
+          <p class="it-acc-promo-title">iPhone + cargador juntos &mdash; 10% de descuento</p>
+          <p class="it-acc-promo-sub">Usa el c&oacute;digo en el checkout al llevarte un iPhone y un cargador.</p>
+        </div>
+      </div>
+      <div class="it-acc-promo-right">
+        <button type="button" class="it-acc-code" onclick="navigator.clipboard.writeText('PACK-IPHONE-CARGADOR');this.classList.add('copied');this.querySelector('.it-acc-code-txt').textContent='&#10003; Copiado';setTimeout(()=>{this.classList.remove('copied');this.querySelector('.it-acc-code-txt').textContent='PACK-IPHONE-CARGADOR';},2200)"><span class="it-acc-code-txt">PACK-IPHONE-CARGADOR</span></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.it-acc{ background: var(--it-bg); }
+.it-acc-head{ text-align:center; max-width:560px; margin:0 auto 32px; }
+.it-acc-h2{ font-size:clamp(24px,3.2vw,34px); font-weight:300; letter-spacing:-.025em; color:var(--it-text); margin:4px 0 8px; }
+.it-acc-subtitle{ font-size:14px; color:var(--it-muted); margin:0; }
+
+.it-acc-hero{ position:relative; display:grid; grid-template-columns:1fr 1fr; border:0.5px solid var(--it-border); border-radius:calc(var(--it-radius-lg) * 1.5); overflow:hidden; text-decoration:none; background:var(--it-surface); margin-bottom:30px; transition:border-color .25s, box-shadow .3s, transform .3s; }
+.it-acc-hero:hover{ border-color:var(--it-border2); box-shadow:0 22px 50px rgba(0,0,0,.13); transform:translateY(-3px); }
+.it-acc-hero-media{ position:relative; display:flex; align-items:center; justify-content:center; min-height:300px; background:linear-gradient(160deg,#fafafa,#f0f0f2); overflow:hidden; }
+[data-theme=dark] .it-acc-hero-media{ background:linear-gradient(160deg,#161618,#0f0f11); }
+.it-acc-hero-glow{ position:absolute; width:70%; height:70%; border-radius:50%; background:radial-gradient(circle, rgba(70,110,190,.14), transparent 62%); filter:blur(8px); pointer-events:none; }
+[data-theme=dark] .it-acc-hero-glow{ background:radial-gradient(circle, rgba(212,175,55,.18), transparent 62%); }
+.it-acc-hero-img{ position:relative; z-index:1; width:72%; height:72%; object-fit:contain; transition:transform .45s cubic-bezier(.4,0,.2,1); }
+.it-acc-hero:hover .it-acc-hero-img{ transform:scale(1.06); }
+.it-acc-hero-disc{ position:absolute; top:18px; left:18px; z-index:3; background:#15803d; color:#fff; font-size:13px; font-weight:800; padding:6px 13px; border-radius:100px; box-shadow:0 4px 14px rgba(21,128,61,.35); }
+[data-theme=dark] .it-acc-hero-disc{ background:var(--it-accent); color:#0d0d0b; }
+.it-acc-hero-info{ padding:38px 40px; display:flex; flex-direction:column; justify-content:center; }
+.it-acc-hero-tag{ display:inline-block; align-self:flex-start; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--it-muted); margin-bottom:14px; }
+.it-acc-hero-name{ font-size:clamp(22px,2.6vw,29px); font-weight:600; letter-spacing:-.02em; color:var(--it-text); margin:0 0 12px; line-height:1.15; }
+.it-acc-hero-lead{ font-size:14px; color:var(--it-muted); line-height:1.6; margin:0 0 18px; max-width:430px; }
+.it-acc-hero-feats{ list-style:none; padding:0; margin:0 0 26px; display:flex; flex-direction:column; gap:9px; }
+.it-acc-hero-feats li{ font-size:13.5px; color:var(--it-text); display:flex; align-items:flex-start; gap:9px; line-height:1.4; }
+.it-acc-hero-feats strong{ font-weight:600; }
+.it-acc-tick{ display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; flex-shrink:0; border-radius:50%; background:rgba(21,128,61,.12); color:#15803d; font-size:10px; font-weight:700; margin-top:1px; }
+[data-theme=dark] .it-acc-tick{ background:rgba(212,175,55,.14); color:var(--it-accent); }
+.it-acc-hero-buy{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.it-acc-hero-cta{ display:inline-flex; align-items:center; padding:13px 26px; background:var(--it-text); color:var(--it-bg); border-radius:11px; font-size:14px; font-weight:600; white-space:nowrap; transition:opacity .2s; }
+.it-acc-hero:hover .it-acc-hero-cta{ opacity:.88; }
+
+.it-acc-price{ display:flex; align-items:baseline; gap:9px; }
+.it-acc-old{ font-size:14px; color:var(--it-hint); text-decoration:line-through; font-weight:400; }
+.it-acc-now{ font-size:18px; font-weight:700; color:var(--it-text); letter-spacing:-.01em; }
+.it-acc-now--lg{ font-size:28px; }
+[data-theme=dark] .it-acc-now{ color:var(--it-accent); }
+
+.it-acc-group{ margin-bottom:26px; }
+.it-acc-group-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.it-acc-group-ic{ font-size:11px; font-weight:700; letter-spacing:.03em; color:var(--it-text); background:var(--it-surface2); border:0.5px solid var(--it-border2); padding:5px 11px; border-radius:7px; white-space:nowrap; }
+.it-acc-group-label{ font-size:13px; font-weight:600; color:var(--it-muted); white-space:nowrap; }
+.it-acc-group-line{ flex:1; height:1px; background:var(--it-border); }
+
+.it-acc-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.it-acc-card{ display:flex; flex-direction:column; border:0.5px solid var(--it-border); border-radius:var(--it-radius-lg); overflow:hidden; background:var(--it-surface); text-decoration:none; transition:border-color .2s, transform .2s, box-shadow .2s; }
+.it-acc-card:hover{ border-color:var(--it-border2); transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.1); }
+.it-acc-card-media{ position:relative; aspect-ratio:16/10; background:linear-gradient(160deg,#fafafa,#f2f2f4); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+[data-theme=dark] .it-acc-card-media{ background:linear-gradient(160deg,#161618,#0f0f11); }
+.it-acc-card-img{ width:62%; height:84%; object-fit:contain; transition:transform .35s; }
+.it-acc-card:hover .it-acc-card-img{ transform:scale(1.07); }
+.it-acc-card-disc{ position:absolute; top:10px; left:10px; z-index:2; background:#15803d; color:#fff; font-size:11px; font-weight:800; padding:3px 9px; border-radius:100px; }
+[data-theme=dark] .it-acc-card-disc{ background:var(--it-accent); color:#0d0d0b; }
+.it-acc-card-body{ padding:14px 16px 16px; display:flex; flex-direction:column; gap:10px; flex:1; }
+.it-acc-card-name{ font-size:13.5px; font-weight:600; color:var(--it-text); line-height:1.35; margin:0; flex:1; }
+.it-acc-card-foot{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.it-acc-card-btn{ display:inline-flex; align-items:center; padding:9px 15px; background:var(--it-text); color:var(--it-bg); border-radius:9px; font-size:12px; font-weight:600; white-space:nowrap; transition:opacity .2s; }
+.it-acc-card:hover .it-acc-card-btn{ opacity:.85; }
+
+.it-acc-trust{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px 22px; padding:20px 0; border-top:0.5px solid var(--it-border); border-bottom:0.5px solid var(--it-border); margin-bottom:22px; }
+.it-acc-trust-item{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--it-muted); font-weight:500; }
+.it-acc-trust-ic{ display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; background:rgba(21,128,61,.12); color:#15803d; font-size:11px; font-weight:700; }
+[data-theme=dark] .it-acc-trust-ic{ background:rgba(212,175,55,.14); color:var(--it-accent); }
+
+.it-acc-promo{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 20px; background:linear-gradient(120deg, rgba(21,128,61,.06), var(--it-surface2)); border:0.5px solid rgba(21,128,61,.2); border-radius:var(--it-radius-lg); flex-wrap:wrap; }
+[data-theme=dark] .it-acc-promo{ background:linear-gradient(120deg, rgba(212,175,55,.07), var(--it-surface2)); border-color:rgba(212,175,55,.22); }
+.it-acc-promo-left{ display:flex; align-items:center; gap:13px; flex:1; min-width:220px; }
+.it-acc-promo-ic{ display:flex; align-items:center; justify-content:center; width:40px; height:40px; flex-shrink:0; border-radius:50%; background:rgba(212,175,55,.10); border:0.5px solid rgba(212,175,55,.22); }
+.it-acc-promo-ic svg{ width:20px; height:20px; stroke:var(--it-accent,#d4af37); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.it-acc-promo-title{ font-size:14px; font-weight:700; color:var(--it-text); margin:0 0 3px; }
+.it-acc-promo-sub{ font-size:12.5px; color:var(--it-muted); margin:0; }
+.it-acc-code{ font-family:'SF Mono',ui-monospace,monospace; font-size:13px; font-weight:700; letter-spacing:.02em; padding:11px 18px; border-radius:9px; background:var(--it-bg); border:1px dashed var(--it-border2); color:var(--it-text); cursor:pointer; white-space:nowrap; transition:all .2s; }
+.it-acc-code:hover{ background:var(--it-surface); border-style:solid; }
+.it-acc-code.copied{ border-color:#15803d; color:#15803d; }
+[data-theme=dark] .it-acc-code.copied{ border-color:var(--it-accent); color:var(--it-accent); }
+
+@media (max-width:860px){
+  .it-acc-hero{ grid-template-columns:1fr; }
+  .it-acc-hero-media{ min-height:230px; }
+  .it-acc-hero-info{ padding:28px 24px; }
+}
+@media (max-width:540px){
+  .it-acc-hero-buy{ flex-direction:column; align-items:stretch; }
+  .it-acc-hero-cta{ justify-content:center; }
+  .it-acc-grid{ gap:10px; }
+  .it-acc-promo{ flex-direction:column; align-items:flex-start; }
+  .it-acc-promo-right{ width:100%; }
+  .it-acc-code{ width:100%; text-align:center; }
+}
+</style>
+
+{% schema %}
+{"name":"Packs Cargadores","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Accesorios originales Apple"},{"type":"text","id":"title","label":"Titulo","default":"Cargadores y cables"},{"type":"textarea","id":"subtitle","label":"Subtitulo","default":"Encuentra el cargador y el cable exactos para tu iPhone."}],"presets":[{"name":"Packs Cargadores"}]}
+{% endschema %}
