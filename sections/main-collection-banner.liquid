@@ -1,0 +1,148 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+<style>
+.it-coll-hdr{
+  background:linear-gradient(158deg,var(--it-surface,#fff) 0%,var(--it-surface2,#f2f0ec) 100%);
+  border-bottom:0.5px solid var(--it-border,rgba(0,0,0,.09));
+  padding:28px 24px 24px;
+}
+[data-theme="dark"] .it-coll-hdr{
+  background:linear-gradient(158deg,#0d0d0f 0%,#111113 100%);
+  border-bottom-color:rgba(255,255,255,.07);
+}
+.it-coll-hdr__inner{
+  max-width:1100px;margin:0 auto;
+}
+.it-coll-bc{
+  display:flex;align-items:center;gap:0;
+  font-size:11.5px;color:var(--it-muted,#636360);
+  margin-bottom:14px;flex-wrap:wrap;
+}
+.it-coll-bc a{
+  color:var(--it-muted,#636360);text-decoration:none;
+  transition:color .15s;
+}
+.it-coll-bc a:hover{color:var(--it-text,#111)}
+.it-coll-bc__sep{margin:0 6px;color:var(--it-border2,rgba(0,0,0,.25))}
+[data-theme="dark"] .it-coll-bc{color:rgba(255,255,255,.38)}
+[data-theme="dark"] .it-coll-bc a{color:rgba(255,255,255,.38)}
+[data-theme="dark"] .it-coll-bc a:hover{color:rgba(255,255,255,.75)}
+.it-coll-title-row{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-bottom:6px;
+}
+.it-coll-title{
+  font-size:clamp(22px,3vw,30px);font-weight:700;
+  color:var(--it-text,#0a0a0a);letter-spacing:-0.02em;
+  margin:0;line-height:1.1;
+  position:relative;padding-bottom:8px;
+}
+.it-coll-title::after{
+  content:'';
+  position:absolute;bottom:0;left:0;
+  width:32px;height:2.5px;
+  background:#d4af37;
+  border-radius:2px;
+}
+[data-theme="dark"] .it-coll-title{color:#ede9e2}
+.it-coll-count{
+  display:inline-flex;align-items:center;
+  font-size:11px;font-weight:700;
+  padding:4px 11px;border-radius:20px;
+  background:rgba(212,175,55,.10);
+  border:0.5px solid rgba(212,175,55,.28);
+  color:#8a6d00;
+  letter-spacing:.01em;white-space:nowrap;
+}
+[data-theme="dark"] .it-coll-count{
+  background:rgba(212,175,55,.08);
+  border-color:rgba(212,175,55,.20);
+  color:#c9a82a;
+}
+.it-coll-desc{
+  font-size:14px;color:var(--it-muted,#636360);
+  line-height:1.6;margin-top:14px;
+  max-width:580px;
+}
+[data-theme="dark"] .it-coll-desc{color:rgba(255,255,255,.48)}
+@media(max-width:540px){
+  .it-coll-hdr{padding:20px 16px 18px}
+  .it-coll-title{font-size:22px}
+}
+</style>
+
+<div class="it-coll-hdr">
+  <div class="it-coll-hdr__inner">
+
+    <nav class="it-coll-bc" aria-label="Navegación">
+      <a href="/">Inicio</a>
+      <span class="it-coll-bc__sep" aria-hidden="true">/</span>
+      <span>{{ collection.title | escape }}</span>
+    </nav>
+
+    <div class="it-coll-title-row">
+      <h1 class="it-coll-title">{{ collection.title | escape }}</h1>
+      {%- if collection.products_count > 0 -%}
+        <span class="it-coll-count">{{ collection.products_count }} producto{%- if collection.products_count != 1 -%}s{%- endif -%}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_collection_description and collection.description != blank -%}
+      <div class="it-coll-desc">{{ collection.description }}</div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- if section.settings.show_collection_image and collection.image -%}
+<div class="collection-hero collection-hero--with-image color-{{ section.settings.color_scheme }} gradient" style="display:none">
+  <div class="collection-hero__inner page-width">
+    <div class="collection-hero__image-container media gradient">
+      <img
+        srcset="
+          {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+          {{ collection.image | image_url }} {{ collection.image.width }}w
+        "
+        src="{{ collection.image | image_url: width: 750 }}"
+        alt="{{ collection.image.alt | escape }}"
+        width="{{ collection.image.width }}"
+        height="{{ collection.image.height }}"
+        loading="lazy"
+      >
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}

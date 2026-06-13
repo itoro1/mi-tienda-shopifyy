@@ -1,0 +1,135 @@
+{%- comment -%}
+  Sticky bottom buy bar — mobile only (≤749px).
+  Slides up when the main submit button scrolls out of view.
+  Not rendered for bajo-pedido products.
+  Accepts: product, section_id
+{%- endcomment -%}
+{%- assign itoro_bp = false -%}
+{%- if product.tags contains 'bajo-pedido' and product.handle != 'reserva-de-pedido-iphone-itorostore' -%}
+  {%- assign itoro_bp = true -%}
+{%- endif -%}
+{%- unless itoro_bp -%}
+{%- liquid
+  assign satc_variant = product.selected_or_first_available_variant
+  assign satc_available = false
+  if satc_variant != null and satc_variant.available
+    assign satc_available = true
+  endif
+-%}
+<style>
+#it-satc{
+  position:fixed;bottom:0;left:0;right:0;z-index:9800;
+  display:flex;align-items:center;gap:12px;
+  background:var(--it-surface,#fff);
+  border-top:0.5px solid var(--it-border,rgba(0,0,0,.09));
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  box-shadow:0 -6px 24px rgba(0,0,0,.10);
+  transform:translateY(110%);
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+#it-satc.is-vis{transform:translateY(0)}
+@media(min-width:750px){#it-satc{display:none!important}}
+[data-theme="dark"] #it-satc{
+  background:#111113;
+  border-top-color:rgba(255,255,255,.08);
+  box-shadow:0 -6px 24px rgba(0,0,0,.4);
+}
+#it-satc__info{flex:1;min-width:0}
+#it-satc__title{
+  font-size:11.5px;font-weight:600;line-height:1.25;margin-bottom:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  color:var(--it-text,#111);
+}
+[data-theme="dark"] #it-satc__title{color:var(--it-text,#ede9e2)}
+#it-satc__price{
+  font-size:16px;font-weight:800;line-height:1;
+  color:var(--it-accent,#d4af37);
+}
+#it-satc__btn{
+  flex-shrink:0;
+  height:46px;padding:0 22px;
+  background:var(--color-button,#111);
+  color:var(--color-button-text,#fff);
+  border:none;border-radius:8px;
+  font-size:13.5px;font-weight:700;letter-spacing:.025em;
+  cursor:pointer;white-space:nowrap;
+  transition:opacity .15s,transform .1s;
+  -webkit-tap-highlight-color:transparent;
+}
+#it-satc__btn:active{opacity:.75;transform:scale(.97)}
+</style>
+
+<div id="it-satc" aria-hidden="true" aria-label="Compra rápida">
+  <div id="it-satc__info">
+    <div id="it-satc__title">{{ product.title | escape }}</div>
+    <div id="it-satc__price"
+      data-cents="{{ satc_variant.price }}"
+      data-currency="{{ shop.currency }}"
+    >{{- satc_variant.price | money -}}</div>
+  </div>
+  <button id="it-satc__btn" type="button"
+    {% unless satc_available %}disabled style="opacity:.45;cursor:not-allowed"{% endunless %}
+  >
+    {%- if satc_available -%}Comprar ahora{%- else -%}Agotado{%- endif -%}
+  </button>
+</div>
+
+<script>
+(function(){
+  var bar   = document.getElementById('it-satc');
+  var btn   = document.getElementById('it-satc__btn');
+  var price = document.getElementById('it-satc__price');
+  if(!bar || !btn) return;
+
+  var mainBtn = document.getElementById('ProductSubmitButton-{{ section_id }}')
+             || document.querySelector('.product-form__submit');
+
+  /* Show/hide bar via IntersectionObserver */
+  if(mainBtn && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      var vis = entries[0].isIntersecting;
+      bar.classList.toggle('is-vis', !vis);
+      bar.setAttribute('aria-hidden', vis ? 'true' : 'false');
+    }, {threshold: 0.15, rootMargin:'0px 0px -10px 0px'});
+    io.observe(mainBtn);
+  } else {
+    /* Fallback: always show on scroll */
+    window.addEventListener('scroll', function(){
+      var show = window.scrollY > 180;
+      bar.classList.toggle('is-vis', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }, {passive:true});
+  }
+
+  /* Click → trigger main form submit */
+  btn.addEventListener('click', function(){
+    if(mainBtn && !mainBtn.disabled){ mainBtn.click(); }
+  });
+
+  /* Update price & availability on variant change (Dawn custom event) */
+  document.addEventListener('variant:change', function(e){
+    var v = e.detail && (e.detail.variant || e.detail);
+    if(!v) return;
+    if(price && v.price != null){
+      /* Use Shopify money formatting if available, else simple EUR */
+      var cents = v.price;
+      var formatted;
+      if(window.Shopify && Shopify.formatMoney){
+        formatted = Shopify.formatMoney(cents, '{{amount_with_comma_separator}} €');
+      } else {
+        formatted = (cents/100).toFixed(2).replace('.',',') + ' €';
+      }
+      price.textContent = formatted;
+    }
+    if(btn){
+      var avail = v.available !== false;
+      btn.disabled = !avail;
+      btn.textContent = avail ? 'Comprar ahora' : 'Agotado';
+      btn.style.opacity = avail ? '' : '.45';
+      btn.style.cursor  = avail ? '' : 'not-allowed';
+    }
+  });
+})();
+</script>
+{%- endunless -%}

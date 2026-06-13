@@ -1,0 +1,178 @@
+<style>
+.it-cs{
+  background:var(--it-surface);border-top:0.5px solid var(--it-border);
+  padding:28px 0;
+}
+[data-theme="dark"] .it-cs{border-top-color:rgba(255,255,255,.07)}
+.it-cs__inner{
+  max-width:var(--page-width,1100px);margin:0 auto;padding:0 24px;
+  display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;
+}
+.it-cs__text{flex:1;min-width:220px}
+.it-cs__eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--it-accent,#d4af37);margin-bottom:10px;
+}
+.it-cs__eyebrow::before{
+  content:'';width:16px;height:1.5px;
+  background:var(--it-accent,#d4af37);border-radius:1px;
+}
+.it-cs__title{
+  font-size:18px;font-weight:700;color:var(--it-text,#111);
+  letter-spacing:-0.02em;line-height:1.2;margin:0 0 8px;
+}
+[data-theme="dark"] .it-cs__title{color:#ede9e2}
+.it-cs__desc{
+  font-size:13px;color:var(--it-muted,#636360);line-height:1.6;margin:0 0 18px;
+}
+.it-cs__code-wrap{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(212,175,55,.07);
+  border:1px dashed rgba(212,175,55,.40);
+  border-radius:10px;padding:10px 14px;
+}
+.it-cs__code-lbl{font-size:11px;color:var(--it-muted,#636360)}
+.it-cs__code{
+  font-family:monospace;font-size:14px;font-weight:700;
+  letter-spacing:.04em;color:var(--it-accent,#d4af37);
+  cursor:pointer;transition:opacity .15s;user-select:all;
+}
+.it-cs__code:hover{opacity:.75}
+.it-cs__code-copy{
+  width:28px;height:28px;border-radius:7px;
+  background:rgba(212,175,55,.14);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;flex-shrink:0;
+}
+.it-cs__code-copy:hover{background:rgba(212,175,55,.26)}
+.it-cs__code-copy svg{width:14px;height:14px;stroke:#d4af37;stroke-width:2;fill:none}
+.it-cs__products{
+  display:flex;flex-direction:column;gap:10px;
+  flex:1;min-width:260px;
+}
+.it-cs__card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--it-surface2,#f2f0ec);
+  border:0.5px solid var(--it-border,rgba(0,0,0,.09));
+  border-radius:14px;padding:12px 14px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.it-cs__card:hover{
+  border-color:rgba(212,175,55,.30);
+  box-shadow:0 4px 16px rgba(212,175,55,.08);
+}
+[data-theme="dark"] .it-cs__card{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+[data-theme="dark"] .it-cs__card:hover{border-color:rgba(212,175,55,.25)}
+.it-cs__img-wrap{
+  width:80px;height:80px;border-radius:10px;
+  background:var(--it-surface,#fff);
+  border:0.5px solid var(--it-border,rgba(0,0,0,.09));
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+}
+.it-cs__img-wrap img{width:70px;height:70px;object-fit:contain}
+[data-theme="dark"] .it-cs__img-wrap{background:rgba(255,255,255,.06)}
+.it-cs__info{flex:1;min-width:0}
+.it-cs__name{
+  font-size:13px;font-weight:600;color:var(--it-text,#111);
+  margin:0 0 4px;line-height:1.3;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+  overflow:hidden;
+}
+[data-theme="dark"] .it-cs__name{color:#ede9e2}
+.it-cs__price{
+  font-size:15px;font-weight:700;
+  color:var(--it-accent,#d4af37);margin:0;
+}
+.it-cs__btn{
+  flex-shrink:0;
+  display:inline-flex;align-items:center;
+  height:36px;padding:0 16px;
+  background:var(--it-text,#111);color:#fff;
+  border:none;border-radius:9px;
+  font-size:12px;font-weight:700;letter-spacing:.02em;
+  text-decoration:none;cursor:pointer;
+  transition:opacity .15s,transform .1s;
+  white-space:nowrap;
+}
+.it-cs__btn:hover{opacity:.84;color:#fff}
+.it-cs__btn:active{transform:scale(.96)}
+[data-theme="dark"] .it-cs__btn{background:#ede9e2;color:#0a0a0a}
+@media(max-width:640px){
+  .it-cs__inner{flex-direction:column;gap:20px;padding:0 16px}
+}
+</style>
+
+<div class="it-cs">
+  <div class="it-cs__inner">
+    <div class="it-cs__text">
+      <span class="it-cs__eyebrow">Completa tu pedido</span>
+      <h2 class="it-cs__title">{{ section.settings.title | default: 'Añade el cargador oficial' }}</h2>
+      <p class="it-cs__desc">{{ section.settings.description | default: 'El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 10% con el código.' }}</p>
+      <div class="it-cs__code-wrap">
+        <span class="it-cs__code-lbl">10% descuento:</span>
+        <span class="it-cs__code" id="it-cs-code">PACK-IPHONE-CARGADOR</span>
+        <button class="it-cs__code-copy" id="it-cs-copy" aria-label="Copiar código">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="it-cs__products">
+      {%- assign cargador1 = all_products['cargador-iphone-completo-original-apple'] -%}
+      {%- assign cargador2 = all_products['cargador-usb-c-20w-apple-original'] -%}
+      {%- for i in (1..2) -%}
+        {%- assign p = cargador1 -%}
+        {%- if i == 2 -%}{%- assign p = cargador2 -%}{%- endif -%}
+        {%- if p != blank -%}
+        <div class="it-cs__card">
+          {%- if p.featured_image -%}
+            <div class="it-cs__img-wrap">
+              <img src="{{ p.featured_image | image_url: width: 160 }}" alt="{{ p.title | escape }}" width="70" height="70" loading="lazy">
+            </div>
+          {%- endif -%}
+          <div class="it-cs__info">
+            <p class="it-cs__name">{{ p.title }}</p>
+            <p class="it-cs__price">{{ p.price_min | money }}</p>
+          </div>
+          <a href="{{ p.url }}" class="it-cs__btn">Ver</a>
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('it-cs-copy');
+  var code = document.getElementById('it-cs-code');
+  if(!btn || !code) return;
+  btn.addEventListener('click', function(){
+    navigator.clipboard.writeText('PACK-IPHONE-CARGADOR').then(function(){
+      var svg = btn.querySelector('svg');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      code.textContent = '✅ Copiado!';
+      setTimeout(function(){
+        code.textContent = 'PACK-IPHONE-CARGADOR';
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      }, 2200);
+    }).catch(function(){ code.select && code.select(); });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Cross-sell cargador",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Añade el cargador oficial" },
+    { "type": "textarea", "id": "description", "label": "Descripción", "default": "El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 10% con el código." }
+  ],
+  "presets": [{ "name": "Cross-sell cargador" }]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": { "type": "text", "settings": { "text": "{{ product.vendor }}", "text_style": "uppercase" } },
+        "title": { "type": "title", "settings": {} },
+        "price": { "type": "price", "settings": {} },
+        "inventory": { "type": "inventory", "settings": { "inventory_threshold": 10, "show_inventory_quantity": false } },
+        "variant_picker": { "type": "variant_picker", "settings": { "picker_type": "button", "swatch_shape": "circle" } },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true, "show_gift_card_recipient": false } },
+        "delivery": { "type": "delivery_estimator", "settings": {} },
+        "description": { "type": "description", "settings": {} },
+        "share": { "type": "share", "settings": { "share_label": "Compartir" } }
+      },
+      "block_order": ["vendor","title","price","inventory","variant_picker","buy_buttons","delivery","description","share"],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "it_trust_product_tR5xKm": {
+      "type": "it-trust-product",
+      "name": "Trust y garantías",
+      "settings": {}
+    },
+    "it_product_extras_xK9pQm": {
+      "type": "it-product-extras",
+      "name": "Financiación y relacionados",
+      "settings": {}
+    },
+    "it_sticky_atc_mB3xQk": {
+      "type": "it-atc-bar",
+      "name": "Barra compra móvil",
+      "settings": {}
+    }
+  },
+  "order": ["main", "it_trust_product_tR5xKm", "it_product_extras_xK9pQm", "it_sticky_atc_mB3xQk"]
+}
