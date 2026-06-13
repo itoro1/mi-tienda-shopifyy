@@ -1,0 +1,143 @@
+<div class="it-sv-wrap">
+  <div class="it-sv-viewport">
+    <div class="it-sv-track" id="itSvTrack2">
+      <div class="it-sv-row">
+        <span class="it-sv-ico2" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </span>
+        <span class="it-sv-msg">Paga en cuotas sin intereses &mdash; 3, 6 o 12 meses con <b>Klarna</b> o <b>seQura</b></span>
+        <span class="it-sv-kl">Klarna</span><span class="it-sv-sq">seQura</span>
+      </div>
+      <div class="it-sv-row">
+        <span class="it-sv-ico2" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </span>
+        <span class="it-sv-msg">Garant&iacute;a <b>3 a&ntilde;os</b> en todos los iPhones nuevos sellados de f&aacute;brica</span>
+        <span class="it-sv-badge2">3 a&ntilde;os</span>
+      </div>
+      <div class="it-sv-row">
+        <span class="it-sv-ico2" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </span>
+        <span class="it-sv-msg">Env&iacute;o gratis en <b>24h</b> a toda Espa&ntilde;a &mdash; Correos con seguimiento en tiempo real</span>
+        <span class="it-sv-badge2">24h</span>
+      </div>
+      <div class="it-sv-row">
+        <span class="it-sv-ico2" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span class="it-sv-msg">WhatsApp <b>688&nbsp;809&nbsp;683</b> &mdash; Respondemos en menos de 2 horas, personas reales</span>
+        <a href="https://wa.me/34688809683" target="_blank" rel="noopener" class="it-sv-btn2">Escribir</a>
+      </div>
+      <div class="it-sv-row">
+        <span class="it-sv-ico2" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </span>
+        <span class="it-sv-msg">Compramos tu iPhone &mdash; oferta en 2h, pago inmediato por Bizum, recogida gratuita</span>
+        <a href="/pages/compramos-tu-movil" class="it-sv-btn2">Tasar</a>
+      </div>
+      <div class="it-sv-row">
+        <span class="it-sv-ico2" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <span class="it-sv-msg">Pago 100% seguro &mdash; Visa, Mastercard, Bizum, PayPal y Apple Pay</span>
+        <div class="it-sv-pays2"><span>VISA</span><span>PayPal</span><span>Bizum</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.it-sv-wrap{
+  background: var(--it-surface, #ffffff);
+  border-top: 0.5px solid var(--it-border, #e5e7eb);
+  border-bottom: 0.5px solid var(--it-border, #e5e7eb);
+}
+.it-sv-viewport{height:48px;overflow:hidden;position:relative;}
+.it-sv-track{
+  display:flex;flex-direction:column;
+  will-change:transform;
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.it-sv-row{
+  height:48px;
+  display:flex;align-items:center;gap:12px;
+  padding:0 48px;flex-shrink:0;min-width:0;
+}
+.it-sv-ico2{
+  flex-shrink:0;
+  width:30px;height:30px;
+  background: var(--it-surface2, #f5f5f7);
+  border: 0.5px solid var(--it-border, #e5e7eb);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.it-sv-ico2 svg{
+  width:14px;height:14px;
+  stroke:var(--it-accent,#d4af37);fill:none;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
+.it-sv-msg{
+  font-size:13px;
+  color: var(--it-text, #111110) !important;
+  flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+}
+.it-sv-msg b{font-weight:600}
+.it-sv-badge2{
+  font-size:20px;font-weight:300;
+  color: var(--it-text, #111110);
+  flex-shrink:0;letter-spacing:-0.5px;
+}
+[data-theme=dark] .it-sv-badge2{ color: #d4af37; }
+.it-sv-kl{font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;background:#ffb3c7;color:#17120e;flex-shrink:0}
+.it-sv-sq{font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;background:#00a97f;color:#fff;flex-shrink:0}
+.it-sv-btn2{
+  display:inline-flex;align-items:center;padding:5px 13px;
+  background: var(--it-text, #111110);
+  color: var(--it-bg, #ffffff);
+  border-radius:6px;text-decoration:none;
+  font-size:12px;font-weight:500;flex-shrink:0;white-space:nowrap;min-height:30px;
+}
+.it-sv-pays2{display:flex;gap:4px;flex-shrink:0}
+.it-sv-pays2 span{
+  font-size:10px;font-weight:600;padding:2px 7px;
+  border:0.5px solid var(--it-border2, #d1d5db);
+  border-radius:4px;
+  color: var(--it-muted, #6b7280);
+  white-space:nowrap;
+}
+@media(max-width:640px){
+  .it-sv-row{padding:0 14px;gap:8px}
+  .it-sv-msg{font-size:12px}
+  .it-sv-badge2{font-size:16px}
+  .it-sv-ico2{width:26px;height:26px}
+  .it-sv-ico2 svg{width:12px;height:12px}
+}
+</style>
+
+<script>
+(function(){
+  var track=document.getElementById('itSvTrack2');
+  if(!track)return;
+  var rows=track.querySelectorAll('.it-sv-row');
+  var total=rows.length;
+  var rowH=48;
+  var current=0;
+  function goNext(){
+    current=(current+1)%total;
+    if(current===0){
+      track.style.transition='none';
+      track.style.transform='translateY(0px)';
+      void track.offsetHeight;
+      track.style.transition='transform 0.35s cubic-bezier(0.4,0,0.2,1)';
+    } else {
+      track.style.transform='translateY(-'+(current*rowH)+'px)';
+    }
+  }
+  setInterval(goNext,3800);
+})();
+</script>
+
+{% schema %}
+{"name":"Slider de valor","settings":[],"presets":[{"name":"Slider de valor"}]}
+{% endschema %}
