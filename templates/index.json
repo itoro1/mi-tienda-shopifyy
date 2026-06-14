@@ -76,7 +76,9 @@
     "it_email_gate_eM4xPz": {
       "type": "it-email-gate",
       "name": "C&oacute;digo de bienvenida",
-      "settings": {}
+      "settings": {
+        "success_text": "&#10003; &iexcl;Listo! Tu c&oacute;digo de bienvenida es ITOROBIENVENIDO &mdash; &uacute;salo en el checkout para el 5% de descuento."
+      }
     },
     "it_faq_UTb7VJ": {
       "type": "it-faq",
