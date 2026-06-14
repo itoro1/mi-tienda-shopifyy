@@ -73,6 +73,23 @@
       "name": "Encuentra tu iPhone ideal",
       "settings": {}
     },
+    "it_wallapop_reviews_vR3nKx": {
+      "type": "it-wallapop-reviews",
+      "name": "Valoraciones Wallapop",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "text": "", "name": "" } },
+        "r2": { "type": "review", "settings": { "text": "", "name": "" } },
+        "r3": { "type": "review", "settings": { "text": "", "name": "" } }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "show_section": false,
+        "eyebrow": "Compradores reales",
+        "title": "Lo que dicen nuestros clientes",
+        "rating": "★★★★★ 5.0",
+        "review_count": ""
+      }
+    },
     "it_email_gate_eM4xPz": {
       "type": "it-email-gate",
       "name": "C&oacute;digo de bienvenida",
@@ -121,6 +138,7 @@
     "it_packs_mR4wPn",
     "it_como_funciona_pR7qXs",
     "it_comparador_mN9xTk",
+    "it_wallapop_reviews_vR3nKx",
     "it_email_gate_eM4xPz",
     "it_faq_UTb7VJ",
     "it_compra_bC7nRw",
