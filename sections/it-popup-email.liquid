@@ -1,0 +1,97 @@
+<div id="it-popup-overlay" aria-modal="true" role="dialog" aria-label="Oferta de bienvenida" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center">
+  <div class="it-popup-modal">
+    <button class="it-popup-close" id="itPopupCloseBtn" aria-label="Cerrar">&times;</button>
+    <div class="it-popup-body">
+      <div class="it-popup-icon" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--it-accent,#d4af37)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <h2 class="it-popup-title">{{ section.settings.title | default: '5% de descuento en tu primer pedido' }}</h2>
+      <p class="it-popup-desc">{{ section.settings.desc | default: 'Suscríbete y recibe tu código de descuento exclusivo en tu email.' }}</p>
+      <div class="it-popup-form" id="itPopupForm">
+        <input type="email" id="it-popup-email-input" placeholder="tu@email.com" required class="it-popup-input" autocorrect="off" autocapitalize="off">
+        <button type="button" id="itPopupSubmit" class="it-btn-primary" style="width:100%;justify-content:center">Quiero mi 5% &rarr;</button>
+        <p class="it-popup-form-error" id="itPopupError" style="display:none;color:#ef4444;font-size:12px;text-align:center;margin:4px 0 0"></p>
+      </div>
+      <div id="it-popup-thanks" style="display:none;text-align:center">
+        <p style="color:#15803d;font-weight:600;font-size:15px;margin:0 0 8px">&#10003; ¡Listo! Ya estás suscrito.</p>
+        <p style="font-size:13px;color:var(--it-muted);margin:0 0 12px">Tu c&oacute;digo de bienvenida es:</p>
+        <div style="background:var(--it-surface2);border:1.5px dashed var(--it-accent,#d4af37);border-radius:8px;padding:10px 16px;font-size:18px;font-weight:700;letter-spacing:2px;color:var(--it-text)">ITOROBIENVENIDO</div>
+        <p style="font-size:11px;color:var(--it-hint);margin:8px 0 0">Úsalo en el carrito &middot; 5% de descuento</p>
+      </div>
+      <p class="it-popup-legal">Sin spam. Puedes darte de baja cuando quieras.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.it-popup-modal{background:var(--it-surface);border-radius:var(--it-radius-xl,14px);padding:36px 32px;max-width:400px;width:90%;position:relative;border:0.5px solid var(--it-border);margin:20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.it-popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--it-hint);line-height:1;padding:4px 8px;z-index:10}
+.it-popup-close:hover{color:var(--it-text)}
+.it-popup-icon{text-align:center;margin-bottom:14px;line-height:1}
+.it-popup-title{font-size:20px;font-weight:500;color:var(--it-text);text-align:center;margin:0 0 8px;letter-spacing:-.01em}
+.it-popup-desc{font-size:13px;color:var(--it-muted);text-align:center;line-height:1.6;margin:0 0 20px}
+.it-popup-form{display:flex;flex-direction:column;gap:10px}
+.it-popup-input{width:100%;padding:12px 16px;border:0.5px solid var(--it-border2);border-radius:var(--it-radius-md,8px);background:var(--it-surface2);color:var(--it-text);font-size:14px;font-family:inherit;box-sizing:border-box}
+.it-popup-input:focus{outline:none;border-color:var(--it-accent)}
+.it-popup-legal{font-size:11px;color:var(--it-hint);text-align:center;margin:12px 0 0}
+</style>
+
+<script>
+(function(){
+  var overlay = document.getElementById('it-popup-overlay');
+  var form    = document.getElementById('itPopupForm');
+  var thanks  = document.getElementById('it-popup-thanks');
+  var input   = document.getElementById('it-popup-email-input');
+  var btn     = document.getElementById('itPopupSubmit');
+  var errEl   = document.getElementById('itPopupError');
+
+  function openPopup(){ overlay.style.display='flex'; }
+  function closePopup(){ overlay.style.display='none'; }
+
+  document.getElementById('itPopupCloseBtn').addEventListener('click', closePopup);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closePopup(); });
+
+  btn.addEventListener('click', function(){
+    var email = input.value.trim();
+    if(!email || !email.includes('@')){ errEl.textContent='Introduce un email válido.'; errEl.style.display='block'; return; }
+    errEl.style.display='none';
+    btn.disabled=true;
+    btn.textContent='Enviando…';
+
+    var fd = new FormData();
+    fd.append('form_type','customer');
+    fd.append('utf8','✓');
+    fd.append('contact[email]', email);
+    fd.append('contact[tags]', 'newsletter, codigo-bienvenida');
+    fd.append('contact[accepts_marketing]', 'true');
+
+    fetch('/contact', { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body:fd })
+      .finally(function(){
+        form.style.display='none';
+        thanks.style.display='block';
+        setTimeout(closePopup, 5000);
+      });
+  });
+
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePopup(); });
+
+  if(!sessionStorage.getItem('it-popup-shown')){
+    setTimeout(function(){
+      openPopup();
+      sessionStorage.setItem('it-popup-shown','1');
+    }, {{ section.settings.delay | default: 8 }} * 1000);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Pop-up email",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "5% de descuento en tu primer pedido" },
+    { "type": "textarea", "id": "desc", "label": "Descripción", "default": "Suscríbete y recibe tu código de bienvenida. Válido en todos los iPhones." },
+    { "type": "range", "id": "delay", "label": "Retraso (segundos)", "min": 3, "max": 30, "step": 1, "default": 8 }
+  ],
+  "presets": [{ "name": "Pop-up email" }]
+}
+{% endschema %}
