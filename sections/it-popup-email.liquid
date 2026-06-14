@@ -65,12 +65,21 @@
     fd.append('contact[tags]', 'newsletter, codigo-bienvenida');
     fd.append('contact[accepts_marketing]', 'true');
 
+    // Suscribir cliente al newsletter
     fetch('/contact', { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body:fd })
       .finally(function(){
         form.style.display='none';
         thanks.style.display='block';
-        setTimeout(closePopup, 5000);
       });
+
+    // Notificar al propietario con el email del cliente
+    var fd2 = new FormData();
+    fd2.append('form_type','contact');
+    fd2.append('utf8','✓');
+    fd2.append('contact[name]','Nueva suscripción newsletter');
+    fd2.append('contact[email]', email);
+    fd2.append('contact[body]','Nueva suscripción al newsletter de ITorostore.\n\nEmail del cliente: ' + email + '\n\nEste cliente ha solicitado el código ITOROBIENVENIDO (5% descuento).');
+    fetch('/contact', { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body:fd2 });
   });
 
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePopup(); });
