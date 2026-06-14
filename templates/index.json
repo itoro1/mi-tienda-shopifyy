@@ -1,0 +1,127 @@
+{
+  "sections": {
+    "it_slider_kXp2Mw": {
+      "type": "it-slider-valor",
+      "name": "Barra de mensajes",
+      "settings": {}
+    },
+    "it_hero_aX9kQm": {
+      "type": "it-hero-premium",
+      "name": "Hero principal",
+      "settings": {
+        "eyebrow": "Nuevo 2026",
+        "heading": "iPhone 17 Pro Max",
+        "heading2": "256 GB &middot; al mejor precio de Espa&ntilde;a.",
+        "price": "1.449",
+        "price_compare": "1.649",
+        "cta1_text": "Comprar ahora",
+        "cta1_url": "/products/iphone-17-pro-max",
+        "cta2_text": "Reservar por 50 &euro;",
+        "cta2_url": "/products/reserva-de-pedido-iphone-itorostore",
+        "show_stock": false,
+        "stock_text": ""
+      }
+    },
+    "it_trust_strip_jK3mXw": {
+      "type": "itoro-trust-strip",
+      "name": "Strip de confianza",
+      "settings": {}
+    },
+    "it_categorias_nQ4xZr": {
+      "type": "it-categorias",
+      "name": "Categor&iacute;as",
+      "settings": {
+        "eyebrow": "Explora la tienda",
+        "title": "Explora por categor&iacute;as",
+        "subtitle": "Encuentra justo lo que buscas en un toque"
+      }
+    },
+    "it_finder_pX8mNq": {
+      "type": "it-finder",
+      "name": "Descubre tu iPhone ideal",
+      "settings": {
+        "eyebrow": "Elige tu modelo",
+        "title": "Descubre tu iPhone ideal",
+        "subtitle": "Toca el modelo que te interesa"
+      }
+    },
+    "it_urgencia_sK2mNp": {
+      "type": "it-urgencia",
+      "name": "Urgencia de stock",
+      "settings": {}
+    },
+    "it_packs_mR4wPn": {
+      "type": "it-packs-cargadores",
+      "name": "Cargadores y packs",
+      "settings": {
+        "eyebrow": "Accesorios originales Apple",
+        "title": "Cargadores y cables",
+        "subtitle": "100% originales. Garant&iacute;a 3 a&ntilde;os. Env&iacute;o gratis 24h."
+      }
+    },
+    "it_como_funciona_pR7qXs": {
+      "type": "it-como-funciona",
+      "name": "C&oacute;mo funciona",
+      "settings": {
+        "eyebrow": "Proceso",
+        "title": "Compra en 4 pasos",
+        "subtitle": "Desde que eliges hasta que lo tienes en casa."
+      }
+    },
+    "it_comparador_mN9xTk": {
+      "type": "it-comparador",
+      "name": "Encuentra tu iPhone ideal",
+      "settings": {}
+    },
+    "it_email_gate_eM4xPz": {
+      "type": "it-email-gate",
+      "name": "C&oacute;digo de bienvenida",
+      "settings": {}
+    },
+    "it_faq_UTb7VJ": {
+      "type": "it-faq",
+      "blocks": {
+        "q1":{"type":"faq_item","settings":{"question":"&iquest;C&oacute;mo funciona la reserva de 50 EUR?","answer":"<p>Paga 50 EUR para asegurar tu plaza. Te contactamos en menos de 24h. Los <strong>50 EUR se descuentan del precio final.</strong> Cancelaci&oacute;n gratuita si cambias de opini&oacute;n.</p>"}},
+        "q2":{"type":"faq_item","settings":{"question":"&iquest;Qu&eacute; garant&iacute;a tienen los iPhones?","answer":"<p>iPhones nuevos sellados: <strong>garant&iacute;a legal de 3 a&ntilde;os</strong> (incluye la garant&iacute;a del fabricante Apple). iPhones segunda mano: <strong>garant&iacute;a ITorostore 12 meses</strong>. Sin letra peque&ntilde;a.</p>"}},
+        "q3":{"type":"faq_item","settings":{"question":"&iquest;Cu&aacute;nto tarda el env&iacute;o?","answer":"<p>Modelos en stock: <strong>24-48 horas</strong>. Bajo pedido: <strong>3-5 d&iacute;as h&aacute;biles</strong>. Env&iacute;o gratuito con Correos. Seguimiento en tiempo real.</p>"}},
+        "q4":{"type":"faq_item","settings":{"question":"&iquest;C&oacute;mo os vendo mi iPhone?","answer":"<p>Esc&iacute;benos por <strong>WhatsApp al 688 809 683</strong> con el modelo y unas fotos. Oferta en menos de 2 horas. Pago inmediato por Bizum. Recogida gratuita.</p>"}},
+        "q5":{"type":"faq_item","settings":{"question":"&iquest;Los iPhones son 100% originales?","answer":"<p>S&iacute;. Los nuevos est&aacute;n <strong>sellados de f&aacute;brica</strong> con garant&iacute;a oficial del fabricante. Los de segunda mano pasan por revisi&oacute;n t&eacute;cnica completa.</p>"}},
+        "q6":{"type":"faq_item","settings":{"question":"&iquest;Qu&eacute; m&eacute;todos de pago aceptais?","answer":"<p>Visa, Mastercard, Bizum, PayPal y Apple Pay. Para cuotas sin inter&eacute;s con <strong>Klarna</strong> o <strong>seQura</strong>, escr&iacute;benos por WhatsApp.</p>"}},
+        "q7":{"type":"faq_item","settings":{"question":"&iquest;Ten&eacute;is descuentos?","answer":"<p>S&iacute;. Suscr&iacute;bete con tu email y te enviamos un <strong>c&oacute;digo de bienvenida del 5%</strong> para tu primer pedido. Adem&aacute;s: <strong>PACK-IPHONE-CARGADOR</strong> 10% en iPhone+cargador &middot; <strong>DOSIPHONES</strong> 5% al comprar 2 iPhones.</p>"}}
+      },
+      "block_order":["q1","q2","q3","q4","q5","q6","q7"],
+      "name":"FAQ",
+      "settings":{"label":"Preguntas frecuentes","title":"&iquest;Tienes alguna duda?","subtitle":"Respuestas r&aacute;pidas. Si necesitas m&aacute;s ayuda, escr&iacute;benos.","cta_text":"&iquest;No encuentras respuesta?","cta_label":"WhatsApp 688 809 683","cta_url":"https://wa.me/34688809683"}
+    },
+    "it_compra_bC7nRw": {
+      "type": "it-compra-banner",
+      "name": "Compramos tu iPhone",
+      "settings": {}
+    },
+    "it_banner_hBpLcz": {
+      "type": "it-banner",
+      "name": "iPhones segunda mano",
+      "settings": {
+        "title": "iPhones segunda mano desde 279 &euro;",
+        "description": "Todos revisados por nuestro equipo t&eacute;cnico. Garant&iacute;a ITorostore 12 meses. Reserva el tuyo por solo 50 &euro;.",
+        "btn_label": "Ver iPhones segunda mano",
+        "btn_url": "/collections/iphones-segunda-mano-1"
+      }
+    }
+  },
+  "order": [
+    "it_slider_kXp2Mw",
+    "it_hero_aX9kQm",
+    "it_trust_strip_jK3mXw",
+    "it_categorias_nQ4xZr",
+    "it_finder_pX8mNq",
+    "it_urgencia_sK2mNp",
+    "it_packs_mR4wPn",
+    "it_como_funciona_pR7qXs",
+    "it_comparador_mN9xTk",
+    "it_email_gate_eM4xPz",
+    "it_faq_UTb7VJ",
+    "it_compra_bC7nRw",
+    "it_banner_hBpLcz"
+  ]
+}
