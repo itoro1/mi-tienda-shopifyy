@@ -77,17 +77,18 @@
       "type": "it-wallapop-reviews",
       "name": "Valoraciones Wallapop",
       "blocks": {
-        "r1": { "type": "review", "settings": { "text": "", "name": "" } },
-        "r2": { "type": "review", "settings": { "text": "", "name": "" } },
-        "r3": { "type": "review", "settings": { "text": "", "name": "" } }
+        "r1": { "type": "review", "settings": { "text": "100 % Recomemdable telefono nuevo a estrenar. Trato en mano y imformacion de 10 gracias !!", "name": "Daniel D." } },
+        "r2": { "type": "review", "settings": { "text": "Trato espectacular, ojalá encontrarte con gente asi siempre. Muy recomendable, gracias por todo", "name": "Diego D." } },
+        "r3": { "type": "review", "settings": { "text": "Todo perfecto", "name": "Tessy" } },
+        "r4": { "type": "review", "settings": { "text": "perfecto", "name": "Paco M." } }
       },
-      "block_order": ["r1", "r2", "r3"],
+      "block_order": ["r1", "r2", "r3", "r4"],
       "settings": {
-        "show_section": false,
+        "show_section": true,
         "eyebrow": "Compradores reales",
         "title": "Lo que dicen nuestros clientes",
-        "rating": "★★★★★ 5.0",
-        "review_count": ""
+        "rating": "★★★★★ 4,8",
+        "review_count": "5"
       }
     },
     "it_email_gate_eM4xPz": {
