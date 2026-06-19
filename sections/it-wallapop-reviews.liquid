@@ -17,19 +17,31 @@
     {%- for block in section.blocks -%}
       {%- if block.type == 'review' and block.settings.text != blank -%}
         <div class="it-review-card" {{ block.shopify_attributes }}>
-          <div class="it-review-stars" aria-label="5 estrellas">
-            {%- for i in (1..5) -%}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#13c1ac" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            {%- endfor -%}
+          <div class="it-review-top">
+            <div class="it-review-stars" aria-label="5 estrellas">
+              {%- for i in (1..5) -%}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#13c1ac" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              {%- endfor -%}
+            </div>
+            {%- if block.settings.product_img != blank -%}
+              <div class="it-review-product-wrap">
+                <img src="{{ block.settings.product_img }}" alt="Producto comprado" class="it-review-product-img" width="56" height="56" loading="lazy">
+              </div>
+            {%- endif -%}
           </div>
           <p class="it-review-text">&ldquo;{{ block.settings.text }}&rdquo;</p>
-          <p class="it-review-author">
-            <span class="it-review-name">{{ block.settings.name }}</span>
+          <div class="it-review-author">
+            <div class="it-review-author-left">
+              {%- if block.settings.photo != blank -%}
+                <img src="{{ block.settings.photo }}" alt="{{ block.settings.name | escape }}" class="it-review-avatar" width="32" height="32" loading="lazy">
+              {%- endif -%}
+              <span class="it-review-name">{{ block.settings.name }}</span>
+            </div>
             <span class="it-review-source">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="#13c1ac" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               Wallapop
             </span>
-          </p>
+          </div>
         </div>
       {%- endif -%}
     {%- endfor -%}
@@ -50,9 +62,14 @@
 .it-wallapop-score{font-size:13px;font-weight:500;color:#0d9488}
 .it-reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px;text-align:left}
 .it-review-card{background:var(--it-surface,#fff);border:0.5px solid var(--it-border,#e8e8e4);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.it-review-stars{display:flex;gap:2px}
+.it-review-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.it-review-stars{display:flex;gap:2px;flex-shrink:0}
+.it-review-product-wrap{width:56px;height:56px;border-radius:8px;overflow:hidden;border:0.5px solid var(--it-border,#e8e8e4);flex-shrink:0;background:var(--it-surface2,#f5f5f3)}
+.it-review-product-img{width:56px;height:56px;object-fit:cover;display:block}
 .it-review-text{font-size:14px;color:var(--it-text,#1a1a1a);line-height:1.6;margin:0;flex:1}
 .it-review-author{display:flex;align-items:center;justify-content:space-between;margin:0}
+.it-review-author-left{display:flex;align-items:center;gap:8px}
+.it-review-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--it-border,#e8e8e4);flex-shrink:0}
 .it-review-name{font-size:13px;font-weight:500;color:var(--it-muted,#6b7280)}
 .it-review-source{display:flex;align-items:center;gap:3px;font-size:11px;color:#0d9488;font-weight:500}
 .it-reviews-cta{margin-top:32px}
@@ -77,7 +94,9 @@
       "name": "Valoración",
       "settings": [
         { "type": "textarea", "id": "text", "label": "Texto de la valoración" },
-        { "type": "text", "id": "name", "label": "Nombre del comprador (inicial o nombre)", "default": "A. M." }
+        { "type": "text", "id": "name", "label": "Nombre del comprador", "default": "A. M." },
+        { "type": "text", "id": "photo", "label": "URL foto de perfil del comprador" },
+        { "type": "text", "id": "product_img", "label": "URL foto del producto comprado" }
       ]
     }
   ],
