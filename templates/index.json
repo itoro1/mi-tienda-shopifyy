@@ -79,10 +79,11 @@
       "blocks": {
         "r1": { "type": "review", "settings": { "text": "100 % Recomemdable telefono nuevo a estrenar. Trato en mano y imformacion de 10 gracias !!", "name": "Daniel D.", "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/daniel-d-wallapop-profile.jpg?v=1781853082", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-17-pro-max-azul-daniel.jpg?v=1781853082" } },
         "r2": { "type": "review", "settings": { "text": "Trato espectacular, ojalá encontrarte con gente asi siempre. Muy recomendable, gracias por todo", "name": "Diego D.", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-17-pro-max-plateado-diego.jpg?v=1781853541" } },
-        "r3": { "type": "review", "settings": { "text": "Todo perfecto", "name": "Tessy" } },
-        "r4": { "type": "review", "settings": { "text": "perfecto", "name": "Paco M." } }
+        "r3": { "type": "review", "settings": { "text": "Todo perfecto", "name": "Tessy", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972" } },
+        "r4": { "type": "review", "settings": { "text": "perfecto", "name": "Paco M.", "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/paco-m-wallapop-profile.jpg?v=1781853972", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972" } },
+        "r5": { "type": "review", "settings": { "text": "", "name": "Volodymyr K.", "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/volodymyr-k-wallapop-profile.jpg?v=1781853971", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972" } }
       },
-      "block_order": ["r1", "r2", "r3", "r4"],
+      "block_order": ["r1", "r2", "r3", "r4", "r5"],
       "settings": {
         "show_section": true,
         "eyebrow": "Compradores reales",
