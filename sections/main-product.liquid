@@ -943,6 +943,65 @@ if(document.readyState !== 'loading'){ updateTimer(); setInterval(updateTimer, 1
   </div>
 </product-info>
 
+{%- unless product.has_only_default_variant -%}
+<script>
+/* Variant price updater — fixes price not updating on option change.
+   Uses ?variant={id} section render (always reliable) and also fires the
+   variant:change DOM event so the sticky ATC bar stays in sync. */
+document.addEventListener('DOMContentLoaded', function () {
+  var sid     = '{{ section.id }}';
+  var priceEl = document.getElementById('price-' + sid);
+  var vsEl    = document.getElementById('variant-selects-' + sid);
+  if (!priceEl || !vsEl) return;
+
+  var allVariants = {{ product.variants | json }};
+  var pendingV    = null;
+  var fetchSeq    = 0;
+
+  function findVariant() {
+    var opts = Array.from(vsEl.querySelectorAll('fieldset input:checked'))
+                    .map(function (el) { return el.value; });
+    if (!opts.length) return null;
+    return allVariants.find(function (v) {
+      return v.options.length === opts.length &&
+             v.options.every(function (o, i) { return o === opts[i]; });
+    }) || null;
+  }
+
+  function patchPrice(variantId) {
+    var seq = ++fetchSeq;
+    fetch('/products/{{ product.handle }}?section_id=' + sid + '&variant=' + variantId)
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        if (seq !== fetchSeq) return; /* superseded by newer request */
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var src = doc.getElementById('price-' + sid);
+        if (src && priceEl) priceEl.innerHTML = src.innerHTML;
+      })
+      .catch(function () {});
+  }
+
+  /* On option click: dispatch variant:change DOM event + start price fetch */
+  vsEl.addEventListener('change', function () {
+    pendingV = findVariant();
+    if (!pendingV) return;
+    document.dispatchEvent(new CustomEvent('variant:change', {
+      detail: { variant: pendingV }
+    }));
+    patchPrice(pendingV.id);
+  });
+
+  /* After product-info.js finishes its section render (which may have used
+     empty option_values and returned the wrong price), re-apply correct price */
+  if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+    subscribe(PUB_SUB_EVENTS.variantChange, function () {
+      if (pendingV) patchPrice(pendingV.id);
+    });
+  }
+});
+</script>
+{%- endunless -%}
+
 {%- render 'it-sticky-atc', product: product, section_id: section.id -%}
 
 {% schema %}
