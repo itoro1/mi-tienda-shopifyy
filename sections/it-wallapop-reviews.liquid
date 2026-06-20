@@ -15,7 +15,7 @@
 
   <div class="it-reviews-grid">
     {%- for block in section.blocks -%}
-      {%- if block.type == 'review' and block.settings.text != blank -%}
+      {%- if block.type == 'review' and block.settings.name != blank -%}
         <div class="it-review-card" {{ block.shopify_attributes }}>
           <div class="it-review-top">
             <div class="it-review-stars" aria-label="5 estrellas">
@@ -29,7 +29,9 @@
               </div>
             {%- endif -%}
           </div>
-          <p class="it-review-text">&ldquo;{{ block.settings.text }}&rdquo;</p>
+          {%- if block.settings.text != blank -%}
+            <p class="it-review-text">&ldquo;{{ block.settings.text }}&rdquo;</p>
+          {%- endif -%}
           <div class="it-review-author">
             <div class="it-review-author-left">
               {%- if block.settings.photo != blank -%}
