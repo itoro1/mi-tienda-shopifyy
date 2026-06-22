@@ -252,8 +252,6 @@
     {% sections 'footer-group' %}
     {%- section 'it-popup-email' -%}
 
-    <!-- Back to top -->
-    <button id="itBackTop" aria-label="Volver arriba" style="position:fixed;bottom:88px;right:22px;z-index:9970;width:40px;height:40px;border-radius:50%;background:var(--it-surface);border:0.5px solid var(--it-border2);color:var(--it-text);cursor:pointer;font-size:16px;display:none;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.12);transition:opacity .2s,transform .2s;font-family:inherit" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
@@ -267,14 +265,6 @@
       window.quickOrderListStrings = { itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`, itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`, itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`, itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`, viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`, each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`, min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`, max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`, step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}` };
       window.accessibilityStrings = { imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`, shareSuccess: `{{ 'general.share.success_message' | t }}`, pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`, playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`, recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`, recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`, countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}` };
 
-      // Back to top
-      (function(){
-        var btn=document.getElementById('itBackTop');
-        if(!btn)return;
-        window.addEventListener('scroll',function(){
-          if(window.scrollY>400){btn.style.display='flex';}else{btn.style.display='none';}
-        },{passive:true});
-      })();
 
       // Scroll reveal for .it-reveal elements
       (function(){
