@@ -14,9 +14,10 @@
       </div>
       <div id="it-popup-thanks" style="display:none;text-align:center">
         <p style="color:#15803d;font-weight:600;font-size:15px;margin:0 0 8px">&#10003; ¡Listo! Ya estás suscrito.</p>
-        <p style="font-size:13px;color:var(--it-muted);margin:0 0 12px">Tu c&oacute;digo de bienvenida es:</p>
-        <div style="background:var(--it-surface2);border:1.5px dashed var(--it-accent,#d4af37);border-radius:8px;padding:10px 16px;font-size:18px;font-weight:700;letter-spacing:2px;color:var(--it-text)">ITOROBIENVENIDO</div>
-        <p style="font-size:11px;color:var(--it-hint);margin:8px 0 0">Úsalo en el carrito &middot; 5% de descuento</p>
+        <p style="font-size:13px;color:var(--it-muted);margin:0 0 6px">Tu c&oacute;digo de bienvenida es:</p>
+        <div id="it-popup-code" style="background:var(--it-surface2);border:1.5px dashed var(--it-accent,#d4af37);border-radius:8px;padding:10px 16px;font-size:18px;font-weight:700;letter-spacing:2px;color:var(--it-text);cursor:pointer" title="Haz clic para copiar">ITOROBIENVENIDO</div>
+        <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">Úsalo en el carrito &middot; 5% de descuento &middot; <span id="it-popup-copied" style="color:#15803d;display:none">¡Copiado!</span></p>
+        <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">&#9993; Comprueba tu email &mdash; te hemos enviado el c&oacute;digo.</p>
       </div>
       <p class="it-popup-legal">Sin spam. Puedes darte de baja cuando quieras.</p>
     </div>
@@ -83,6 +84,10 @@
   });
 
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePopup(); });
+
+  var codeEl = document.getElementById('it-popup-code');
+  var copiedEl = document.getElementById('it-popup-copied');
+  if(codeEl){ codeEl.addEventListener('click', function(){ navigator.clipboard && navigator.clipboard.writeText('ITOROBIENVENIDO').then(function(){ copiedEl.style.display='inline'; setTimeout(function(){ copiedEl.style.display='none'; }, 2000); }); }); }
 
   if(!sessionStorage.getItem('it-popup-shown')){
     setTimeout(function(){

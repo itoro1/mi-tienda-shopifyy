@@ -1,3 +1,17 @@
+{%- liquid
+  assign has_iphone = false
+  assign has_charger = false
+  for item in cart.items
+    assign t = item.title | downcase
+    if t contains 'iphone'
+      assign has_iphone = true
+    endif
+    if t contains 'cargador' or t contains 'cable' or t contains 'pack cargador'
+      assign has_charger = true
+    endif
+  endfor
+-%}
+{%- if has_iphone and has_charger == false -%}
 <style>
 .it-cs{
   background:var(--it-surface);border-top:0.5px solid var(--it-border);
@@ -111,8 +125,8 @@
       <h2 class="it-cs__title">{{ section.settings.title | default: 'Añade el cargador oficial' }}</h2>
       <p class="it-cs__desc">{{ section.settings.description | default: 'El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 10% con el código.' }}</p>
       <div class="it-cs__code-wrap">
-        <span class="it-cs__code-lbl">10% descuento:</span>
-        <span class="it-cs__code" id="it-cs-code">PACK-IPHONE-CARGADOR</span>
+        <span class="it-cs__code-lbl">10% solo en cargadores:</span>
+        <span class="it-cs__code" id="it-cs-code">CARGADOR10</span>
         <button class="it-cs__code-copy" id="it-cs-copy" aria-label="Copiar código">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2"/>
@@ -123,7 +137,7 @@
     </div>
 
     <div class="it-cs__products">
-      {%- assign cargador1 = all_products['cargador-apple-usb-c'] -%}
+      {%- assign cargador1 = all_products['pack-cargador-usb-c-20w-cable-usb-c-1m-apple-original'] -%}
       {%- assign cargador2 = all_products['cargador-usb-c-20w-apple-original'] -%}
       {%- for i in (1..2) -%}
         {%- assign p = cargador1 -%}
@@ -153,12 +167,11 @@
   var code = document.getElementById('it-cs-code');
   if(!btn || !code) return;
   btn.addEventListener('click', function(){
-    navigator.clipboard.writeText('PACK-IPHONE-CARGADOR').then(function(){
-      var svg = btn.querySelector('svg');
+    navigator.clipboard.writeText('CARGADOR10').then(function(){
       btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
       code.textContent = '✅ Copiado!';
       setTimeout(function(){
-        code.textContent = 'PACK-IPHONE-CARGADOR';
+        code.textContent = 'CARGADOR10';
         btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
       }, 2200);
     }).catch(function(){ code.select && code.select(); });
@@ -176,3 +189,4 @@
   "presets": [{ "name": "Cross-sell cargador" }]
 }
 {% endschema %}
+{%- endif -%}

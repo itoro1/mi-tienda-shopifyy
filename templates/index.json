@@ -12,8 +12,8 @@
         "eyebrow": "Nuevo 2026",
         "heading": "iPhone 17 Pro Max",
         "heading2": "256 GB &middot; al mejor precio de Espa&ntilde;a.",
-        "price": "1.449",
-        "price_compare": "1.649",
+        "price": "1.249",
+        "price_compare": "1.349",
         "cta1_text": "Comprar ahora",
         "cta1_url": "/products/iphone-17-pro-max",
         "cta2_text": "Reservar por 50 &euro;",
@@ -89,7 +89,8 @@
         "eyebrow": "Compradores reales",
         "title": "Lo que dicen nuestros clientes",
         "rating": "★★★★★ 4,8",
-        "review_count": "5"
+        "review_count": "5",
+        "profile_url": "https://www.wallapop.com/user/fernandot-419803299?_pid=wi&_uid=419803299"
       }
     },
     "it_email_gate_eM4xPz": {
@@ -108,7 +109,7 @@
         "q4":{"type":"faq_item","settings":{"question":"&iquest;C&oacute;mo os vendo mi iPhone?","answer":"<p>Esc&iacute;benos por <strong>WhatsApp al 688 809 683</strong> con el modelo y unas fotos. Oferta en menos de 2 horas. Pago inmediato por Bizum. Recogida gratuita.</p>"}},
         "q5":{"type":"faq_item","settings":{"question":"&iquest;Los iPhones son 100% originales?","answer":"<p>S&iacute;. Los nuevos est&aacute;n <strong>sellados de f&aacute;brica</strong> con garant&iacute;a oficial del fabricante. Los de segunda mano pasan por revisi&oacute;n t&eacute;cnica completa.</p>"}},
         "q6":{"type":"faq_item","settings":{"question":"&iquest;Qu&eacute; m&eacute;todos de pago aceptais?","answer":"<p>Visa, Mastercard, Bizum, PayPal y Apple Pay. Para cuotas sin inter&eacute;s con <strong>Klarna</strong> o <strong>seQura</strong>, escr&iacute;benos por WhatsApp.</p>"}},
-        "q7":{"type":"faq_item","settings":{"question":"&iquest;Ten&eacute;is descuentos?","answer":"<p>S&iacute;. Suscr&iacute;bete con tu email y te enviamos un <strong>c&oacute;digo de bienvenida del 5%</strong> para tu primer pedido. Adem&aacute;s: <strong>PACK-IPHONE-CARGADOR</strong> 10% en iPhone+cargador &middot; <strong>DOSIPHONES</strong> 5% al comprar 2 iPhones.</p>"}}
+        "q7":{"type":"faq_item","settings":{"question":"&iquest;Ten&eacute;is descuentos?","answer":"<p>S&iacute;. Suscr&iacute;bete con tu email y te enviamos un <strong>c&oacute;digo de bienvenida del 5%</strong> para tu primer pedido. Adem&aacute;s, al a&ntilde;adir un cargador Apple al carrito consigues un <strong>10% extra</strong> solo en el cargador.</p>"}}
       },
       "block_order":["q1","q2","q3","q4","q5","q6","q7"],
       "name":"FAQ",
@@ -119,16 +120,6 @@
       "name": "Compramos tu iPhone",
       "settings": {}
     },
-    "it_banner_hBpLcz": {
-      "type": "it-banner",
-      "name": "iPhones segunda mano",
-      "settings": {
-        "title": "iPhones segunda mano desde 279 &euro;",
-        "description": "Todos revisados por nuestro equipo t&eacute;cnico. Garant&iacute;a ITorostore 12 meses. Reserva el tuyo por solo 50 &euro;.",
-        "btn_label": "Ver iPhones segunda mano",
-        "btn_url": "/collections/iphones-segunda-mano-1"
-      }
-    }
   },
   "order": [
     "it_slider_kXp2Mw",
@@ -143,7 +134,6 @@
     "it_wallapop_reviews_vR3nKx",
     "it_email_gate_eM4xPz",
     "it_faq_UTb7VJ",
-    "it_compra_bC7nRw",
-    "it_banner_hBpLcz"
+    "it_compra_bC7nRw"
   ]
 }
