@@ -44,12 +44,16 @@
     </a>
     {%- endif -%}
 
-    <div class="it-acc-group">
-      <div class="it-acc-group-head">
-        <span class="it-acc-group-ic">USB&#8209;C</span>
-        <span class="it-acc-group-label">Para iPhone 15 &middot; 16 &middot; 17</span>
-        <span class="it-acc-group-line"></span>
-      </div>
+    <div class="it-acc-tabs" role="tablist" aria-label="Tipo de conector">
+      <button class="it-acc-tab is-active" data-tab="usbc" role="tab" aria-selected="true" aria-controls="it-tab-usbc" type="button">
+        USB&#8209;C &nbsp;&middot;&nbsp; iPhone 15 &middot; 16 &middot; 17
+      </button>
+      <button class="it-acc-tab" data-tab="light" role="tab" aria-selected="false" aria-controls="it-tab-light" type="button">
+        Lightning &nbsp;&middot;&nbsp; iPhone 11 &middot; 12 &middot; 13 &middot; 14
+      </button>
+    </div>
+
+    <div class="it-acc-group" id="it-tab-usbc" role="tabpanel">
       <div class="it-acc-grid">
         {%- for h in usbc -%}
           {%- assign p = all_products[h] -%}
@@ -76,12 +80,7 @@
       </div>
     </div>
 
-    <div class="it-acc-group">
-      <div class="it-acc-group-head">
-        <span class="it-acc-group-ic">Lightning</span>
-        <span class="it-acc-group-label">Para iPhone 11 &middot; 12 &middot; 13 &middot; 14</span>
-        <span class="it-acc-group-line"></span>
-      </div>
+    <div class="it-acc-group" id="it-tab-light" role="tabpanel" hidden>
       <div class="it-acc-grid">
         {%- for h in light -%}
           {%- assign p = all_products[h] -%}
@@ -141,13 +140,13 @@
 
 .it-acc-hero{ position:relative; display:grid; grid-template-columns:1fr 1fr; border:0.5px solid var(--it-border); border-radius:calc(var(--it-radius-lg) * 1.5); overflow:hidden; text-decoration:none; background:var(--it-surface); margin-bottom:30px; transition:border-color .25s, box-shadow .3s, transform .3s; }
 .it-acc-hero:hover{ border-color:var(--it-border2); box-shadow:0 22px 50px rgba(0,0,0,.13); transform:translateY(-3px); }
-.it-acc-hero-media{ position:relative; display:flex; align-items:center; justify-content:center; min-height:300px; background:linear-gradient(160deg,#fafafa,#f0f0f2); overflow:hidden; }
+.it-acc-hero-media{ position:relative; display:flex; align-items:center; justify-content:center; min-height:300px; background:linear-gradient(160deg,#fafafa,#f0f0f2); overflow:hidden; isolation:isolate; }
 [data-theme=dark] .it-acc-hero-media{ background:linear-gradient(160deg,#161618,#0f0f11); }
 .it-acc-hero-glow{ position:absolute; width:70%; height:70%; border-radius:50%; background:radial-gradient(circle, rgba(70,110,190,.14), transparent 62%); filter:blur(8px); pointer-events:none; }
 [data-theme=dark] .it-acc-hero-glow{ background:radial-gradient(circle, rgba(212,175,55,.18), transparent 62%); }
 .it-acc-hero-img{ position:relative; z-index:1; width:72%; height:72%; object-fit:contain; transition:transform .45s cubic-bezier(.4,0,.2,1); }
 .it-acc-hero:hover .it-acc-hero-img{ transform:scale(1.06); }
-.it-acc-hero-disc{ position:absolute; top:18px; left:18px; z-index:3; background:#15803d; color:#fff; font-size:13px; font-weight:800; padding:6px 13px; border-radius:100px; box-shadow:0 4px 14px rgba(21,128,61,.35); }
+.it-acc-hero-disc{ position:absolute; top:18px; left:18px; z-index:2; background:#15803d; color:#fff; font-size:13px; font-weight:800; padding:6px 13px; border-radius:100px; box-shadow:0 4px 14px rgba(21,128,61,.35); }
 [data-theme=dark] .it-acc-hero-disc{ background:var(--it-accent); color:#0d0d0b; }
 .it-acc-hero-info{ padding:38px 40px; display:flex; flex-direction:column; justify-content:center; }
 .it-acc-hero-tag{ display:inline-block; align-self:flex-start; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--it-muted); margin-bottom:14px; }
@@ -168,25 +167,26 @@
 .it-acc-now--lg{ font-size:28px; }
 [data-theme=dark] .it-acc-now{ color:var(--it-accent); }
 
+.it-acc-tabs{ display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.it-acc-tab{ padding:9px 18px; border-radius:100px; border:0.5px solid var(--it-border2); background:var(--it-surface); color:var(--it-muted); font-size:13px; font-weight:600; cursor:pointer; transition:background .2s, color .2s, border-color .2s; white-space:nowrap; }
+.it-acc-tab.is-active{ background:var(--it-text); color:var(--it-bg); border-color:var(--it-text); }
+[data-theme=dark] .it-acc-tab.is-active{ background:var(--it-accent); color:#0d0d0b; border-color:var(--it-accent); }
+
 .it-acc-group{ margin-bottom:26px; }
-.it-acc-group-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
-.it-acc-group-ic{ font-size:11px; font-weight:700; letter-spacing:.03em; color:var(--it-text); background:var(--it-surface2); border:0.5px solid var(--it-border2); padding:5px 11px; border-radius:7px; white-space:nowrap; }
-.it-acc-group-label{ font-size:13px; font-weight:600; color:var(--it-muted); white-space:nowrap; }
-.it-acc-group-line{ flex:1; height:1px; background:var(--it-border); }
 
 .it-acc-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 .it-acc-card{ display:flex; flex-direction:column; border:0.5px solid var(--it-border); border-radius:var(--it-radius-lg); overflow:hidden; background:var(--it-surface); text-decoration:none; transition:border-color .2s, transform .2s, box-shadow .2s; }
 .it-acc-card:hover{ border-color:var(--it-border2); transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.1); }
-.it-acc-card-media{ position:relative; aspect-ratio:16/10; background:linear-gradient(160deg,#fafafa,#f2f2f4); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.it-acc-card-media{ position:relative; aspect-ratio:16/10; background:linear-gradient(160deg,#fafafa,#f2f2f4); display:flex; align-items:center; justify-content:center; overflow:hidden; isolation:isolate; }
 [data-theme=dark] .it-acc-card-media{ background:linear-gradient(160deg,#161618,#0f0f11); }
 .it-acc-card-img{ width:62%; height:84%; object-fit:contain; transition:transform .35s; }
 .it-acc-card:hover .it-acc-card-img{ transform:scale(1.07); }
-.it-acc-card-disc{ position:absolute; top:10px; left:10px; z-index:2; background:#15803d; color:#fff; font-size:11px; font-weight:800; padding:3px 9px; border-radius:100px; }
+.it-acc-card-disc{ position:absolute; top:10px; left:10px; z-index:1; background:#15803d; color:#fff; font-size:11px; font-weight:800; padding:3px 9px; border-radius:100px; }
 [data-theme=dark] .it-acc-card-disc{ background:var(--it-accent); color:#0d0d0b; }
 .it-acc-card-body{ padding:14px 16px 16px; display:flex; flex-direction:column; gap:10px; flex:1; }
 .it-acc-card-name{ font-size:13.5px; font-weight:600; color:var(--it-text); line-height:1.35; margin:0; flex:1; }
 .it-acc-card-foot{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-.it-acc-card-btn{ display:inline-flex; align-items:center; padding:9px 15px; background:var(--it-text); color:var(--it-bg); border-radius:9px; font-size:12px; font-weight:600; white-space:nowrap; transition:opacity .2s; }
+.it-acc-card-btn{ display:inline-flex; align-items:center; justify-content:center; padding:9px 15px; background:var(--it-text); color:var(--it-bg); border-radius:9px; font-size:12px; font-weight:600; white-space:nowrap; transition:opacity .2s; }
 .it-acc-card:hover .it-acc-card-btn{ opacity:.85; }
 
 .it-acc-trust{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px 22px; padding:20px 0; border-top:0.5px solid var(--it-border); border-bottom:0.5px solid var(--it-border); margin-bottom:22px; }
@@ -222,6 +222,22 @@
   .it-acc-code{ width:100%; text-align:center; }
 }
 </style>
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.it-acc-tab');
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabs.forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected','true');
+      document.querySelectorAll('.it-acc-group[id^="it-tab-"]').forEach(function(g){ g.hidden = true; });
+      var panel = document.getElementById('it-tab-' + btn.dataset.tab);
+      if(panel) panel.hidden = false;
+    });
+  });
+})();
+</script>
 
 {% schema %}
 {"name":"Packs Cargadores","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Accesorios originales Apple"},{"type":"text","id":"title","label":"Titulo","default":"Cargadores y cables"},{"type":"textarea","id":"subtitle","label":"Subtitulo","default":"Encuentra el cargador y el cable exactos para tu iPhone."}],"presets":[{"name":"Packs Cargadores"}]}
