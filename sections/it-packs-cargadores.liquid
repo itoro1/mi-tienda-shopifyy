@@ -44,16 +44,12 @@
     </a>
     {%- endif -%}
 
-    <div class="it-acc-tabs" role="tablist" aria-label="Tipo de conector">
-      <button class="it-acc-tab is-active" data-tab="usbc" role="tab" aria-selected="true" aria-controls="it-tab-usbc" type="button">
-        USB&#8209;C &nbsp;&middot;&nbsp; iPhone 15 &middot; 16 &middot; 17
-      </button>
-      <button class="it-acc-tab" data-tab="light" role="tab" aria-selected="false" aria-controls="it-tab-light" type="button">
-        Lightning &nbsp;&middot;&nbsp; iPhone 11 &middot; 12 &middot; 13 &middot; 14
-      </button>
-    </div>
-
-    <div class="it-acc-group" id="it-tab-usbc" role="tabpanel">
+    <div class="it-acc-group">
+      <div class="it-acc-group-head">
+        <span class="it-acc-group-ic">USB&#8209;C</span>
+        <span class="it-acc-group-label">Para iPhone 15 &middot; 16 &middot; 17</span>
+        <span class="it-acc-group-line"></span>
+      </div>
       <div class="it-acc-grid">
         {%- for h in usbc -%}
           {%- assign p = all_products[h] -%}
@@ -80,7 +76,12 @@
       </div>
     </div>
 
-    <div class="it-acc-group" id="it-tab-light" role="tabpanel" hidden>
+    <div class="it-acc-group">
+      <div class="it-acc-group-head">
+        <span class="it-acc-group-ic">Lightning</span>
+        <span class="it-acc-group-label">Para iPhone 11 &middot; 12 &middot; 13 &middot; 14</span>
+        <span class="it-acc-group-line"></span>
+      </div>
       <div class="it-acc-grid">
         {%- for h in light -%}
           {%- assign p = all_products[h] -%}
@@ -167,12 +168,11 @@
 .it-acc-now--lg{ font-size:28px; }
 [data-theme=dark] .it-acc-now{ color:var(--it-accent); }
 
-.it-acc-tabs{ display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-.it-acc-tab{ padding:9px 18px; border-radius:100px; border:0.5px solid var(--it-border2); background:var(--it-surface); color:var(--it-muted); font-size:13px; font-weight:600; cursor:pointer; transition:background .2s, color .2s, border-color .2s; white-space:nowrap; }
-.it-acc-tab.is-active{ background:var(--it-text); color:var(--it-bg); border-color:var(--it-text); }
-[data-theme=dark] .it-acc-tab.is-active{ background:var(--it-accent); color:#0d0d0b; border-color:var(--it-accent); }
-
 .it-acc-group{ margin-bottom:26px; }
+.it-acc-group-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.it-acc-group-ic{ font-size:11px; font-weight:700; letter-spacing:.03em; color:var(--it-text); background:var(--it-surface2); border:0.5px solid var(--it-border2); padding:5px 11px; border-radius:7px; white-space:nowrap; }
+.it-acc-group-label{ font-size:13px; font-weight:600; color:var(--it-muted); white-space:nowrap; }
+.it-acc-group-line{ flex:1; height:1px; background:var(--it-border); }
 
 .it-acc-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 .it-acc-card{ display:flex; flex-direction:column; border:0.5px solid var(--it-border); border-radius:var(--it-radius-lg); overflow:hidden; background:var(--it-surface); text-decoration:none; transition:border-color .2s, transform .2s, box-shadow .2s; }
@@ -222,22 +222,6 @@
   .it-acc-code{ width:100%; text-align:center; }
 }
 </style>
-
-<script>
-(function(){
-  var tabs = document.querySelectorAll('.it-acc-tab');
-  tabs.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      tabs.forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-selected','true');
-      document.querySelectorAll('.it-acc-group[id^="it-tab-"]').forEach(function(g){ g.hidden = true; });
-      var panel = document.getElementById('it-tab-' + btn.dataset.tab);
-      if(panel) panel.hidden = false;
-    });
-  });
-})();
-</script>
 
 {% schema %}
 {"name":"Packs Cargadores","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Accesorios originales Apple"},{"type":"text","id":"title","label":"Titulo","default":"Cargadores y cables"},{"type":"textarea","id":"subtitle","label":"Subtitulo","default":"Encuentra el cargador y el cable exactos para tu iPhone."}],"presets":[{"name":"Packs Cargadores"}]}
