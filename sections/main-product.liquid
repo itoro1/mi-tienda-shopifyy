@@ -177,17 +177,10 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- else -%}
-                      {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
-                        <span class="svg-wrapper" style="color: rgb(62, 214, 96)">
-                          {{- 'icon-inventory-status.svg' | inline_asset_content -}}
-                        </span>
-                        {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
-                      {%- else -%}
-                        <span class="svg-wrapper" style="color: rgb(200, 200, 200)">
-                          {{- 'icon-inventory-status.svg' | inline_asset_content -}}
-                        </span>
-                        {{- 'products.product.inventory_out_of_stock' | t -}}
-                      {%- endif -%}
+                      <span class="svg-wrapper" style="color: #dc2626">
+                        {{- 'icon-inventory-status.svg' | inline_asset_content -}}
+                      </span>
+                      Sin stock &middot; Disponible bajo pedido
                     {%- endif -%}
                   {%- endif -%}
                 </p>

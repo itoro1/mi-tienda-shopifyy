@@ -76,7 +76,7 @@
             endif
 
             assign itoro_reserva = false
-            if product.tags contains 'bajo-pedido' and product.handle != 'reserva-de-pedido-iphone-itorostore'
+            if product.selected_or_first_available_variant.inventory_management == 'shopify' and product.selected_or_first_available_variant.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore'
               assign itoro_reserva = true
             endif
           -%}

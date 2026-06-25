@@ -1,19 +1,18 @@
 {%- comment -%}
   Sticky bottom buy bar — mobile only (≤749px).
   Slides up when the main submit button scrolls out of view.
-  Not rendered for bajo-pedido products.
+  Shows reservation CTA for 0-inventory products.
   Accepts: product, section_id
 {%- endcomment -%}
-{%- assign itoro_bp = false -%}
-{%- if product.tags contains 'bajo-pedido' and product.handle != 'reserva-de-pedido-iphone-itorostore' -%}
-  {%- assign itoro_bp = true -%}
-{%- endif -%}
-{%- unless itoro_bp -%}
 {%- liquid
   assign satc_variant = product.selected_or_first_available_variant
   assign satc_available = false
   if satc_variant != null and satc_variant.available
     assign satc_available = true
+  endif
+  assign itoro_satc_reserva = false
+  if satc_variant.inventory_management == 'shopify' and satc_variant.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore'
+    assign itoro_satc_reserva = true
   endif
 -%}
 <style>
@@ -60,6 +59,19 @@
 #it-satc__btn:active{opacity:.75;transform:scale(.97)}
 </style>
 
+{%- if itoro_satc_reserva -%}
+<form id="it-satc" action="/cart/add" method="post" aria-hidden="true" aria-label="Reserva rápida">
+  <input type="hidden" name="id" value="57975466918213">
+  <input type="hidden" name="return_to" value="/cart">
+  <input type="hidden" name="properties[iPhone reservado]" id="it-satc__reserva-prop"
+    value="{{ product.title }}{% if product.variants.size > 1 %} · {{ satc_variant.title }}{% endif %}">
+  <div id="it-satc__info">
+    <div id="it-satc__title">{{ product.title | escape }}</div>
+    <div id="it-satc__price" style="color:#dc2626;font-size:13px;font-weight:600">Sin stock &middot; Bajo pedido</div>
+  </div>
+  <button id="it-satc__btn" type="submit">Reservar &middot; 50&euro;</button>
+</form>
+{%- else -%}
 <div id="it-satc" aria-hidden="true" aria-label="Compra rápida">
   <div id="it-satc__info">
     <div id="it-satc__title">{{ product.title | escape }}</div>
@@ -74,6 +86,7 @@
     {%- if satc_available -%}Comprar ahora{%- else -%}Agotado{%- endif -%}
   </button>
 </div>
+{%- endif -%}
 
 <script>
 (function(){
@@ -82,19 +95,23 @@
   var price = document.getElementById('it-satc__price');
   if(!bar || !btn) return;
 
+  var isReserva = bar.tagName === 'FORM';
+
   var mainBtn = document.getElementById('ProductSubmitButton-{{ section_id }}')
              || document.querySelector('.product-form__submit');
 
   /* Show/hide bar via IntersectionObserver */
-  if(mainBtn && 'IntersectionObserver' in window){
+  var anchor = isReserva
+    ? document.querySelector('#itoro-reserva-submit')
+    : mainBtn;
+  if(anchor && 'IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       var vis = entries[0].isIntersecting;
       bar.classList.toggle('is-vis', !vis);
       bar.setAttribute('aria-hidden', vis ? 'true' : 'false');
     }, {threshold: 0.15, rootMargin:'0px 0px -10px 0px'});
-    io.observe(mainBtn);
+    io.observe(anchor);
   } else {
-    /* Fallback: always show on scroll */
     window.addEventListener('scroll', function(){
       var show = window.scrollY > 180;
       bar.classList.toggle('is-vis', show);
@@ -102,34 +119,47 @@
     }, {passive:true});
   }
 
-  /* Click → trigger main form submit */
-  btn.addEventListener('click', function(){
-    if(mainBtn && !mainBtn.disabled){ mainBtn.click(); }
-  });
+  /* Normal mode only: click → trigger main form submit */
+  if(!isReserva){
+    btn.addEventListener('click', function(){
+      if(mainBtn && !mainBtn.disabled){ mainBtn.click(); }
+    });
+  }
 
-  /* Update price & availability on variant change (Dawn custom event) */
+  /* Update on variant change */
   document.addEventListener('variant:change', function(e){
     var v = e.detail && (e.detail.variant || e.detail);
     if(!v) return;
-    if(price && v.price != null){
-      /* Use Shopify money formatting if available, else simple EUR */
-      var cents = v.price;
-      var formatted;
-      if(window.Shopify && Shopify.formatMoney){
-        formatted = Shopify.formatMoney(cents, '{{amount_with_comma_separator}} €');
-      } else {
-        formatted = (cents/100).toFixed(2).replace('.',',') + ' €';
+
+    if(isReserva){
+      /* Reservation mode: update the iPhone property note */
+      var propInput = document.getElementById('it-satc__reserva-prop');
+      if(propInput){
+        var base = {{ product.title | json }};
+        var label = base;
+        if(v.title && v.title !== 'Default Title'){ label += ' · ' + v.title; }
+        propInput.value = label;
       }
-      price.textContent = formatted;
-    }
-    if(btn){
-      var avail = v.available !== false;
-      btn.disabled = !avail;
-      btn.textContent = avail ? 'Comprar ahora' : 'Agotado';
-      btn.style.opacity = avail ? '' : '.45';
-      btn.style.cursor  = avail ? '' : 'not-allowed';
+    } else {
+      /* Normal mode: update price and button state */
+      if(price && v.price != null){
+        var cents = v.price;
+        var formatted;
+        if(window.Shopify && Shopify.formatMoney){
+          formatted = Shopify.formatMoney(cents, '{{amount_with_comma_separator}} €');
+        } else {
+          formatted = (cents/100).toFixed(2).replace('.',',') + ' €';
+        }
+        price.textContent = formatted;
+      }
+      if(btn){
+        var avail = v.available !== false;
+        btn.disabled = !avail;
+        btn.textContent = avail ? 'Comprar ahora' : 'Agotado';
+        btn.style.opacity = avail ? '' : '.45';
+        btn.style.cursor  = avail ? '' : 'not-allowed';
+      }
     }
   });
 })();
 </script>
-{%- endunless -%}

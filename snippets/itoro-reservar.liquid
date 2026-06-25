@@ -1,0 +1,180 @@
+{% comment %}
+  Reservation UI — shown when a product has 0 inventory (bajo pedido).
+  Accepts: product
+{% endcomment %}
+
+<div class="itoro-reserva-wrap">
+
+  <!-- Red stock indicator -->
+  <p class="itoro-sin-stock">
+    <span class="itoro-sin-stock-dot"></span>
+    Sin stock disponible
+  </p>
+
+  <!-- Info box -->
+  <div class="itoro-reserva-box">
+    <div class="itoro-reserva-box-head">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Disponible bajo pedido &mdash; 3 a 5 d&iacute;as h&aacute;biles
+    </div>
+    <p class="itoro-reserva-box-desc">
+      Reserva tu unidad con un <strong>dep&oacute;sito de 50&euro;</strong>. En cuanto llegue al almac&eacute;n te lo enviamos con seguimiento incluido. Los 50&euro; se descuentan del precio final.
+    </p>
+    <ul class="itoro-reserva-list">
+      <li>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Los 50&euro; se descuentan del precio final
+      </li>
+      <li>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Plazo estimado: 3 a 5 d&iacute;as h&aacute;biles
+      </li>
+      <li>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Te avisamos por email y WhatsApp cuando est&eacute; listo
+      </li>
+    </ul>
+  </div>
+
+  <!-- Reservation form — adds €50 deposit product to cart with iPhone note -->
+  <form action="/cart/add" method="post" id="itoro-reserva-form" class="itoro-reserva-form">
+    <input type="hidden" name="id" value="57975466918213">
+    <input type="hidden" name="return_to" value="/cart">
+    <input type="hidden" name="properties[iPhone reservado]"
+      value="{{ product.title }}{% if product.variants.size > 1 %} &middot; {{ product.selected_or_first_available_variant.title }}{% endif %}">
+    <button type="submit" class="button button--full-width button--primary itoro-reserva-btn" id="itoro-reserva-submit">
+      <span id="itoro-reserva-label">Reservar por 50&euro;</span>
+      {%- render 'loading-spinner' -%}
+    </button>
+  </form>
+
+  <!-- Trust badges (same as normal buy-buttons) -->
+  {{ 'itoro-trust.css' | asset_url | stylesheet_tag }}
+  <div class="itoro-shipping-badge" style="margin-top:12px">
+    <span class="itoro-shipping-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    </span>
+    <div class="itoro-shipping-text">
+      <strong>Env&iacute;o gratis &middot; 3&ndash;5 d&iacute;as h&aacute;biles</strong>
+      <span>Correos a toda Espa&ntilde;a &middot; Seguimiento incluido</span>
+    </div>
+  </div>
+  <div class="itoro-trust-row">
+    <span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Pago seguro
+    </span>
+    <span class="it-sep">&bull;</span>
+    <span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Env&iacute;o gratis
+    </span>
+    <span class="it-sep">&bull;</span>
+    <span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Garant&iacute;a incluida
+    </span>
+  </div>
+</div>
+
+<style>
+.itoro-reserva-wrap { }
+
+.itoro-sin-stock {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dc2626;
+  margin: 0 0 14px;
+  letter-spacing: .01em;
+}
+.itoro-sin-stock-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #dc2626;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(220,38,38,.18);
+}
+
+.itoro-reserva-box {
+  background: #fff8f0;
+  border: 0.5px solid #fdba74;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+[data-theme="dark"] .itoro-reserva-box {
+  background: rgba(251,146,60,.07);
+  border-color: rgba(251,146,60,.25);
+}
+
+.itoro-reserva-box-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #c2410c;
+  margin-bottom: 8px;
+}
+[data-theme="dark"] .itoro-reserva-box-head { color: #fb923c; }
+
+.itoro-reserva-box-desc {
+  font-size: 13px;
+  color: #4b4b47;
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+[data-theme="dark"] .itoro-reserva-box-desc { color: rgba(237,233,226,.75); }
+
+.itoro-reserva-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.itoro-reserva-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b6b68;
+  line-height: 1.4;
+}
+.itoro-reserva-list li svg { flex-shrink: 0; color: #c2410c; }
+[data-theme="dark"] .itoro-reserva-list li { color: rgba(237,233,226,.55); }
+
+.itoro-reserva-btn { }
+</style>
+
+<script>
+/* Update "iPhone reservado" property when variant changes */
+(function(){
+  var propInput = document.querySelector('#itoro-reserva-form input[name="properties[iPhone reservado]"]');
+  if(!propInput) return;
+  var baseTitle = {{ product.title | json }};
+
+  function updateProp(){
+    var input = document.querySelector('product-info input[name="id"], .product-variant-id, form[data-type="add-to-cart-form"] input[name="id"]');
+    if(!input) return;
+    var vid = input.value;
+    /* Find matching variant title from Shopify variants JSON */
+    var variants = {{ product.variants | json }};
+    var v = variants.find(function(x){ return String(x.id) === String(vid); });
+    var label = baseTitle;
+    if(v && v.title && v.title !== 'Default Title'){
+      label += ' · ' + v.title;
+    }
+    propInput.value = label;
+  }
+
+  document.addEventListener('variant:change', updateProp);
+  document.addEventListener('DOMContentLoaded', updateProp);
+})();
+</script>
