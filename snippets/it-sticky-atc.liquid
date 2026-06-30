@@ -109,6 +109,7 @@
       var vis = entries[0].isIntersecting;
       bar.classList.toggle('is-vis', !vis);
       bar.setAttribute('aria-hidden', vis ? 'true' : 'false');
+      document.body.classList.toggle('it-satc-on', !vis);
     }, {threshold: 0.15, rootMargin:'0px 0px -10px 0px'});
     io.observe(anchor);
   } else {
@@ -116,6 +117,7 @@
       var show = window.scrollY > 180;
       bar.classList.toggle('is-vis', show);
       bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+      document.body.classList.toggle('it-satc-on', show);
     }, {passive:true});
   }
 

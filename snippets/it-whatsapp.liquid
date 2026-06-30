@@ -14,17 +14,21 @@
   display:flex;
   align-items:center;
   justify-content:center;
-  width:44px;
-  height:44px;
+  width:54px;
+  height:54px;
   border-radius:50%;
-  background:rgba(37,211,102,0.85);
-  box-shadow:0 2px 8px rgba(37,211,102,.30);
-  transition:opacity .2s,transform .2s;
-  opacity:0.8;
+  background:#25D366;
+  box-shadow:0 4px 16px rgba(37,211,102,.45);
+  transition:transform .2s,box-shadow .2s;
+  opacity:1;
 }
-.it-wa-btn:hover{opacity:1;transform:scale(1.07);box-shadow:0 4px 14px rgba(37,211,102,.40)}
-.it-wa-btn svg{width:22px;height:22px;fill:#fff}
+.it-wa-btn:hover{transform:scale(1.07);box-shadow:0 6px 20px rgba(37,211,102,.55)}
+.it-wa-btn svg{width:28px;height:28px;fill:#fff}
+.it-wa-wrap{transition:bottom .28s cubic-bezier(.4,0,.2,1)}
 @media(max-width:600px){
   .it-wa-wrap{bottom:16px;right:12px}
+  .it-wa-btn{width:50px;height:50px}
+  /* Sube el boton de WhatsApp cuando aparece la barra de compra movil para que no se solapen */
+  body.it-satc-on .it-wa-wrap{bottom:84px}
 }
 </style>

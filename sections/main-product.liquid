@@ -200,9 +200,16 @@
 (function(){
   function getDelivery(){
     var now = new Date();
-    var madridOffset = 2;
-    var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    var madrid = new Date(utc + (3600000 * madridOffset));
+    // Hora real de Madrid (CET/CEST automatico segun horario de verano/invierno)
+    var madrid;
+    try {
+      madrid = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));
+      if (isNaN(madrid.getTime())) { throw 0; }
+    } catch (e) {
+      var madridOffset = 2;
+      var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      madrid = new Date(utc + (3600000 * madridOffset));
+    }
     var h = madrid.getHours();
     var m = madrid.getMinutes();
     var day = madrid.getDay();
