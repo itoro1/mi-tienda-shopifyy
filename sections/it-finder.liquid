@@ -29,14 +29,14 @@
         <p class="it-fcard-name">iPhone 15</p><p class="it-fcard-price">desde 499&euro;</p>
         <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
       </a>
-      <a href="/products/iphone-14" class="it-fcard">
+      <a href="/products/iphone-14" class="it-fcard it-fcard--zoom">
         <div class="it-fcard-wrap">
           <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-14-1.jpg?v=1782744940" alt="iPhone 14" loading="lazy"></div>
         </div>
         <p class="it-fcard-name">iPhone 14</p><p class="it-fcard-price">desde 399&euro;</p>
         <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
       </a>
-      <a href="/products/iphone-13" class="it-fcard">
+      <a href="/products/iphone-13" class="it-fcard it-fcard--zoom">
         <div class="it-fcard-wrap">
           <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/apple-iphone-13-1.jpg?v=1782744940" alt="iPhone 13" loading="lazy"></div>
         </div>
@@ -75,7 +75,7 @@
         <p class="it-fcard-name">14 Pro</p><p class="it-fcard-price">desde 519&euro;</p>
         <span class="it-fcard-badge it-fcard-badge--used">2a mano</span>
       </a>
-      <a href="/products/iphone-13-pro" class="it-fcard it-fcard--pro">
+      <a href="/products/iphone-13-pro" class="it-fcard it-fcard--pro it-fcard--zoom">
         <div class="it-fcard-wrap">
           <div class="it-fcard-img"><img src="https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-13-pro-graphite-select.jpg?v=1782133030" alt="iPhone 13 Pro" loading="lazy"></div>
         </div>
@@ -147,6 +147,8 @@
 .it-fcard-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:6px;background:var(--it-surface2)}
 .it-fcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
 .it-fcard:hover .it-fcard-img img{transform:scale(1.07)}
+.it-fcard--zoom .it-fcard-img img{transform:scale(1.55)}
+.it-fcard--zoom:hover .it-fcard-img img{transform:scale(1.65)}
 .it-fcard-hot{position:absolute;top:0;right:0;font-size:8px;font-weight:700;padding:2px 6px;border-radius:20px;background:#15803d;color:#fff;z-index:2}
 .it-fcard-hot--top{background:var(--it-accent);color:#0d0d0b}
 .it-fcard-name{font-size:11px;font-weight:500;color:var(--it-text);margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
