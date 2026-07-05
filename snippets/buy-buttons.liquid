@@ -11,6 +11,20 @@
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
 {% endcomment %}
 <div {{ block.shopify_attributes }}>
+  <style>
+    .product-form__submit.button {
+      min-height: 54px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: .01em;
+      box-shadow: 0 8px 22px rgba(0,0,0,.16);
+      transition: transform .18s cubic-bezier(.4,0,.2,1), box-shadow .25s, background .2s;
+    }
+    .product-form__submit.button:hover { transform: translateY(-2px); box-shadow: 0 13px 30px rgba(0,0,0,.24); }
+    .product-form__submit.button:active { transform: translateY(0); box-shadow: 0 5px 14px rgba(0,0,0,.2); }
+    .product-form__submit.button--primary::after { display: none; }
+  </style>
   {%- if product != blank -%}
     {%- liquid
       assign gift_card_recipient_feature_active = false

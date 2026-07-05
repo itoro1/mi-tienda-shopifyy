@@ -43,9 +43,11 @@
     <input type="hidden" name="properties[iPhone reservado]"
       value="{{ product.title }}{% if product.variants.size > 1 %} &middot; {{ product.selected_or_first_available_variant.title }}{% endif %}">
     <button type="submit" class="button button--full-width button--primary itoro-reserva-btn" id="itoro-reserva-submit">
-      <span id="itoro-reserva-label">Reservar por 50&euro;</span>
+      <svg class="itoro-reserva-btn-ic" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+      <span id="itoro-reserva-label">Reservar ahora &middot; 50&euro;</span>
       {%- render 'loading-spinner' -%}
     </button>
+    <p class="itoro-reserva-btn-sub">Sin compromiso &middot; Los 50&euro; se descuentan del total</p>
   </form>
 
   <!-- Trust badges (same as normal buy-buttons) -->
@@ -150,7 +152,46 @@
 .itoro-reserva-list li svg { flex-shrink: 0; color: #c2410c; }
 [data-theme="dark"] .itoro-reserva-list li { color: rgba(237,233,226,.55); }
 
-.itoro-reserva-btn { }
+.itoro-reserva-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 56px;
+  padding: 0 24px;
+  background: linear-gradient(135deg, #111114 0%, #2a2a30 100%);
+  color: #fff;
+  border: 1px solid rgba(212,175,55,.45);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.07);
+  transition: transform .18s cubic-bezier(.4,0,.2,1), box-shadow .25s, border-color .25s;
+  -webkit-tap-highlight-color: transparent;
+}
+.itoro-reserva-btn::after { display: none; }
+.itoro-reserva-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212,175,55,.95);
+  box-shadow: 0 16px 36px rgba(0,0,0,.30), 0 0 0 1px rgba(212,175,55,.30);
+  color: #fff;
+}
+.itoro-reserva-btn:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(0,0,0,.22); }
+.itoro-reserva-btn-ic { flex-shrink: 0; color: #e8c66a; }
+.itoro-reserva-btn-sub {
+  text-align: center;
+  font-size: 11.5px;
+  color: #8a8a86;
+  margin: 9px 0 0;
+  letter-spacing: .01em;
+}
+[data-theme="dark"] .itoro-reserva-btn {
+  background: linear-gradient(135deg, #17171a 0%, #2e2e34 100%);
+  border-color: rgba(212,175,55,.55);
+}
+[data-theme="dark"] .itoro-reserva-btn-sub { color: rgba(237,233,226,.5); }
 </style>
 
 <script>
