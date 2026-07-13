@@ -354,7 +354,30 @@
     {
       "type": "variant_picker",
       "name": "Variant picker",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            { "value": "dropdown", "label": "Dropdown" },
+            { "value": "button", "label": "Pills" }
+          ],
+          "default": "button",
+          "label": "Type"
+        },
+        {
+          "type": "select",
+          "id": "swatch_shape",
+          "options": [
+            { "value": "circle", "label": "Circle" },
+            { "value": "square", "label": "Square" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "circle",
+          "label": "Swatch shape"
+        }
+      ]
     },
     {
       "type": "buy_buttons",
