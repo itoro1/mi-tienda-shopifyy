@@ -16,9 +16,14 @@
       "settings": {
         "enable_sticky_info": true,
         "media_size": "large",
-        "media_fit": "portrait",
+        "media_fit": "contain",
         "media_position": "left",
         "image_zoom": "hover",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "hide",
+        "constrain_to_viewport": true,
+        "hide_variants": false,
+        "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
       }
