@@ -91,18 +91,20 @@
                 </div>
               {%- endif -%}
             {% when 'price' %}
-              {%- render 'product-price',
-                product: product,
-                use_variant: true,
-                show_badges: true,
-                price_class: 'price--large' -%}
+              <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                {%- render 'product-price',
+                  product: product,
+                  use_variant: true,
+                  show_badges: true,
+                  price_class: 'price--large' -%}
+              </div>
             {% when 'inventory' %}
               {%- if section.settings.inventory_availability != false -%}
-                {%- if product.selected_or_first_available_variant.available -%}
-                  <p class="product__inventory" {{ block.shopify_attributes }}>
+                <p class="product__inventory" id="Inventory-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                  {%- if product.selected_or_first_available_variant.available -%}
                     <span class="it-inv-dot"></span> En stock &middot; listo para enviar
-                  </p>
-                {%- endif -%}
+                  {%- endif -%}
+                </p>
               {%- endif -%}
             {% when 'variant_picker' %}
               {%- render 'product-variant-picker',
@@ -153,6 +155,20 @@
     </div>
   </div>
 </product-info>
+
+<style>
+  /* Galería: imagen grande principal, miniaturas claras y color seleccionado resaltado */
+  #MediaGallery-{{ section.id }} .product__media-item img { border-radius: 12px; }
+  #MediaGallery-{{ section.id }} .thumbnail-list__item .thumbnail {
+    border-radius: 8px;
+    transition: border-color .18s, box-shadow .18s, transform .18s;
+  }
+  #MediaGallery-{{ section.id }} .thumbnail[aria-current="true"] {
+    border: 2px solid var(--it-accent, #d4af37) !important;
+    box-shadow: 0 0 0 2px rgba(212,175,55,.35);
+    transform: translateY(-1px);
+  }
+</style>
 
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
