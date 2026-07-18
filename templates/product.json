@@ -18,7 +18,7 @@
         "media_size": "large",
         "media_fit": "contain",
         "media_position": "left",
-        "image_zoom": "hover",
+        "image_zoom": "lightbox",
         "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "hide",
         "constrain_to_viewport": true,

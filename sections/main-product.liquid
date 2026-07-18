@@ -66,6 +66,7 @@
           product_form_id: product_form_id,
           variants_available: section.settings.inventory_availability,
           image_zoom: section.settings.image_zoom -%}
+        {%- render 'product-media-modal', product: product, variant_images: variant_images -%}
       </div>
       <div id="ProductInfo-{{ section.id }}" class="product__info-wrapper">
         {%- for block in section.blocks -%}
@@ -348,19 +349,19 @@
       "label": "Image zoom",
       "options": [
         {
+          "value": "lightbox",
+          "label": "Lightbox (click)"
+        },
+        {
           "value": "hover",
           "label": "Hover"
         },
         {
-          "value": "open",
-          "label": "Open"
-        },
-        {
-          "value": "disabled",
-          "label": "Disabled"
+          "value": "none",
+          "label": "None"
         }
       ],
-      "default": "hover"
+      "default": "lightbox"
     },
     {
       "type": "checkbox",
