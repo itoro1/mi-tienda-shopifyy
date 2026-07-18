@@ -157,16 +157,32 @@
 </product-info>
 
 <style>
-  /* Galería: imagen grande principal, miniaturas claras y color seleccionado resaltado */
-  #MediaGallery-{{ section.id }} .product__media-item img { border-radius: 12px; }
+  /* Galería: imagen grande principal con marco premium; color seleccionado resaltado */
+  #MediaGallery-{{ section.id }} .product__media-item img {
+    border-radius: 14px;
+  }
+  /* La imagen activa (color elegido) destaca: marco un poco mayor, borde dorado sutil y "pop" */
+  #MediaGallery-{{ section.id }} .product__media-item.is-active {
+    position: relative;
+  }
+  #MediaGallery-{{ section.id }} .product__media-item.is-active img {
+    box-shadow: 0 10px 30px rgba(0,0,0,.14), 0 0 0 2px rgba(212,175,55,.45);
+    animation: itMediaPop .38s cubic-bezier(.2,.7,.3,1);
+  }
+  @keyframes itMediaPop {
+    0%   { transform: scale(.955); opacity: .55; }
+    60%  { transform: scale(1.012); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  /* Miniaturas: la del color seleccionado resalta claramente (borde dorado + un pelín más grande) */
   #MediaGallery-{{ section.id }} .thumbnail-list__item .thumbnail {
-    border-radius: 8px;
+    border-radius: 9px;
     transition: border-color .18s, box-shadow .18s, transform .18s;
   }
   #MediaGallery-{{ section.id }} .thumbnail[aria-current="true"] {
     border: 2px solid var(--it-accent, #d4af37) !important;
-    box-shadow: 0 0 0 2px rgba(212,175,55,.35);
-    transform: translateY(-1px);
+    box-shadow: 0 0 0 3px rgba(212,175,55,.30);
+    transform: scale(1.06);
   }
 </style>
 
