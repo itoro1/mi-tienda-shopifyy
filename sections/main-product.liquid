@@ -158,24 +158,15 @@
 </product-info>
 
 <style>
-  /* Galería: imagen grande principal con marco premium; color seleccionado resaltado */
-  #MediaGallery-{{ section.id }} .product__media-item img {
-    border-radius: 14px;
-  }
-  /* La imagen activa (color elegido) destaca: marco un poco mayor, borde dorado sutil y "pop" */
-  #MediaGallery-{{ section.id }} .product__media-item.is-active {
-    position: relative;
-  }
+  #MediaGallery-{{ section.id }} .product__media-item img { border-radius: 14px; }
   #MediaGallery-{{ section.id }} .product__media-item.is-active img {
-    box-shadow: 0 10px 30px rgba(0,0,0,.14), 0 0 0 2px rgba(212,175,55,.45);
     animation: itMediaPop .38s cubic-bezier(.2,.7,.3,1);
   }
   @keyframes itMediaPop {
-    0%   { transform: scale(.955); opacity: .55; }
-    60%  { transform: scale(1.012); opacity: 1; }
+    0%   { transform: scale(.965); opacity: .6; }
+    60%  { transform: scale(1.008); opacity: 1; }
     100% { transform: scale(1); opacity: 1; }
   }
-  /* Miniaturas: la del color seleccionado resalta claramente (borde dorado + un pelín más grande) */
   #MediaGallery-{{ section.id }} .thumbnail-list__item .thumbnail {
     border-radius: 9px;
     transition: border-color .18s, box-shadow .18s, transform .18s;
@@ -183,7 +174,31 @@
   #MediaGallery-{{ section.id }} .thumbnail[aria-current="true"] {
     border: 2px solid var(--it-accent, #d4af37) !important;
     box-shadow: 0 0 0 3px rgba(212,175,55,.30);
-    transform: scale(1.06);
+    transform: scale(1.04);
+  }
+
+  /* === PC: UNA imagen principal a tamaño controlado + miniaturas debajo === */
+  @media screen and (min-width: 990px) {
+    #Product-{{ section.id }}.product { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+    #MediaGallery-{{ section.id }} .product__media-list { display: block !important; }
+    #MediaGallery-{{ section.id }} .product__media-list > .product__media-item { display: none !important; margin: 0 !important; }
+    #MediaGallery-{{ section.id }} .product__media-list > .product__media-item.is-active { display: block !important; }
+    #MediaGallery-{{ section.id }} .product__media-item.is-active .product__media {
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,.06);
+      border-radius: 16px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.08);
+      padding: 18px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #MediaGallery-{{ section.id }} .product__media-item.is-active .product__media img {
+      max-height: 500px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain;
+    }
+    #MediaGallery-{{ section.id }} .slider-buttons { display: none !important; }
+    #MediaGallery-{{ section.id }} .thumbnail-slider { display: block !important; margin-top: 16px; }
+    #MediaGallery-{{ section.id }} .thumbnail-list { display: flex !important; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    #MediaGallery-{{ section.id }} .thumbnail-list__item { width: 78px !important; min-width: 78px; height: 78px !important; }
+    #MediaGallery-{{ section.id }} .thumbnail-list__item .thumbnail img { object-fit: contain; padding: 4px; }
   }
 </style>
 
