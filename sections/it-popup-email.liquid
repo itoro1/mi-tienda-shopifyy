@@ -5,18 +5,18 @@
       <div class="it-popup-icon" aria-hidden="true">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--it-accent,#d4af37)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
       </div>
-      <h2 class="it-popup-title">{{ section.settings.title | default: '5% de descuento en tu primer pedido' }}</h2>
-      <p class="it-popup-desc">{{ section.settings.desc | default: 'Suscríbete y recibe tu código de descuento exclusivo en tu email.' }}</p>
+      <h2 class="it-popup-title">{{ section.settings.title | default: 'Llévate un 5% en cargadores y accesorios' }}</h2>
+      <p class="it-popup-desc">{{ section.settings.desc | default: 'Suscríbete y recibe tu código para cargadores y cables Apple originales.' }}</p>
       <div class="it-popup-form" id="itPopupForm">
         <input type="email" id="it-popup-email-input" placeholder="tu@email.com" required class="it-popup-input" autocorrect="off" autocapitalize="off">
-        <button type="button" id="itPopupSubmit" class="it-btn-primary" style="width:100%;justify-content:center">Quiero mi 5% &rarr;</button>
+        <button type="button" id="itPopupSubmit" class="it-btn-primary" style="width:100%;justify-content:center">Quiero mi código &rarr;</button>
         <p class="it-popup-form-error" id="itPopupError" style="display:none;color:#ef4444;font-size:12px;text-align:center;margin:4px 0 0"></p>
       </div>
       <div id="it-popup-thanks" style="display:none;text-align:center">
         <p style="color:#15803d;font-weight:600;font-size:15px;margin:0 0 8px">&#10003; ¡Listo! Ya estás suscrito.</p>
         <p style="font-size:13px;color:var(--it-muted);margin:0 0 6px">Tu c&oacute;digo de bienvenida es:</p>
         <div id="it-popup-code" style="background:var(--it-surface2);border:1.5px dashed var(--it-accent,#d4af37);border-radius:8px;padding:10px 16px;font-size:18px;font-weight:700;letter-spacing:2px;color:var(--it-text);cursor:pointer" title="Haz clic para copiar">ITOROBIENVENIDO</div>
-        <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">Úsalo en el carrito &middot; 5% de descuento &middot; <span id="it-popup-copied" style="color:#15803d;display:none">¡Copiado!</span></p>
+        <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">Úsalo en el carrito &middot; 5% en cargadores y cables &middot; <span id="it-popup-copied" style="color:#15803d;display:none">¡Copiado!</span></p>
         <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">&#9993; Comprueba tu email &mdash; te hemos enviado el c&oacute;digo.</p>
       </div>
       <p class="it-popup-legal">Sin spam. Puedes darte de baja cuando quieras.</p>
@@ -102,8 +102,8 @@
 {
   "name": "Pop-up email",
   "settings": [
-    { "type": "text", "id": "title", "label": "Título", "default": "5% de descuento en tu primer pedido" },
-    { "type": "textarea", "id": "desc", "label": "Descripción", "default": "Suscríbete y recibe tu código de bienvenida. Válido en todos los iPhones." },
+    { "type": "text", "id": "title", "label": "Título", "default": "Llévate un 5% en cargadores y accesorios" },
+    { "type": "textarea", "id": "desc", "label": "Descripción", "default": "Suscríbete y recibe tu código para cargadores y cables Apple originales." },
     { "type": "range", "id": "delay", "label": "Retraso (segundos)", "min": 3, "max": 30, "step": 1, "default": 8 }
   ],
   "presets": [{ "name": "Pop-up email" }]
