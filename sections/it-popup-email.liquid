@@ -1,3 +1,4 @@
+{% comment %} Popup captación de email — usa un FORMULARIO DE CLIENTE REAL de Shopify (suscribe de verdad y aparece en Clientes). {% endcomment %}
 <div id="it-popup-overlay" aria-modal="true" role="dialog" aria-label="Oferta de bienvenida" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center">
   <div class="it-popup-modal">
     <button class="it-popup-close" id="itPopupCloseBtn" aria-label="Cerrar">&times;</button>
@@ -5,20 +6,27 @@
       <div class="it-popup-icon" aria-hidden="true">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--it-accent,#d4af37)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
       </div>
-      <h2 class="it-popup-title">{{ section.settings.title | default: 'Llévate un 5% en cargadores y accesorios' }}</h2>
-      <p class="it-popup-desc">{{ section.settings.desc | default: 'Suscríbete y recibe tu código para cargadores y cables Apple originales.' }}</p>
-      <div class="it-popup-form" id="itPopupForm">
-        <input type="email" id="it-popup-email-input" placeholder="tu@email.com" required class="it-popup-input" autocorrect="off" autocapitalize="off">
-        <button type="button" id="itPopupSubmit" class="it-btn-primary" style="width:100%;justify-content:center">Quiero mi código &rarr;</button>
-        <p class="it-popup-form-error" id="itPopupError" style="display:none;color:#ef4444;font-size:12px;text-align:center;margin:4px 0 0"></p>
-      </div>
-      <div id="it-popup-thanks" style="display:none;text-align:center">
-        <p style="color:#15803d;font-weight:600;font-size:15px;margin:0 0 8px">&#10003; ¡Listo! Ya estás suscrito.</p>
-        <p style="font-size:13px;color:var(--it-muted);margin:0 0 6px">Tu c&oacute;digo de bienvenida es:</p>
-        <div id="it-popup-code" style="background:var(--it-surface2);border:1.5px dashed var(--it-accent,#d4af37);border-radius:8px;padding:10px 16px;font-size:18px;font-weight:700;letter-spacing:2px;color:var(--it-text);cursor:pointer" title="Haz clic para copiar">ITOROBIENVENIDO</div>
-        <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">Úsalo en el carrito &middot; 5% en cargadores y cables &middot; <span id="it-popup-copied" style="color:#15803d;display:none">¡Copiado!</span></p>
-        <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">&#9993; Comprueba tu email &mdash; te hemos enviado el c&oacute;digo.</p>
-      </div>
+      {%- form 'customer', id: 'itPopupForm' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter, codigo-bienvenida">
+        {%- if form.posted_successfully? -%}
+          <div id="it-popup-thanks" style="text-align:center">
+            <p style="color:#15803d;font-weight:600;font-size:15px;margin:0 0 8px">&#10003; ¡Listo! Ya estás suscrito.</p>
+            <p style="font-size:13px;color:var(--it-muted);margin:0 0 6px">Tu c&oacute;digo de bienvenida es:</p>
+            <div id="it-popup-code" style="background:var(--it-surface2);border:1.5px dashed var(--it-accent,#d4af37);border-radius:8px;padding:10px 16px;font-size:18px;font-weight:700;letter-spacing:2px;color:var(--it-text);cursor:pointer" title="Haz clic para copiar">ITOROBIENVENIDO</div>
+            <p style="font-size:11px;color:var(--it-hint);margin:6px 0 0">C&oacute;pialo y &uacute;salo en el carrito &middot; 5% en cargadores y cables &middot; <span id="it-popup-copied" style="color:#15803d;display:none">¡Copiado!</span></p>
+          </div>
+        {%- else -%}
+          <h2 class="it-popup-title">{{ section.settings.title | default: 'Llévate un 5% en cargadores y accesorios' }}</h2>
+          <p class="it-popup-desc">{{ section.settings.desc | default: 'Suscríbete y recibe tu código para cargadores y cables Apple originales.' }}</p>
+          <div class="it-popup-form">
+            <input type="email" name="contact[email]" placeholder="tu@email.com" required class="it-popup-input" autocorrect="off" autocapitalize="off">
+            <button type="submit" class="it-btn-primary" style="width:100%;justify-content:center">Quiero mi c&oacute;digo &rarr;</button>
+            {%- if form.errors -%}
+              <p id="it-popup-error-marker" style="color:#ef4444;font-size:12px;text-align:center;margin:4px 0 0">{{ form.errors | default_errors }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
       <p class="it-popup-legal">Sin spam. Puedes darte de baja cuando quieras.</p>
     </div>
   </div>
@@ -40,56 +48,26 @@
 <script>
 (function(){
   var overlay = document.getElementById('it-popup-overlay');
-  var form    = document.getElementById('itPopupForm');
-  var thanks  = document.getElementById('it-popup-thanks');
-  var input   = document.getElementById('it-popup-email-input');
-  var btn     = document.getElementById('itPopupSubmit');
-  var errEl   = document.getElementById('itPopupError');
+  if(!overlay) return;
+  // Si tras enviar hay código (suscrito con éxito) o un error, forzamos abrir el popup.
+  var posted = !!document.getElementById('it-popup-code');
+  var hasError = !!document.getElementById('it-popup-error-marker');
 
   function openPopup(){ overlay.style.display='flex'; }
   function closePopup(){ overlay.style.display='none'; }
 
-  document.getElementById('itPopupCloseBtn').addEventListener('click', closePopup);
+  var closeBtn = document.getElementById('itPopupCloseBtn');
+  if(closeBtn) closeBtn.addEventListener('click', closePopup);
   overlay.addEventListener('click', function(e){ if(e.target===overlay) closePopup(); });
-
-  btn.addEventListener('click', function(){
-    var email = input.value.trim();
-    if(!email || !email.includes('@')){ errEl.textContent='Introduce un email válido.'; errEl.style.display='block'; return; }
-    errEl.style.display='none';
-    btn.disabled=true;
-    btn.textContent='Enviando…';
-
-    var fd = new FormData();
-    fd.append('form_type','customer');
-    fd.append('utf8','✓');
-    fd.append('contact[email]', email);
-    fd.append('contact[tags]', 'newsletter, codigo-bienvenida');
-    fd.append('contact[accepts_marketing]', 'true');
-
-    // Suscribir cliente al newsletter
-    fetch('/contact', { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body:fd })
-      .finally(function(){
-        form.style.display='none';
-        thanks.style.display='block';
-      });
-
-    // Notificar al propietario con el email del cliente
-    var fd2 = new FormData();
-    fd2.append('form_type','contact');
-    fd2.append('utf8','✓');
-    fd2.append('contact[name]','Nueva suscripción newsletter');
-    fd2.append('contact[email]', email);
-    fd2.append('contact[body]','Nueva suscripción al newsletter de ITorostore.\n\nEmail del cliente: ' + email + '\n\nEste cliente ha solicitado el código ITOROBIENVENIDO (5% descuento).');
-    fetch('/contact', { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body:fd2 });
-  });
-
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePopup(); });
 
   var codeEl = document.getElementById('it-popup-code');
   var copiedEl = document.getElementById('it-popup-copied');
-  if(codeEl){ codeEl.addEventListener('click', function(){ navigator.clipboard && navigator.clipboard.writeText('ITOROBIENVENIDO').then(function(){ copiedEl.style.display='inline'; setTimeout(function(){ copiedEl.style.display='none'; }, 2000); }); }); }
+  if(codeEl){ codeEl.addEventListener('click', function(){ if(navigator.clipboard){ navigator.clipboard.writeText('ITOROBIENVENIDO').then(function(){ if(copiedEl){ copiedEl.style.display='inline'; setTimeout(function(){ copiedEl.style.display='none'; }, 2000); } }); } }); }
 
-  if(!sessionStorage.getItem('it-popup-shown')){
+  if(posted || hasError){
+    openPopup();
+  } else if(!sessionStorage.getItem('it-popup-shown')){
     setTimeout(function(){
       openPopup();
       sessionStorage.setItem('it-popup-shown','1');
