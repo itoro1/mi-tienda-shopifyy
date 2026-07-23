@@ -140,7 +140,11 @@ def is_portrait_source(video: Path) -> bool:
              "-of", "csv=p=0", str(video)],
             capture_output=True, text=True, check=True,
         )
-        w, h = map(int, out.stdout.strip().split(","))
+        # Some sources (observed on a Dolby Vision profile 8 .mov) print a
+        # trailing empty field ("1080,1920,"), which breaks a plain 2-value
+        # unpack. Drop empty fields before parsing.
+        fields = [f for f in out.stdout.strip().split(",") if f]
+        w, h = int(fields[0]), int(fields[1])
         return h > w
     except Exception:
         return False
@@ -204,7 +208,7 @@ def extract_segment(
         "-af", af,
         "-c:v", "libx264", "-preset", preset, "-crf", crf,
         "-pix_fmt", "yuv420p", "-r", "24",
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
+        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         "-movflags", "+faststart",
         str(out_path),
     ]
@@ -223,6 +227,11 @@ def extract_all_segments(
     If the EDL `grade` is "auto", analyze each segment range with
     `auto_grade_for_clip` and apply a per-segment subtle correction.
     Otherwise, apply the same preset/raw filter to every segment.
+
+    A range may set its own `"grade"` key (preset name, raw filter, "auto",
+    or "none") to override the EDL-level grade for just that segment —
+    e.g. leaving an already-finished, externally-edited clip untouched
+    while the rest of the timeline gets the shared look.
     """
     resolved = resolve_grade_filter(edl.get("grade"))
     is_auto = resolved == "__AUTO__"
@@ -246,14 +255,21 @@ def extract_all_segments(
         duration = end - start
         out_path = clips_dir / f"seg_{i:02d}_{src_name}.mp4"
 
-        if is_auto:
+        if "grade" in r:
+            seg_resolved = resolve_grade_filter(r["grade"])
+            seg_is_auto = seg_resolved == "__AUTO__"
+            seg_filter = (
+                auto_grade_for_clip(src_path, start=start, duration=duration, verbose=False)[0]
+                if seg_is_auto else seg_resolved
+            )
+        elif is_auto:
             seg_filter, _stats = auto_grade_for_clip(src_path, start=start, duration=duration, verbose=False)
         else:
             seg_filter = resolved
 
         note = r.get("beat") or r.get("note") or ""
         print(f"  [{i:02d}] {src_name}  {start:7.2f}-{end:7.2f}  ({duration:5.2f}s)  {note}")
-        if is_auto:
+        if is_auto or "grade" in r:
             print(f"        grade: {seg_filter or '(none)'}")
         extract_segment(src_path, start, duration, seg_filter, out_path, preview=preview, draft=draft)
         seg_paths.append(out_path)
