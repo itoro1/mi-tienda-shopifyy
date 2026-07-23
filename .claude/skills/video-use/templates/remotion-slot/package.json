@@ -1,0 +1,21 @@
+{
+  "name": "remotion-slot-template",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Reusable Remotion starting point for video-use animation slots. Copy this whole folder into edit/animations/slot_<id>/, edit src/Main.tsx, then render.",
+  "scripts": {
+    "render": "remotion render src/index.ts Main out/render.mp4",
+    "still": "remotion still src/index.ts Main out/still.png",
+    "preview": "remotion studio src/index.ts"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.498",
+    "@remotion/cli": "^4.0.498"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/react": "^18.3.0"
+  }
+}
