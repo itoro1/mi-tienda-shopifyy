@@ -1,0 +1,4 @@
+.claude/skills/video-use/.venv/
+.claude/skills/video-use/**/__pycache__/
+.claude/skills/video-use/**/*.pyc
+.claude/skills/video-use/video_use.egg-info/
