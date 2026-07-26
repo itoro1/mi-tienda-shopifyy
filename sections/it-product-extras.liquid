@@ -74,24 +74,31 @@
     return input ? input.value : null;
   }
 
-  function applyLabel(){
-    var btn = document.querySelector('.product-form__submit');
-    if(!btn) return;
-    var span = btn.querySelector('span');
-    if(!span) return;
-    if(btn.hasAttribute('disabled')) return;
+  function applyState(){
     var vid = currentVariantId();
-    var desired = (vid && itStockMap[vid] === 'reservar') ? 'Reservar ahora' : 'Comprar ahora';
-    if(span.textContent.trim() !== desired){
-      span.textContent = desired;
+    var isReservar = vid && itStockMap[vid] === 'reservar';
+    /* Sincroniza la linea de stock con el estado real (evita "En stock" y "Sin stock" a la vez) */
+    var inv = document.querySelector('.product__inventory');
+    if(inv){
+      if(isReservar){ inv.innerHTML = ''; }
+      else { inv.innerHTML = '<span class="it-inv-dot"></span> En stock · listo para enviar'; }
+    }
+    /* Etiqueta del boton normal (cuando no es el flujo de reserva completo) */
+    var btn = document.querySelector('.product-form__submit');
+    if(btn && !btn.hasAttribute('disabled')){
+      var span = btn.querySelector('span');
+      if(span){
+        var desired = isReservar ? 'Reservar ahora' : 'Comprar ahora';
+        if(span.textContent.trim() !== desired){ span.textContent = desired; }
+      }
     }
   }
 
   function init(){
-    applyLabel();
+    applyState();
     var pi = document.querySelector('product-info');
     if(pi && window.MutationObserver){
-      var mo = new MutationObserver(function(){ applyLabel(); });
+      var mo = new MutationObserver(function(){ applyState(); });
       mo.observe(pi, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:['value','disabled']});
     }
   }
