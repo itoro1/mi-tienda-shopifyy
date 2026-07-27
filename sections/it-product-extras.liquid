@@ -105,6 +105,35 @@
   if(document.readyState !== 'loading'){ init(); }
   else { document.addEventListener('DOMContentLoaded', init); }
 
+  /* ----- Aterrizar en una variante EN STOCK si la de por defecto está agotada ----- */
+  (function(){
+    try{
+      var variants = {{ product.variants | json }};
+      if(!variants || variants.length < 2) return;
+      var target = variants.find(function(v){ return (v.inventory_quantity||0) > 0; });
+      if(!target) return; /* todo bajo pedido -> dejar la reserva por defecto */
+      function curId(){
+        var i = document.querySelector('form[data-type="add-to-cart-form"] input[name="id"], .product-variant-id');
+        return i ? i.value : null;
+      }
+      function pick(){
+        var cur = variants.find(function(v){ return String(v.id) === String(curId()); });
+        if(cur && (cur.inventory_quantity||0) > 0) return; /* ya en stock */
+        var picker = document.querySelector('variant-radios, variant-selects');
+        if(!picker || !target.options) return;
+        target.options.forEach(function(val, idx){
+          picker.querySelectorAll('input[type="radio"]').forEach(function(r){
+            if(r.value === val && !r.checked){ r.checked = true; r.dispatchEvent(new Event('change', {bubbles:true})); }
+          });
+          var sels = picker.querySelectorAll('select');
+          if(sels[idx] && sels[idx].value !== val){ sels[idx].value = val; sels[idx].dispatchEvent(new Event('change', {bubbles:true})); }
+        });
+      }
+      if(document.readyState !== 'loading'){ pick(); }
+      else { document.addEventListener('DOMContentLoaded', pick); }
+    }catch(e){}
+  })();
+
   /* ----- Financiación ----- */
   var price={{ product.price }};
   if(price>0){
