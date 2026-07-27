@@ -201,6 +201,45 @@
     #MediaGallery-{{ section.id }} .thumbnail-list__item { width: 78px !important; min-width: 78px; height: 78px !important; }
     #MediaGallery-{{ section.id }} .thumbnail-list__item .thumbnail img { object-fit: contain; padding: 4px; }
   }
+
+  /* ===== Pase premium ficha (tipografía, ritmo, botón) — seguro y acotado ===== */
+  #Product-{{ section.id }} .product__title,
+  #Product-{{ section.id }} .product__title > * {
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.12;
+  }
+  /* Ritmo de espaciado entre bloques de info */
+  #Product-{{ section.id }} .product__info-container > * + * { margin-top: 18px; }
+  /* Precio: cifras alineadas + comparado más sutil */
+  #Product-{{ section.id }} .price { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  #Product-{{ section.id }} .price__sale .price-item--regular,
+  #Product-{{ section.id }} s.price-item,
+  #Product-{{ section.id }} .price-item--regular s {
+    opacity: .5;
+    font-weight: 400;
+  }
+  /* Indicador de stock premium */
+  #Product-{{ section.id }} .product__inventory { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+  #Product-{{ section.id }} .it-inv-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.16);
+    margin-right: 6px; vertical-align: middle;
+  }
+  /* Botón principal: mismo lenguaje premium que el de reserva (elevación al hover) */
+  #Product-{{ section.id }} .product-form__submit {
+    min-height: 54px; border-radius: 14px; font-weight: 600; letter-spacing: .01em;
+    transition: transform .18s cubic-bezier(.4,0,.2,1), box-shadow .25s, background-color .2s;
+  }
+  #Product-{{ section.id }} .product-form__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0,0,0,.16);
+  }
+  #Product-{{ section.id }} .product-form__submit:active { transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    #Product-{{ section.id }} .product-form__submit,
+    #Product-{{ section.id }} .product-form__submit:hover { transform: none; transition: none; }
+  }
 </style>
 
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
