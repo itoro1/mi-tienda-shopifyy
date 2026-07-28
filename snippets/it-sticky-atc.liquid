@@ -117,20 +117,17 @@ body.it-cart-open #it-satc { display:none !important; }
      el botón "Finalizar compra". Observa SOLO la clase del <cart-drawer>. */
   (function(){
     var drawer = document.querySelector('cart-drawer, #CartDrawer, .cart-drawer');
-    function drawerOpen(){
-      if(!drawer) return false;
-      return drawer.classList.contains('active') || drawer.classList.contains('is-open')
-             || drawer.hasAttribute('open') || document.body.classList.contains('overflow-hidden');
+    function overlayOpen(){
+      if(drawer && (drawer.classList.contains('active') || drawer.classList.contains('is-open') || drawer.hasAttribute('open'))) return true;
+      /* Dawn añade overflow-hidden-* al <body> cuando se abre cualquier cajón/modal (carrito, menú, búsqueda) */
+      return /overflow-hidden/.test(document.body.className || '');
     }
-    function sync(){
-      var open = drawerOpen();
-      bar.style.display = open ? 'none' : '';
-      document.body.classList.toggle('it-cart-open', open);
+    function sync(){ bar.style.display = overlayOpen() ? 'none' : ''; }
+    if(window.MutationObserver){
+      if(drawer){ new MutationObserver(sync).observe(drawer, {attributes:true, attributeFilter:['class','open']}); }
+      new MutationObserver(sync).observe(document.body, {attributes:true, attributeFilter:['class']});
     }
-    if(drawer && window.MutationObserver){
-      new MutationObserver(sync).observe(drawer, {attributes:true, attributeFilter:['class','open']});
-    }
-    /* respaldo: al pulsar cualquier cosa que abra/cierre el carrito */
+    /* respaldo: al pulsar cualquier cosa que abra/cierre un cajón */
     document.addEventListener('click', function(){ setTimeout(sync, 60); }, true);
     sync();
   })();
