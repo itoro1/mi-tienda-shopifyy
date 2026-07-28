@@ -87,48 +87,64 @@
     if(v){ document.dispatchEvent(new CustomEvent('variant:change', {detail:{variant:v}})); }
   }
 
-  function applyState(){
-    var vid = currentVariantId();
-    dispatchVariantChange(vid);
-    var isReservar = vid && itStockMap[vid] === 'reservar';
-    /* Sincroniza la linea de stock con el estado real (evita "En stock" y "Sin stock" a la vez) */
-    var inv = document.querySelector('.product__inventory');
-    if(inv){
-      if(isReservar){ inv.innerHTML = ''; }
-      else { inv.innerHTML = '<span class="it-inv-dot"></span> En stock · listo para enviar'; }
-    }
-    /* Etiqueta del boton normal (cuando no es el flujo de reserva completo) */
-    var btn = document.querySelector('.product-form__submit');
-    if(btn && !btn.hasAttribute('disabled')){
-      var span = btn.querySelector('span');
-      if(span){
-        var desired = isReservar ? 'Reservar ahora' : 'Comprar ahora';
-        if(span.textContent.trim() !== desired){ span.textContent = desired; }
-      }
-    }
-    /* BLINDAJE: el boton de reserva SIEMPRE activo y con su etiqueta correcta.
-       Evita que Dawn (o cualquier re-render) lo deje en "Agotado"/deshabilitado
-       al cambiar de color o gigas cuando el producto esta bajo pedido. */
-    var rbtn = document.querySelector('.itoro-reserva-btn');
-    if(rbtn){
-      if(rbtn.hasAttribute('disabled')) rbtn.removeAttribute('disabled');
-      rbtn.style.opacity = '';
-      rbtn.style.pointerEvents = '';
-      rbtn.style.cursor = 'pointer';
-      var rlab = document.getElementById('itoro-reserva-label');
-      if(rlab && rlab.textContent.indexOf('50') === -1){
-        rlab.textContent = 'Reservar ahora · 50€';
-      }
+  var itMO = null;      /* MutationObserver */
+  var itTarget = null;  /* elemento observado */
+  var itScheduled = false;
+
+  function itObserve(){
+    if(itMO && itTarget){
+      itMO.observe(itTarget, {subtree:true, childList:true, attributes:true, attributeFilter:['value','disabled']});
     }
   }
 
+  /* Escrituras IDEMPOTENTES (solo si cambia algo) y desconectando el observer
+     mientras escribimos -> evita el bucle infinito que dejaba la pagina "pillada". */
+  function applyState(){
+    if(itMO){ itMO.disconnect(); }
+    try{
+      var vid = currentVariantId();
+      dispatchVariantChange(vid);
+      var isReservar = vid && itStockMap[vid] === 'reservar';
+
+      var inv = document.querySelector('.product__inventory');
+      if(inv){
+        if(isReservar){
+          if(inv.textContent.trim() !== ''){ inv.textContent = ''; }
+        } else if(inv.textContent.indexOf('En stock') === -1){
+          inv.innerHTML = '<span class="it-inv-dot"></span> En stock · listo para enviar';
+        }
+      }
+
+      var btn = document.querySelector('.product-form__submit');
+      if(btn && !btn.hasAttribute('disabled')){
+        var span = btn.querySelector('span');
+        if(span){
+          var desired = isReservar ? 'Reservar ahora' : 'Comprar ahora';
+          if(span.textContent.trim() !== desired){ span.textContent = desired; }
+        }
+      }
+
+      /* Blindaje del boton de reserva: siempre activo y con su etiqueta correcta. */
+      var rbtn = document.querySelector('.itoro-reserva-btn');
+      if(rbtn && rbtn.hasAttribute('disabled')){ rbtn.removeAttribute('disabled'); }
+      var rlab = document.getElementById('itoro-reserva-label');
+      if(rlab && rlab.textContent.indexOf('50') === -1){ rlab.textContent = 'Reservar ahora · 50€'; }
+    }catch(e){}
+    finally{ itObserve(); }
+  }
+
+  function schedule(){
+    if(itScheduled) return;
+    itScheduled = true;
+    (window.requestAnimationFrame || window.setTimeout)(function(){ itScheduled = false; applyState(); }, 0);
+  }
+
   function init(){
-    applyState();
-    var pi = document.querySelector('product-info');
-    if(pi && window.MutationObserver){
-      var mo = new MutationObserver(function(){ applyState(); });
-      mo.observe(pi, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:['value','disabled']});
+    itTarget = document.querySelector('.product__info-wrapper') || document.querySelector('product-info');
+    if(itTarget && window.MutationObserver){
+      itMO = new MutationObserver(schedule);
     }
+    applyState(); /* conecta el observer al final */
   }
   if(document.readyState !== 'loading'){ init(); }
   else { document.addEventListener('DOMContentLoaded', init); }
@@ -166,9 +182,9 @@
     }catch(e){}
   })();
 
-  /* ----- Financiación ----- */
+  /* ----- Financiación (solo productos de 100€+ , no accesorios) ----- */
   var price={{ product.price }};
-  if(price>0){
+  if(price>=10000){
     var eur=price/100;
     var months=[6,12,18];
     var html=months.map(function(m){
