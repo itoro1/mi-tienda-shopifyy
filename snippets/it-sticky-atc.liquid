@@ -31,6 +31,10 @@
 @media(max-width:749px){
   body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 }
+/* No tapar el botón "Finalizar compra": ocultar la barra cuando el carrito (cajón) está abierto */
+body:has(cart-drawer.active) #it-satc,
+body:has(cart-drawer.animate.active) #it-satc,
+body.it-cart-open #it-satc { display:none !important; }
 [data-theme="dark"] #it-satc{
   background:#111113;
   border-top-color:rgba(255,255,255,.08);
@@ -108,6 +112,28 @@
       if(mainBtn && !mainBtn.disabled){ mainBtn.click(); }
     });
   }
+
+  /* Ocultar la barra cuando el carrito (cajón) está abierto, para no tapar
+     el botón "Finalizar compra". Observa SOLO la clase del <cart-drawer>. */
+  (function(){
+    var drawer = document.querySelector('cart-drawer, #CartDrawer, .cart-drawer');
+    function drawerOpen(){
+      if(!drawer) return false;
+      return drawer.classList.contains('active') || drawer.classList.contains('is-open')
+             || drawer.hasAttribute('open') || document.body.classList.contains('overflow-hidden');
+    }
+    function sync(){
+      var open = drawerOpen();
+      bar.style.display = open ? 'none' : '';
+      document.body.classList.toggle('it-cart-open', open);
+    }
+    if(drawer && window.MutationObserver){
+      new MutationObserver(sync).observe(drawer, {attributes:true, attributeFilter:['class','open']});
+    }
+    /* respaldo: al pulsar cualquier cosa que abra/cierre el carrito */
+    document.addEventListener('click', function(){ setTimeout(sync, 60); }, true);
+    sync();
+  })();
 
   /* Actualizar al cambiar de variante (evento emitido por it-product-extras) */
   document.addEventListener('variant:change', function(e){
