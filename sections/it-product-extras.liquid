@@ -106,6 +106,20 @@
         if(span.textContent.trim() !== desired){ span.textContent = desired; }
       }
     }
+    /* BLINDAJE: el boton de reserva SIEMPRE activo y con su etiqueta correcta.
+       Evita que Dawn (o cualquier re-render) lo deje en "Agotado"/deshabilitado
+       al cambiar de color o gigas cuando el producto esta bajo pedido. */
+    var rbtn = document.querySelector('.itoro-reserva-btn');
+    if(rbtn){
+      if(rbtn.hasAttribute('disabled')) rbtn.removeAttribute('disabled');
+      rbtn.style.opacity = '';
+      rbtn.style.pointerEvents = '';
+      rbtn.style.cursor = 'pointer';
+      var rlab = document.getElementById('itoro-reserva-label');
+      if(rlab && rlab.textContent.indexOf('50') === -1){
+        rlab.textContent = 'Reservar ahora · 50€';
+      }
+    }
   }
 
   function init(){
