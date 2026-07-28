@@ -1,0 +1,42 @@
+{%- comment -%}
+  Devuelve el ID de variante del producto "Reserva de Pedido" que corresponde
+  al modelo de iPhone del producto actual (para que el carrito muestre el
+  modelo correcto y no siempre "iPhone 13").
+  Uso:  {%- capture reserva_vid -%}{%- render 'itoro-reserva-vid', product: product -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign t = product.title | downcase
+  assign vid = '57975466918213'
+  if t contains '17 pro max'
+    assign vid = '58176454754629'
+  elsif t contains '17 pro'
+    assign vid = '57975467344197'
+  elsif t contains '17'
+    assign vid = '57975467311429'
+  elsif t contains '16 pro max'
+    assign vid = '57975467278661'
+  elsif t contains '16 pro'
+    assign vid = '57975467245893'
+  elsif t contains '16'
+    assign vid = '57975467213125'
+  elsif t contains '15 pro max'
+    assign vid = '57975467180357'
+  elsif t contains '15 pro'
+    assign vid = '57975467147589'
+  elsif t contains '15'
+    assign vid = '57975467114821'
+  elsif t contains '14 pro max'
+    assign vid = '57975467082053'
+  elsif t contains '14 pro'
+    assign vid = '57975467049285'
+  elsif t contains '14'
+    assign vid = '57975467016517'
+  elsif t contains '13 pro max'
+    assign vid = '57975466983749'
+  elsif t contains '13 pro'
+    assign vid = '57975466950981'
+  elsif t contains '13'
+    assign vid = '57975466918213'
+  endif
+  echo vid
+-%}

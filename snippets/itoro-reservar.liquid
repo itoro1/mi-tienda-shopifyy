@@ -3,6 +3,9 @@
   Accepts: product
 {% endcomment %}
 
+{%- capture reserva_vid -%}{%- render 'itoro-reserva-vid', product: product -%}{%- endcapture -%}
+{%- assign reserva_vid = reserva_vid | strip -%}
+
 <div class="itoro-reserva-wrap">
 
   <!-- Red stock indicator -->
@@ -38,7 +41,7 @@
 
   <!-- Reservation form — adds €50 deposit product to cart with iPhone note -->
   <form action="/cart/add" method="post" id="itoro-reserva-form" class="itoro-reserva-form">
-    <input type="hidden" name="id" value="57975466918213">
+    <input type="hidden" name="id" value="{{ reserva_vid }}">
     <input type="hidden" name="return_to" value="/cart">
     <input type="hidden" name="properties[iPhone reservado]"
       value="{{ product.title }}{% if product.variants.size > 1 %} &middot; {{ product.selected_or_first_available_variant.title }}{% endif %}">

@@ -69,13 +69,27 @@
     {%- endfor -%}
   };
 
+  var itVariants = {{ product.variants | json }};
+  var itLastVid = null;
+
   function currentVariantId(){
     var input = document.querySelector('product-info input[name="id"], .product-variant-id, form[data-type="add-to-cart-form"] input[name="id"]');
     return input ? input.value : null;
   }
 
+  /* Emite un evento 'variant:change' fiable (Dawn no lo emite por su cuenta),
+     para que el bloque de reserva y la barra sticky actualicen el modelo/nota. */
+  function dispatchVariantChange(vid){
+    if(!vid || vid === itLastVid) return;
+    itLastVid = vid;
+    var v = null;
+    for(var i=0;i<itVariants.length;i++){ if(String(itVariants[i].id) === String(vid)){ v = itVariants[i]; break; } }
+    if(v){ document.dispatchEvent(new CustomEvent('variant:change', {detail:{variant:v}})); }
+  }
+
   function applyState(){
     var vid = currentVariantId();
+    dispatchVariantChange(vid);
     var isReservar = vid && itStockMap[vid] === 'reservar';
     /* Sincroniza la linea de stock con el estado real (evita "En stock" y "Sin stock" a la vez) */
     var inv = document.querySelector('.product__inventory');

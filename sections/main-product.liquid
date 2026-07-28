@@ -160,22 +160,22 @@
 
 <style>
   #MediaGallery-{{ section.id }} .product__media-item img { border-radius: 14px; }
+  /* Al cambiar de color: transición suave SIN zoom (solo un fundido) */
   #MediaGallery-{{ section.id }} .product__media-item.is-active img {
-    animation: itMediaPop .38s cubic-bezier(.2,.7,.3,1);
+    animation: itMediaFade .28s ease;
+    transform: none !important;
   }
-  @keyframes itMediaPop {
-    0%   { transform: scale(.965); opacity: .6; }
-    60%  { transform: scale(1.008); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+  @keyframes itMediaFade {
+    from { opacity: .55; }
+    to   { opacity: 1; }
   }
   #MediaGallery-{{ section.id }} .thumbnail-list__item .thumbnail {
     border-radius: 9px;
-    transition: border-color .18s, box-shadow .18s, transform .18s;
+    transition: border-color .18s, box-shadow .18s;
   }
   #MediaGallery-{{ section.id }} .thumbnail[aria-current="true"] {
     border: 2px solid var(--it-accent, #d4af37) !important;
     box-shadow: 0 0 0 3px rgba(212,175,55,.30);
-    transform: scale(1.04);
   }
 
   /* === PC: UNA imagen principal a tamaño controlado + miniaturas debajo === */

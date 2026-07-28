@@ -1,7 +1,7 @@
 {%- comment -%}
   Sticky bottom buy bar — mobile only (≤749px).
-  Slides up when the main submit button scrolls out of view.
-  Shows reservation CTA for 0-inventory products.
+  SIEMPRE fija abajo (no se oculta al hacer scroll).
+  Muestra CTA de reserva para productos sin stock (bajo pedido).
   Accepts: product, section_id
 {%- endcomment -%}
 {%- liquid
@@ -15,6 +15,8 @@
     assign itoro_satc_reserva = true
   endif
 -%}
+{%- capture satc_reserva_vid -%}{%- render 'itoro-reserva-vid', product: product -%}{%- endcapture -%}
+{%- assign satc_reserva_vid = satc_reserva_vid | strip -%}
 <style>
 #it-satc{
   position:fixed;bottom:0;left:0;right:0;z-index:9800;
@@ -23,12 +25,12 @@
   border-top:0.5px solid var(--it-border,rgba(0,0,0,.09));
   padding:10px 16px calc(10px + env(safe-area-inset-bottom));
   box-shadow:0 -6px 24px rgba(0,0,0,.10);
-  transform:translateY(110%);
-  transition:transform .28s cubic-bezier(.4,0,.2,1);
-  will-change:transform;
 }
-#it-satc.is-vis{transform:translateY(0)}
 @media(min-width:750px){#it-satc{display:none!important}}
+/* Reserva sitio abajo para que la barra NUNCA tape el contenido (mensaje de reserva, footer, etc.) */
+@media(max-width:749px){
+  body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+}
 [data-theme="dark"] #it-satc{
   background:#111113;
   border-top-color:rgba(255,255,255,.08);
@@ -60,19 +62,19 @@
 </style>
 
 {%- if itoro_satc_reserva -%}
-<form id="it-satc" action="/cart/add" method="post" aria-hidden="true" aria-label="Reserva rápida">
-  <input type="hidden" name="id" value="57975466918213">
+<form id="it-satc" action="/cart/add" method="post" aria-label="Reserva rápida">
+  <input type="hidden" name="id" value="{{ satc_reserva_vid }}">
   <input type="hidden" name="return_to" value="/cart">
   <input type="hidden" name="properties[iPhone reservado]" id="it-satc__reserva-prop"
     value="{{ product.title }}{% if product.variants.size > 1 %} · {{ satc_variant.title }}{% endif %}">
   <div id="it-satc__info">
     <div id="it-satc__title">{{ product.title | escape }}</div>
-    <div id="it-satc__price" style="color:#dc2626;font-size:13px;font-weight:600">Sin stock &middot; Bajo pedido</div>
+    <div id="it-satc__price" style="color:#c2410c;font-size:12.5px;font-weight:700">Bajo pedido &middot; Reserva 50&euro;</div>
   </div>
   <button id="it-satc__btn" type="submit">Reservar &middot; 50&euro;</button>
 </form>
 {%- else -%}
-<div id="it-satc" aria-hidden="true" aria-label="Compra rápida">
+<div id="it-satc" aria-label="Compra rápida">
   <div id="it-satc__info">
     <div id="it-satc__title">{{ product.title | escape }}</div>
     <div id="it-satc__price"
@@ -100,41 +102,19 @@
   var mainBtn = document.getElementById('ProductSubmitButton-{{ section_id }}')
              || document.querySelector('.product-form__submit');
 
-  /* Show/hide bar via IntersectionObserver */
-  var anchor = isReserva
-    ? document.querySelector('#itoro-reserva-submit')
-    : mainBtn;
-  if(anchor && 'IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      var vis = entries[0].isIntersecting;
-      bar.classList.toggle('is-vis', !vis);
-      bar.setAttribute('aria-hidden', vis ? 'true' : 'false');
-      document.body.classList.toggle('it-satc-on', !vis);
-    }, {threshold: 0.15, rootMargin:'0px 0px -10px 0px'});
-    io.observe(anchor);
-  } else {
-    window.addEventListener('scroll', function(){
-      var show = window.scrollY > 180;
-      bar.classList.toggle('is-vis', show);
-      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
-      document.body.classList.toggle('it-satc-on', show);
-    }, {passive:true});
-  }
-
-  /* Normal mode only: click → trigger main form submit */
+  /* Modo compra normal: click → dispara el submit del formulario principal */
   if(!isReserva){
     btn.addEventListener('click', function(){
       if(mainBtn && !mainBtn.disabled){ mainBtn.click(); }
     });
   }
 
-  /* Update on variant change */
+  /* Actualizar al cambiar de variante (evento emitido por it-product-extras) */
   document.addEventListener('variant:change', function(e){
     var v = e.detail && (e.detail.variant || e.detail);
     if(!v) return;
 
     if(isReserva){
-      /* Reservation mode: update the iPhone property note */
       var propInput = document.getElementById('it-satc__reserva-prop');
       if(propInput){
         var base = {{ product.title | json }};
@@ -143,7 +123,6 @@
         propInput.value = label;
       }
     } else {
-      /* Normal mode: update price and button state */
       if(price && v.price != null){
         var cents = v.price;
         var formatted;
