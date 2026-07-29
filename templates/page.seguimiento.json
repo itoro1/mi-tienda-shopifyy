@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "it-order-tracking",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

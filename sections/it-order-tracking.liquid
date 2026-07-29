@@ -1,0 +1,107 @@
+{%- comment -%} Página de seguimiento de pedido — el cliente introduce su nº de Correos {%- endcomment -%}
+<div class="it-track">
+  <div class="it-track__inner">
+    <p class="it-track__label">{{ section.settings.label | default: 'Seguimiento' }}</p>
+    <h1 class="it-track__title">{{ section.settings.title | default: 'Sigue tu pedido' }}</h1>
+    <p class="it-track__sub">{{ section.settings.subtitle | default: 'Introduce el número de seguimiento de Correos que te enviamos por email y WhatsApp al preparar tu pedido.' }}</p>
+
+    <form class="it-track__form" id="itTrackForm" novalidate>
+      <input type="text" id="itTrackInput" name="tracking" inputmode="latin"
+        placeholder="Ej. PQ1234567890ES" autocomplete="off" aria-label="Número de seguimiento">
+      <button type="submit">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Rastrear en Correos
+      </button>
+    </form>
+    <p class="it-track__err" id="itTrackErr" hidden>Escribe tu número de seguimiento.</p>
+    <p class="it-track__hint">¿No encuentras el número? Está en el email de <strong>confirmación de envío</strong>. Si tienes dudas, escríbenos por WhatsApp y te lo damos al momento.</p>
+
+    <div class="it-track__cards">
+      <a class="it-track__card" href="https://www.correos.es/es/es/herramientas/localizador/envios" target="_blank" rel="noopener">
+        <span class="it-track__ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </span>
+        <div><strong>Correos &middot; 24&ndash;48h</strong><span>Envío gratis a toda España con seguimiento</span></div>
+      </a>
+      <a class="it-track__card" href="https://wa.me/34688809683?text=Hola%2C+quiero+el+seguimiento+de+mi+pedido" target="_blank" rel="noopener">
+        <span class="it-track__ic wa">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+        </span>
+        <div><strong>WhatsApp 688 809 683</strong><span>Te damos tu seguimiento al instante</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+.it-track{ padding:48px 20px 64px; background:var(--it-bg,#fff); }
+.it-track__inner{ max-width:640px; margin:0 auto; text-align:center; }
+.it-track__label{ font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--it-accent,#d4af37); margin:0 0 8px; }
+.it-track__title{ font-size:34px; font-weight:600; letter-spacing:-.02em; color:var(--it-text,#111); margin:0 0 10px; }
+.it-track__sub{ font-size:15px; line-height:1.6; color:var(--it-muted,#555); margin:0 0 26px; }
+.it-track__form{ display:flex; gap:10px; max-width:520px; margin:0 auto; }
+#itTrackInput{
+  flex:1; min-width:0; height:52px; padding:0 16px;
+  border:1px solid var(--it-border2,rgba(0,0,0,.18)); border-radius:12px;
+  font-size:15px; background:var(--it-surface,#fff); color:var(--it-text,#111);
+  transition:border-color .18s, box-shadow .18s;
+}
+#itTrackInput:focus{ outline:none; border-color:var(--it-accent,#d4af37); box-shadow:0 0 0 3px rgba(212,175,55,.18); }
+.it-track__form button{
+  flex-shrink:0; display:inline-flex; align-items:center; gap:8px;
+  height:52px; padding:0 22px; border:1px solid rgba(212,175,55,.45); border-radius:12px;
+  background:linear-gradient(135deg,#111114,#2a2a30); color:#fff;
+  font-size:15px; font-weight:600; cursor:pointer;
+  transition:transform .15s, box-shadow .25s, border-color .25s;
+  -webkit-tap-highlight-color:transparent;
+}
+.it-track__form button:hover{ transform:translateY(-2px); border-color:rgba(212,175,55,.95); box-shadow:0 12px 28px rgba(0,0,0,.22); }
+.it-track__form button svg{ color:#e8c66a; }
+.it-track__err{ color:#dc2626; font-size:13px; font-weight:600; margin:10px 0 0; }
+.it-track__hint{ font-size:13px; line-height:1.6; color:var(--it-hint,#888); margin:16px auto 0; max-width:520px; }
+.it-track__cards{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:34px; text-align:left; }
+.it-track__card{
+  display:flex; align-items:center; gap:12px; padding:16px;
+  background:var(--it-surface,#fff); border:0.5px solid var(--it-border,rgba(0,0,0,.1)); border-radius:14px;
+  text-decoration:none; color:inherit; transition:border-color .2s, transform .2s, box-shadow .2s;
+}
+.it-track__card:hover{ border-color:var(--it-accent,#d4af37); transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.08); }
+.it-track__ic{ flex-shrink:0; width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--it-surface2,#f3f3f4); color:var(--it-accent,#d4af37); }
+.it-track__ic.wa{ background:#25d366; color:#fff; }
+.it-track__card strong{ display:block; font-size:14px; color:var(--it-text,#111); }
+.it-track__card span{ display:block; font-size:12.5px; color:var(--it-muted,#666); margin-top:2px; }
+[data-theme="dark"] .it-track__title{ color:#ede9e2; }
+[data-theme="dark"] #itTrackInput{ background:#17171a; color:#ede9e2; border-color:rgba(255,255,255,.14); }
+[data-theme="dark"] .it-track__card{ background:#17171a; border-color:rgba(255,255,255,.1); }
+[data-theme="dark"] .it-track__card strong{ color:#ede9e2; }
+@media(max-width:560px){ .it-track__title{ font-size:27px; } .it-track__form{ flex-direction:column; } .it-track__form button{ width:100%; justify-content:center; } .it-track__cards{ grid-template-columns:1fr; } }
+</style>
+
+<script>
+(function(){
+  var form=document.getElementById('itTrackForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var input=document.getElementById('itTrackInput');
+    var err=document.getElementById('itTrackErr');
+    var code=(input.value||'').trim().replace(/\s+/g,'');
+    if(!code){ if(err) err.hidden=false; input.focus(); return; }
+    if(err) err.hidden=true;
+    var url='https://www.correos.es/es/es/herramientas/localizador/envios?tracking-number='+encodeURIComponent(code);
+    window.open(url,'_blank','noopener');
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Seguimiento de pedido",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Etiqueta", "default": "Seguimiento" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Sigue tu pedido" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "Introduce el número de seguimiento de Correos que te enviamos por email y WhatsApp al preparar tu pedido." }
+  ],
+  "presets": [{ "name": "Seguimiento de pedido" }]
+}
+{% endschema %}
