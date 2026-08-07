@@ -123,10 +123,10 @@
     <div class="it-cs__text">
       <span class="it-cs__eyebrow">Completa tu pedido</span>
       <h2 class="it-cs__title">{{ section.settings.title | default: 'Añade el cargador oficial' }}</h2>
-      <p class="it-cs__desc">{{ section.settings.description | default: 'El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 10% con el código.' }}</p>
+      <p class="it-cs__desc">{{ section.settings.description | default: 'El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 5% con el código.' }}</p>
       <div class="it-cs__code-wrap">
-        <span class="it-cs__code-lbl">10% solo en cargadores:</span>
-        <span class="it-cs__code" id="it-cs-code">CARGADOR10</span>
+        <span class="it-cs__code-lbl">5% solo en cargadores:</span>
+        <span class="it-cs__code" id="it-cs-code">ITOROBIENVENIDO</span>
         <button class="it-cs__code-copy" id="it-cs-copy" aria-label="Copiar código">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2"/>
@@ -167,11 +167,11 @@
   var code = document.getElementById('it-cs-code');
   if(!btn || !code) return;
   btn.addEventListener('click', function(){
-    navigator.clipboard.writeText('CARGADOR10').then(function(){
+    navigator.clipboard.writeText('ITOROBIENVENIDO').then(function(){
       btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
       code.textContent = '¡Copiado!';
       setTimeout(function(){
-        code.textContent = 'CARGADOR10';
+        code.textContent = 'ITOROBIENVENIDO';
         btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
       }, 2200);
     }).catch(function(){ code.select && code.select(); });
@@ -186,7 +186,7 @@
   "name": "Cross-sell cargador",
   "settings": [
     { "type": "text", "id": "title", "label": "Título", "default": "Añade el cargador oficial" },
-    { "type": "textarea", "id": "description", "label": "Descripción", "default": "El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 10% con el código." }
+    { "type": "textarea", "id": "description", "label": "Descripción", "default": "El iPhone no incluye cargador. Añade el oficial Apple y ahorra un 5% con el código." }
   ],
   "presets": [{ "name": "Cross-sell cargador" }]
 }
