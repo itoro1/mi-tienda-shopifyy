@@ -12,9 +12,9 @@
         "eyebrow": "Nuevo 2026",
         "heading": "iPhone 17 Pro Max",
         "heading2": "256 GB &middot; al mejor precio de Espa&ntilde;a.",
-        "price": "1.249",
+        "price": "1.240",
         "price_compare": "1.349",
-        "price_save": "100",
+        "price_save": "109",
         "cta1_text": "Comprar ahora",
         "cta1_url": "/products/iphone-17-pro-max",
         "cta2_text": "Reservar por 50 &euro;",
@@ -89,9 +89,24 @@
         "show_section": true,
         "eyebrow": "Compradores reales",
         "title": "Lo que dicen nuestros clientes",
-        "rating": "★★★★★ 4,8",
-        "review_count": "5",
+        "rating": "★★★★★ 5,0",
+        "review_count": "10",
         "profile_url": "https://www.wallapop.com/user/fernandot-419803299?_pid=wi&_uid=419803299"
+      }
+    },
+    "it_google_reviews_gL5xTr": {
+      "type": "it-google-reviews",
+      "name": "Valoraciones Google",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "show_section": true,
+        "eyebrow": "Valorados en Google",
+        "title": "Rese&ntilde;as verificadas en Google",
+        "rating": "5,0",
+        "review_count": "1 rese&ntilde;a",
+        "cta_text": "Dejar mi rese&ntilde;a en Google",
+        "review_url": "https://g.page/r/CYw33L08S3wPEBM/review"
       }
     },
     "it_email_gate_eM4xPz": {
@@ -137,6 +152,7 @@
     "it_email_gate_eM4xPz",
     "it_faq_UTb7VJ",
     "it_wallapop_reviews_vR3nKx",
+    "it_google_reviews_gL5xTr",
     "it_compra_bC7nRw"
   ]
 }
