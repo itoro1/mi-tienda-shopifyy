@@ -78,18 +78,111 @@
       "type": "it-wallapop-reviews",
       "name": "Valoraciones Wallapop",
       "blocks": {
-        "r6": { "type": "review", "settings": { "text": "Fernando ha sido un gran vendedor!! Te lo explica todo y te hace sentir segura (cosa que se agradece muchisimo). La comunicación ha sido fantástica y el producto tal y como se describe. Un placer!", "stars": 5, "name": "Compradora verificada", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-iphone17pro256.jpg?v=1786793913" } },
-        "r7": { "type": "review", "settings": { "text": "Vendedor confiable, profesional y atento, me asesoró en todo momento. El anuncio tal y como correspondía, precintado y a un buen precio. Lo recomiendo al 100%", "stars": 5, "name": "Comprador verificado", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-iphone17promax256prec.jpg?v=1786793914" } },
-        "r1": { "type": "review", "settings": { "text": "100 % Recomemdable telefono nuevo a estrenar. Trato en mano y imformacion de 10 gracias !!", "stars": 5, "name": "Daniel D.", "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/daniel-d-wallapop-profile.jpg?v=1781853082", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-17-pro-max-azul-daniel.jpg?v=1781853082" } },
-        "r8": { "type": "review", "settings": { "text": "Muy profesional y atento en todo momento. Todo vino en perfecto estado.", "stars": 5, "name": "Comprador verificado", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-iphone17promax256nuevo.jpg?v=1786793914" } },
-        "r2": { "type": "review", "settings": { "text": "Trato espectacular, ojalá encontrarte con gente asi siempre. Muy recomendable, gracias por todo", "stars": 5, "name": "Diego D.", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-17-pro-max-plateado-diego.jpg?v=1781853541" } },
-        "r9": { "type": "review", "settings": { "text": "Muy profesional y serio, 100% recomendable", "stars": 5, "name": "Comprador verificado", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-2iphone17promax.jpg?v=1786793914" } },
-        "r10": { "type": "review", "settings": { "text": "Todo genial, persona seria y puntual.", "stars": 5, "name": "Comprador verificado" } },
-        "r4": { "type": "review", "settings": { "text": "perfecto", "stars": 5, "name": "Paco M.", "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/paco-m-wallapop-profile.jpg?v=1781853972", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972" } },
-        "r3": { "type": "review", "settings": { "text": "Todo perfecto", "stars": 4, "name": "Tessy", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972" } },
-        "r5": { "type": "review", "settings": { "text": "", "stars": 5, "name": "Volodymyr K.", "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/volodymyr-k-wallapop-profile.jpg?v=1781853971", "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972" } }
+        "r6": {
+          "type": "review",
+          "settings": {
+            "text": "Fernando ha sido un gran vendedor!! Te lo explica todo y te hace sentir segura (cosa que se agradece muchisimo). La comunicación ha sido fantástica y el producto tal y como se describe. Un placer!",
+            "stars": 5,
+            "name": "Joanna G.",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-iphone17pro256.jpg?v=1786793913"
+          }
+        },
+        "r7": {
+          "type": "review",
+          "settings": {
+            "text": "Vendedor confiable, profesional y atento, me asesoró en todo momento. El anuncio tal y como correspondía, precintado y a un buen precio. Lo recomiendo al 100%",
+            "stars": 5,
+            "name": "Natalia P.",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-iphone17promax256prec.jpg?v=1786793914"
+          }
+        },
+        "r1": {
+          "type": "review",
+          "settings": {
+            "text": "100 % Recomemdable telefono nuevo a estrenar. Trato en mano y imformacion de 10 gracias !!",
+            "stars": 5,
+            "name": "Daniel D.",
+            "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/daniel-d-wallapop-profile.jpg?v=1781853082",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-17-pro-max-azul-daniel.jpg?v=1781853082"
+          }
+        },
+        "r8": {
+          "type": "review",
+          "settings": {
+            "text": "Muy profesional y atento en todo momento. Todo vino en perfecto estado.",
+            "stars": 5,
+            "name": "Sam D.",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-iphone17promax256nuevo.jpg?v=1786793914"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "text": "Trato espectacular, ojalá encontrarte con gente asi siempre. Muy recomendable, gracias por todo",
+            "stars": 5,
+            "name": "Diego D.",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/iphone-17-pro-max-plateado-diego.jpg?v=1781853541"
+          }
+        },
+        "r9": {
+          "type": "review",
+          "settings": {
+            "text": "Muy profesional y serio, 100% recomendable",
+            "stars": 5,
+            "name": "oussama b.",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/wp-review-2iphone17promax.jpg?v=1786793914"
+          }
+        },
+        "r10": {
+          "type": "review",
+          "settings": {
+            "text": "Todo genial, persona seria y puntual.",
+            "stars": 5,
+            "name": "Estefanía S."
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "text": "perfecto",
+            "stars": 5,
+            "name": "Paco M.",
+            "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/paco-m-wallapop-profile.jpg?v=1781853972",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "text": "Todo perfecto",
+            "stars": 4,
+            "name": "Tessy",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972"
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "text": "",
+            "stars": 5,
+            "name": "Volodymyr K.",
+            "photo": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/volodymyr-k-wallapop-profile.jpg?v=1781853971",
+            "product_img": "https://cdn.shopify.com/s/files/1/1032/6048/8005/files/cargador-apple-completo-tessy.jpg?v=1781853972"
+          }
+        }
       },
-      "block_order": ["r6", "r7", "r1", "r8", "r2", "r9", "r10", "r4", "r3", "r5"],
+      "block_order": [
+        "r6",
+        "r7",
+        "r1",
+        "r8",
+        "r2",
+        "r9",
+        "r10",
+        "r4",
+        "r3",
+        "r5"
+      ],
       "settings": {
         "show_section": true,
         "eyebrow": "Compradores reales",
@@ -126,17 +219,74 @@
     "it_faq_UTb7VJ": {
       "type": "it-faq",
       "blocks": {
-        "q1":{"type":"faq_item","settings":{"question":"&iquest;C&oacute;mo funciona la reserva de 50 EUR?","answer":"<p>Paga 50 EUR para asegurar tu plaza. Te contactamos en menos de 24h. Los <strong>50 EUR se descuentan del precio final.</strong> Cancelaci&oacute;n gratuita si cambias de opini&oacute;n.</p>"}},
-        "q2":{"type":"faq_item","settings":{"question":"&iquest;Qu&eacute; garant&iacute;a tienen los iPhones?","answer":"<p>iPhones nuevos sellados: <strong>garant&iacute;a de 3 a&ntilde;os</strong>. iPhones segunda mano: <strong>garant&iacute;a de 1 a&ntilde;o</strong>. Sin letra peque&ntilde;a.</p>"}},
-        "q3":{"type":"faq_item","settings":{"question":"&iquest;Cu&aacute;nto tarda el env&iacute;o?","answer":"<p>Modelos en stock: <strong>24-48 horas</strong>. Bajo pedido: <strong>3-5 d&iacute;as h&aacute;biles</strong>. Env&iacute;o gratuito con Correos. Seguimiento en tiempo real.</p>"}},
-        "q4":{"type":"faq_item","settings":{"question":"&iquest;C&oacute;mo os vendo mi iPhone?","answer":"<p>Esc&iacute;benos por <strong>WhatsApp al 624 15 06 03</strong> con el modelo y unas fotos. Oferta en menos de 2 horas. Pago inmediato por Bizum. Recogida gratuita.</p>"}},
-        "q5":{"type":"faq_item","settings":{"question":"&iquest;Los iPhones son 100% originales?","answer":"<p>S&iacute;. Los nuevos est&aacute;n <strong>sellados de f&aacute;brica</strong> con <strong>garant&iacute;a de 3 a&ntilde;os</strong>. Los de segunda mano pasan por revisi&oacute;n t&eacute;cnica completa.</p>"}},
-        "q6":{"type":"faq_item","settings":{"question":"&iquest;Qu&eacute; m&eacute;todos de pago aceptais?","answer":"<p>Visa, Mastercard, Bizum, PayPal y Apple Pay. Para cuotas sin inter&eacute;s con <strong>Klarna</strong> o <strong>seQura</strong>, escr&iacute;benos por WhatsApp.</p>"}},
-        "q7":{"type":"faq_item","settings":{"question":"&iquest;Ten&eacute;is descuentos?","answer":"<p>S&iacute;. Suscr&iacute;bete con tu email y te enviamos un <strong>c&oacute;digo de bienvenida del 5%</strong> para cargadores y accesorios. Adem&aacute;s, al a&ntilde;adir un cargador Apple al carrito consigues un <strong>10% extra</strong> solo en el cargador.</p>"}}
+        "q1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;C&oacute;mo funciona la reserva de 50 EUR?",
+            "answer": "<p>Paga 50 EUR para asegurar tu plaza. Te contactamos en menos de 24h. Los <strong>50 EUR se descuentan del precio final.</strong> Cancelaci&oacute;n gratuita si cambias de opini&oacute;n.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;Qu&eacute; garant&iacute;a tienen los iPhones?",
+            "answer": "<p>iPhones nuevos sellados: <strong>garant&iacute;a de 3 a&ntilde;os</strong>. iPhones segunda mano: <strong>garant&iacute;a de 1 a&ntilde;o</strong>. Sin letra peque&ntilde;a.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;Cu&aacute;nto tarda el env&iacute;o?",
+            "answer": "<p>Modelos en stock: <strong>24-48 horas</strong>. Bajo pedido: <strong>3-5 d&iacute;as h&aacute;biles</strong>. Env&iacute;o gratuito con Correos. Seguimiento en tiempo real.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;C&oacute;mo os vendo mi iPhone?",
+            "answer": "<p>Esc&iacute;benos por <strong>WhatsApp al 624 15 06 03</strong> con el modelo y unas fotos. Oferta en menos de 2 horas. Pago inmediato por Bizum. Recogida gratuita.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;Los iPhones son 100% originales?",
+            "answer": "<p>S&iacute;. Los nuevos est&aacute;n <strong>sellados de f&aacute;brica</strong> con <strong>garant&iacute;a de 3 a&ntilde;os</strong>. Los de segunda mano pasan por revisi&oacute;n t&eacute;cnica completa.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;Qu&eacute; m&eacute;todos de pago aceptais?",
+            "answer": "<p>Visa, Mastercard, Bizum, PayPal y Apple Pay. Para cuotas sin inter&eacute;s con <strong>Klarna</strong> o <strong>seQura</strong>, escr&iacute;benos por WhatsApp.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "&iquest;Ten&eacute;is descuentos?",
+            "answer": "<p>S&iacute;. Suscr&iacute;bete con tu email y te enviamos un <strong>c&oacute;digo de bienvenida del 5%</strong> para cargadores y accesorios. Adem&aacute;s, al a&ntilde;adir un cargador Apple al carrito consigues un <strong>10% extra</strong> solo en el cargador.</p>"
+          }
+        }
       },
-      "block_order":["q1","q2","q3","q4","q5","q6","q7"],
-      "name":"FAQ",
-      "settings":{"label":"Preguntas frecuentes","title":"&iquest;Tienes alguna duda?","subtitle":"Respuestas r&aacute;pidas. Si necesitas m&aacute;s ayuda, escr&iacute;benos.","cta_text":"&iquest;No encuentras respuesta?","cta_label":"WhatsApp 624 15 06 03","cta_url":"https://wa.me/34624150603"}
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "label": "Preguntas frecuentes",
+        "title": "&iquest;Tienes alguna duda?",
+        "subtitle": "Respuestas r&aacute;pidas. Si necesitas m&aacute;s ayuda, escr&iacute;benos.",
+        "cta_text": "&iquest;No encuentras respuesta?",
+        "cta_label": "WhatsApp 624 15 06 03",
+        "cta_url": "https://wa.me/34624150603"
+      }
     },
     "it_compra_bC7nRw": {
       "type": "it-compra-banner",
