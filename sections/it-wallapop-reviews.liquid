@@ -80,7 +80,22 @@
 .it-review-name{font-size:13px;font-weight:500;color:var(--it-muted,#6b7280)}
 .it-review-source{display:flex;align-items:center;gap:3px;font-size:11px;color:#0d9488;font-weight:500}
 .it-reviews-cta{margin-top:32px}
-@media(max-width:600px){.it-reviews-grid{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .it-reviews-grid{
+    display:flex;
+    grid-template-columns:none;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:14px;
+    margin-left:-20px;
+    margin-right:-20px;
+    padding:4px 20px 14px;
+    scrollbar-width:none;
+  }
+  .it-reviews-grid::-webkit-scrollbar{display:none}
+  .it-review-card{flex:0 0 86%;scroll-snap-align:center}
+}
 </style>
 {%- endif -%}
 
