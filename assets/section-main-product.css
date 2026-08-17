@@ -419,9 +419,10 @@ a.product__text {
   }
 
   /* A single product photo has nothing to peek at on the next slide,
-     so give it the full slider width instead of the default 50% peek. */
+     so let it fill the (already edge-bled) slider track instead of the
+     default 50% peek, for a bigger, more prominent hero image. */
   .grid--peek .grid__item:only-child {
-    width: calc(100% - var(--grid-mobile-horizontal-spacing) - 3rem);
+    width: 100%;
   }
 }
 
