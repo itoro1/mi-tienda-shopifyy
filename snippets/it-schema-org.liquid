@@ -1,0 +1,52 @@
+{%- if request.page_type == 'product' -%}
+{%- liquid
+  assign product_availability = 'https://schema.org/OutOfStock'
+  if product.available
+    assign product_availability = 'https://schema.org/InStock'
+  endif
+  assign product_condition = 'https://schema.org/UsedCondition'
+  if product.tags contains 'nuevo' or product.tags contains 'sellado'
+    assign product_condition = 'https://schema.org/NewCondition'
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncatewords: 50 | json }},
+  "image": [
+    {%- for image in product.images limit: 3 -%}
+      {{ image.src | image_url: width: 800 | prepend: 'https:' | json }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ],
+  "brand": { "@type": "Brand", "name": "Apple" },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ canonical_url | json }},
+    "priceCurrency": "EUR",
+    "price": {{ product.price | money_without_currency | remove: '.' | replace: ',', '.' }},
+    "availability": {{ product_availability | json }},
+    "itemCondition": {{ product_condition | json }},
+    "seller": { "@type": "Organization", "name": "ITorostore", "url": {{ shop.url | json }} }
+  }
+}
+</script>
+{%- endif -%}
+{%- if request.page_type == 'index' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ITorostore",
+  "url": {{ shop.url | json }},
+  "contactPoint": { "@type": "ContactPoint", "telephone": "+34688809683", "contactType": "customer service", "availableLanguage": "Spanish" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "10",
+    "bestRating": "5"
+  }
+}
+</script>
+{%- endif -%}
