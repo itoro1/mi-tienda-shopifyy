@@ -1,0 +1,32 @@
+{%- comment -%}
+  Plantilla del producto "Reserva de Pedido — iPhone ITorostore" (el deposito
+  de 50 EUR).
+
+  Ese producto tiene que seguir publicado en la tienda online, porque es lo que
+  el formulario de reserva mete en el carrito desde la ficha de cada iPhone.
+  Pero su PAGINA no deberia visitarla nadie: mostraba un selector con todos los
+  modelos de iPhone, marcaba "En stock - listo para enviar" sobre un deposito y
+  daba la impresion de ser un producto suelto que se compra por su cuenta.
+
+  La reserva tiene sentido dentro de la ficha del iPhone que el cliente esta
+  mirando, y solo cuando esa variante concreta no tiene stock. Asi que aqui se
+  manda a la coleccion de iPhones y se pide a los buscadores que no la indexen.
+{%- endcomment -%}
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="refresh" content="0; url=/collections/todos-los-iphones">
+<link rel="canonical" href="{{ shop.url }}/collections/todos-los-iphones">
+
+<div style="max-width:520px;margin:80px auto;padding:0 24px;text-align:center;font-family:inherit">
+  <p style="font-size:15px;line-height:1.6;color:#4b4b47">
+    La reserva se hace desde la ficha del iPhone que te interese, cuando ese
+    modelo no tiene stock inmediato.
+  </p>
+  <p style="margin-top:20px">
+    <a href="/collections/todos-los-iphones"
+       style="display:inline-block;padding:12px 24px;background:#111114;color:#fff;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600">
+      Ver todos los iPhones
+    </a>
+  </p>
+</div>
+
+<script>window.location.replace('/collections/todos-los-iphones');</script>

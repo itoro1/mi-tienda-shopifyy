@@ -1,43 +1,56 @@
 {%- comment -%}
   Boton de modo claro/oscuro.
 
-  Antes iba fijo arriba a la derecha (top:12px; right:14px), justo encima del
-  icono del carrito de la cabecera, y estorbaba al pulsarlo. Ahora va abajo a
-  la izquierda, que es la unica esquina libre: el boton de WhatsApp ocupa abajo
-  a la derecha y la barra de compra de movil ocupa todo el borde inferior, asi
-  que en movil se sube por encima de esa barra.
+  Historial de posiciones, por si vuelve a estorbar:
+    - Arriba a la derecha (top:12/right:14): se comia el icono del carrito.
+    - Abajo a la izquierda: tapaba los botones de variante del producto.
+    - Ahora: abajo a la derecha, apilado JUSTO ENCIMA del boton de WhatsApp.
+
+  Esa columna de la derecha es la unica franja de la pantalla sin nada debajo:
+  no hay botones de la tienda, ni flechas de la galeria, ni selectores. El
+  boton se coloca alineado con el de WhatsApp y sube con el cuando aparece la
+  barra de compra fija, de modo que los tres nunca se pisan.
 {%- endcomment -%}
 <style>
   #itThemeBtn{
     position:fixed;
-    left:16px;
-    bottom:24px;
+    right:30px;            /* centrado sobre el boton de WhatsApp (54px a right:16) */
+    bottom:88px;           /* 24 (WhatsApp) + 54 (su alto) + 10 de aire */
     z-index:9700;
-    width:28px;
-    height:28px;
+    width:26px;
+    height:26px;
     border-radius:50%;
-    border:0.5px solid rgba(128,128,128,0.25);
-    background:rgba(255,255,255,0.08);
+    border:0.5px solid rgba(128,128,128,.28);
+    background:rgba(255,255,255,.10);
     backdrop-filter:blur(8px);
     -webkit-backdrop-filter:blur(8px);
     cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:13px;
+    font-size:12px;
     line-height:1;
     padding:0;
-    transition:opacity .2s;
     box-shadow:0 1px 6px rgba(0,0,0,.12);
-    opacity:.55;
+    opacity:.5;
+    transition:opacity .2s, bottom .28s cubic-bezier(.4,0,.2,1);
   }
-  #itThemeBtn:hover{opacity:1}
-  /* En movil la barra de compra fija ocupa el borde inferior: subimos el boton
-     por encima para que no se solapen ni se pisen los clicks. */
+  #itThemeBtn:hover,
+  #itThemeBtn:focus-visible{opacity:1}
+
   @media (max-width:749px){
-    #itThemeBtn{bottom:calc(88px + env(safe-area-inset-bottom))}
+    /* WhatsApp en movil: 50px a right:12, bottom 12 + safe-area */
+    #itThemeBtn{
+      right:24px;
+      bottom:calc(72px + env(safe-area-inset-bottom));
+    }
+    /* Con la barra de compra fija, WhatsApp sube a 80: este va por encima. */
+    body.it-satc-on #itThemeBtn{
+      bottom:calc(140px + env(safe-area-inset-bottom));
+    }
   }
-  /* Si el cajon del carrito esta abierto, el boton sobra: lo escondemos. */
+
+  /* Con el cajon del carrito abierto sobra y taparia el pago. */
   body:has(cart-drawer.active) #itThemeBtn,
   body:has(cart-drawer.animate.active) #itThemeBtn,
   body.it-cart-open #itThemeBtn{display:none !important}
