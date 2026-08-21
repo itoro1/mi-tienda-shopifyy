@@ -129,7 +129,16 @@ body.it-cart-open #it-satc { display:none !important; }
       /* Dawn añade overflow-hidden-* al <body> cuando se abre cualquier cajón/modal (carrito, menú, búsqueda) */
       return /overflow-hidden/.test(document.body.className || '');
     }
-    function sync(){ bar.style.display = overlayOpen() ? 'none' : ''; }
+    /* Marca el <body> mientras la barra esta visible. El boton de WhatsApp usa
+       esa clase para subirse por encima y no quedar tapado por la barra: antes
+       la clase no la ponia nadie, asi que el boton se solapaba con ella. */
+    function sync(){
+      var hidden = overlayOpen();
+      bar.style.display = hidden ? 'none' : '';
+      var on = !hidden && window.matchMedia('(max-width:749px)').matches;
+      document.body.classList.toggle('it-satc-on', on);
+    }
+    window.addEventListener('resize', sync);
     if(window.MutationObserver){
       if(drawer){ new MutationObserver(sync).observe(drawer, {attributes:true, attributeFilter:['class','open']}); }
       new MutationObserver(sync).observe(document.body, {attributes:true, attributeFilter:['class']});

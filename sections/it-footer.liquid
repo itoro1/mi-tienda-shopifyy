@@ -89,8 +89,11 @@
           </svg>
           Mastercard
         </span>
-        <span class="it-payment-badge it-payment-badge--pp">PayPal</span>
-        <span class="it-payment-badge it-payment-badge--bz">Bizum</span>
+        {%- comment -%}
+          PayPal y Bizum no estan activos como forma de pago en la tienda, asi
+          que anunciarlos aqui llevaba al cliente a llegar al pago y no
+          encontrarlos. Se retiran hasta que esten realmente contratados.
+        {%- endcomment -%}
       </div>
     </div>
   </div>

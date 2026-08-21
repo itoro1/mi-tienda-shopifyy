@@ -9,6 +9,7 @@
   bottom:24px;
   right:16px;
   z-index:9980;
+  transition:bottom .28s cubic-bezier(.4,0,.2,1);
 }
 .it-wa-btn{
   display:flex;
@@ -24,11 +25,25 @@
 }
 .it-wa-btn:hover{transform:scale(1.07);box-shadow:0 6px 20px rgba(37,211,102,.55)}
 .it-wa-btn svg{width:28px;height:28px;fill:#fff}
-.it-wa-wrap{transition:bottom .28s cubic-bezier(.4,0,.2,1)}
-@media(max-width:600px){
-  .it-wa-wrap{bottom:16px;right:12px}
+
+/* En movil el boton se pega mas a la esquina y respeta la franja inferior del
+   navegador (la barra de Safari/Chrome), que antes lo tapaba a medias. */
+@media(max-width:749px){
+  .it-wa-wrap{
+    bottom:calc(12px + env(safe-area-inset-bottom));
+    right:12px;
+  }
   .it-wa-btn{width:50px;height:50px}
-  /* Sube el boton de WhatsApp cuando aparece la barra de compra movil para que no se solapen */
-  body.it-satc-on .it-wa-wrap{bottom:84px}
+  /* Cuando la barra de compra fija esta en pantalla, el boton sube por encima
+     de ella. La clase la pone it-sticky-atc; antes no la ponia nadie y el
+     boton se quedaba solapado con la barra. */
+  body.it-satc-on .it-wa-wrap{
+    bottom:calc(80px + env(safe-area-inset-bottom));
+  }
 }
+
+/* Con el cajon del carrito abierto el boton estorba y tapa el pago. */
+body:has(cart-drawer.active) .it-wa-wrap,
+body:has(cart-drawer.animate.active) .it-wa-wrap,
+body.it-cart-open .it-wa-wrap{display:none !important}
 </style>
