@@ -1567,3 +1567,48 @@ a.product__text {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ==========================================================================
+   Imagen principal sin altura — la razon de que saliera diminuta
+
+   base.css de Dawn monta la galeria asi:
+
+     .media { position:relative; overflow:hidden }
+     .media > *  { position:absolute; top:0; left:0; height:100%; width:100% }
+
+   Es decir, la imagen va posicionada en absoluto y NO aporta altura: la altura
+   se la da al contenedor un padding-bottom en porcentaje (el truco clasico de
+   aspect-ratio) que Dawn escribe inline en cada .product__media.
+
+   En este tema ese padding-bottom no se escribe: los contenedores salen como
+   <div class="product__media media media--transparent"> sin atributo style. Sin
+   padding-bottom y con la imagen en absoluto, el contenedor mide cero de alto,
+   y encima .media lleva overflow:hidden. Resultado: la foto grande no se ve, y
+   solo quedan a la vista las miniaturas.
+
+   La solucion es sacar la imagen del posicionamiento absoluto en la galeria
+   principal, para que vuelva a ocupar sitio y sea ella quien de la altura. Se
+   acota a .product__media-wrapper para no tocar ni las miniaturas ni el
+   lightbox, que si dependen del comportamiento original.
+   ========================================================================== */
+.product__media-wrapper .product__media-item .product__media img {
+  position: static !important;
+  height: auto !important;
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+/* El contenedor ya no necesita recortar nada. */
+.product__media-wrapper .product__media-item .product__media {
+  overflow: visible;
+}
+
+/* Movil y tablet: que ocupe el ancho disponible. */
+@media screen and (max-width: 989px) {
+  .product__media-wrapper .product__media-item .product__media img {
+    width: 100% !important;
+  }
+}
