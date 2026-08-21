@@ -1,24 +1,29 @@
 {%- comment -%}
   Boton de modo claro/oscuro.
 
-  Posiciones que se han probado y por que se descartaron:
-    - Arriba a la derecha fijo: se comia el icono del carrito.
-    - Abajo a la izquierda: tapaba los botones de variante del producto.
-    - Abajo a la derecha sobre WhatsApp: quedaba suelto y estorbaba igual.
+  Historial, por si vuelve a dar guerra:
+    - Fijo arriba a la derecha: se comia el icono del carrito.
+    - Fijo abajo a la izquierda: tapaba los botones de variante.
+    - Fijo abajo a la derecha sobre WhatsApp: quedaba suelto.
+    - Fijo arriba midiendo el header en cada scroll: se quedaba descolgado a
+      media pagina. Con position:fixed el boton vive fuera del header, asi que
+      al esconderse este (Dawn oculta el header sticky al bajar) el boton se
+      quedaba flotando sobre el contenido.
 
-  Ahora se ancla al header: se coloca en el hueco que hay entre el boton de
-  menu (las tres rayitas) y el nombre de la tienda. Como el header es sticky y
-  la barra de anuncios de arriba si se va con el scroll, la posicion no puede
-  ser un valor fijo en CSS: se mide el header en cada scroll y se centra sobre
-  el. En escritorio no hay tres rayitas, asi que alli se coloca a la izquierda
-  del grupo de iconos de la derecha, que es el unico hueco libre.
+  Solucion definitiva: el boton deja de estar fijo y se MUEVE DENTRO del propio
+  header, colocado en el hueco entre el boton de menu y el nombre de la tienda.
+  Al ser hijo del header hereda su comportamiento sin una linea de JS de
+  posicionamiento: sube, baja, se oculta y reaparece exactamente igual que
+  "ITorostore".
 {%- endcomment -%}
 <style>
   #itThemeBtn{
-    position:fixed;
-    top:14px;              /* valor de partida; el JS lo ajusta al header real */
-    left:72px;
-    z-index:9700;
+    /* De partida fuera de la vista: el JS lo mete en el header enseguida.
+       Asi no aparece un instante en la esquina antes de colocarse. */
+    position:absolute;
+    top:-9999px;
+    left:-9999px;
+    z-index:5;
     width:26px;
     height:26px;
     border-radius:50%;
@@ -28,32 +33,24 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:12px;
+    font-size:13px;
     line-height:1;
     padding:0;
-    opacity:.55;
+    opacity:.6;
     transition:opacity .18s;
     -webkit-tap-highlight-color:transparent;
   }
   #itThemeBtn:hover,
   #itThemeBtn:focus-visible{opacity:1}
-  #itThemeBtn:active{transform:scale(.92)}
-
-  /* Con el cajon del carrito o el menu abiertos sobra y taparia contenido. */
-  body:has(cart-drawer.active) #itThemeBtn,
-  body:has(cart-drawer.animate.active) #itThemeBtn,
-  body.it-cart-open #itThemeBtn{display:none !important}
+  #itThemeBtn:active{transform:translateY(-50%) scale(.92)}
+  /* Ya colocado dentro del header, centrado en su fila. */
+  #itThemeBtn.is-placed{transform:translateY(-50%)}
 </style>
 
-<button
-  id="itThemeBtn"
-  type="button"
-  aria-label="Cambiar modo claro/oscuro"
-><span id="itThemeIcon">☀️</span></button>
+<button id="itThemeBtn" type="button" aria-label="Cambiar modo claro/oscuro"><span id="itThemeIcon">☀️</span></button>
 
 <script>
 (function(){
-  /* --- Estado guardado --- */
   var saved = localStorage.getItem('it-theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
 
@@ -70,54 +67,61 @@
     if(ic) ic.textContent = next === 'dark' ? '🌙' : '☀️';
   });
 
-  /* --- Anclaje al header ---
-     El header es sticky pero la barra de anuncios no, asi que la fila del
-     header cambia de altura al hacer scroll. Se recalcula en cada scroll. */
   function visible(el){
     if(!el) return false;
     var r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   }
 
-  function place(){
-    var header = document.querySelector('sticky-header')
-              || document.querySelector('.header-wrapper')
-              || document.querySelector('header.header')
+  /* Mete el boton DENTRO del header. A partir de ahi se mueve con el. */
+  function colocar(){
+    var header = document.querySelector('header.header')
+              || document.querySelector('.header-wrapper .header')
               || document.querySelector('.header');
-    if(!header) return;
+    if(!header) return false;
 
-    var hr = header.getBoundingClientRect();
-    if(hr.height === 0) return;
+    var cs = window.getComputedStyle(header);
+    if(cs.position === 'static'){ header.style.position = 'relative'; }
 
-    /* Centrado vertical sobre la fila del header. */
-    var top = hr.top + (hr.height - btn.offsetHeight) / 2;
-    btn.style.top = Math.max(4, top) + 'px';
+    if(btn.parentNode !== header){ header.appendChild(btn); }
 
-    /* Horizontal: justo despues de las tres rayitas si estan (movil), o a la
-       izquierda del grupo de iconos de la derecha si no (escritorio). */
+    /* Justo despues del boton de menu (movil). En escritorio no existe, asi
+       que se pone a la izquierda del grupo de iconos de la derecha. */
     var burger = header.querySelector('.header__icon--menu, .header__icon--summary');
     if(visible(burger)){
-      btn.style.left  = (burger.getBoundingClientRect().right + 12) + 'px';
+      btn.style.left  = (burger.offsetLeft + burger.offsetWidth + 10) + 'px';
       btn.style.right = 'auto';
     } else {
       var icons = header.querySelector('.header__icons');
       if(visible(icons)){
         btn.style.left  = 'auto';
-        btn.style.right = (window.innerWidth - icons.getBoundingClientRect().left + 12) + 'px';
+        btn.style.right = (header.offsetWidth - icons.offsetLeft + 10) + 'px';
       } else {
-        btn.style.left  = '72px';
+        btn.style.left  = '64px';
         btn.style.right = 'auto';
       }
     }
+    btn.style.top = '50%';
+    btn.classList.add('is-placed');
+    return true;
   }
 
-  function schedule(){ window.requestAnimationFrame(place); }
+  function intentar(){
+    if(colocar()) return;
+    /* El header puede tardar en existir (secciones diferidas): reintento corto. */
+    var n = 0;
+    var t = setInterval(function(){
+      if(colocar() || ++n > 20){ clearInterval(t); }
+    }, 150);
+  }
 
-  if(document.readyState !== 'loading'){ schedule(); }
-  else { document.addEventListener('DOMContentLoaded', schedule); }
-  window.addEventListener('load', schedule);
-  window.addEventListener('scroll', schedule, {passive:true});
-  window.addEventListener('resize', schedule);
+  if(document.readyState !== 'loading'){ intentar(); }
+  else { document.addEventListener('DOMContentLoaded', intentar); }
+  window.addEventListener('load', colocar);
+  /* Solo al cambiar el ancho: la posicion vertical ya la lleva el header. */
+  window.addEventListener('resize', colocar);
+  /* Shopify vuelve a pintar secciones en el editor de temas. */
+  document.addEventListener('shopify:section:load', colocar);
 })();
 
 /* Se mantienen por compatibilidad: otras partes del tema las llaman. */
