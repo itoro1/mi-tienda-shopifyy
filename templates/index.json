@@ -17,8 +17,8 @@
         "price_save": "149",
         "cta1_text": "Comprar ahora",
         "cta1_url": "/products/iphone-17-pro-max",
-        "cta2_text": "Reservar por 50 &euro;",
-        "cta2_url": "/products/reserva-de-pedido-iphone-itorostore",
+        "cta2_text": "",
+        "cta2_url": "",
         "show_stock": false,
         "stock_text": ""
       }

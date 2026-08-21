@@ -1,0 +1,72 @@
+{%- comment -%}
+  Boton de modo claro/oscuro.
+
+  Antes iba fijo arriba a la derecha (top:12px; right:14px), justo encima del
+  icono del carrito de la cabecera, y estorbaba al pulsarlo. Ahora va abajo a
+  la izquierda, que es la unica esquina libre: el boton de WhatsApp ocupa abajo
+  a la derecha y la barra de compra de movil ocupa todo el borde inferior, asi
+  que en movil se sube por encima de esa barra.
+{%- endcomment -%}
+<style>
+  #itThemeBtn{
+    position:fixed;
+    left:16px;
+    bottom:24px;
+    z-index:9700;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    border:0.5px solid rgba(128,128,128,0.25);
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    line-height:1;
+    padding:0;
+    transition:opacity .2s;
+    box-shadow:0 1px 6px rgba(0,0,0,.12);
+    opacity:.55;
+  }
+  #itThemeBtn:hover{opacity:1}
+  /* En movil la barra de compra fija ocupa el borde inferior: subimos el boton
+     por encima para que no se solapen ni se pisen los clicks. */
+  @media (max-width:749px){
+    #itThemeBtn{bottom:calc(88px + env(safe-area-inset-bottom))}
+  }
+  /* Si el cajon del carrito esta abierto, el boton sobra: lo escondemos. */
+  body:has(cart-drawer.active) #itThemeBtn,
+  body:has(cart-drawer.animate.active) #itThemeBtn,
+  body.it-cart-open #itThemeBtn{display:none !important}
+</style>
+
+<button
+  id="itThemeBtn"
+  type="button"
+  aria-label="Cambiar modo claro/oscuro"
+  onclick="itToggleTheme()"
+><span id="itThemeIcon">☀️</span></button>
+
+<script>
+(function(){
+  var saved=localStorage.getItem('it-theme')||'light';
+  document.documentElement.setAttribute('data-theme',saved);
+  var ic=document.getElementById('itThemeIcon');
+  if(ic)ic.textContent=saved==='dark'?'🌙':'☀️';
+})();
+function itToggleTheme(){
+  var cur=document.documentElement.getAttribute('data-theme');
+  var next=cur==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('it-theme',next);
+  var ic=document.getElementById('itThemeIcon');
+  if(ic)ic.textContent=next==='dark'?'🌙':'☀️';
+}
+function itUpdateThemeUI(t){
+  var ic=document.getElementById('itThemeIcon');
+  if(ic)ic.textContent=t==='dark'?'🌙':'☀️';
+}
+</script>
