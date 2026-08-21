@@ -1,22 +1,22 @@
 {%- comment -%}
   Sticky bottom buy bar — mobile only (≤749px).
   SIEMPRE fija abajo (no se oculta al hacer scroll).
-  Muestra CTA de reserva para productos sin stock (bajo pedido).
+
+  La barra NO decide por su cuenta si compra o reserva: siempre delega el
+  click en el botón que el formulario de producto tenga renderizado en ese
+  momento (.itoro-reserva-btn o .product-form__submit). Así no puede quedarse
+  desincronizada ni apuntando a un nodo viejo cuando Dawn vuelve a pintar el
+  formulario al cambiar de variante.
+
   Accepts: product, section_id
 {%- endcomment -%}
 {%- liquid
   assign satc_variant = product.selected_or_first_available_variant
-  assign satc_available = false
-  if satc_variant != null and satc_variant.available
-    assign satc_available = true
-  endif
-  assign itoro_satc_reserva = false
+  assign satc_reserva = false
   if satc_variant.inventory_management == 'shopify' and satc_variant.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore'
-    assign itoro_satc_reserva = true
+    assign satc_reserva = true
   endif
 -%}
-{%- capture satc_reserva_vid -%}{%- render 'itoro-reserva-vid', product: product -%}{%- endcapture -%}
-{%- assign satc_reserva_vid = satc_reserva_vid | strip -%}
 <style>
 #it-satc{
   position:fixed;bottom:0;left:0;right:0;z-index:9800;
@@ -51,6 +51,8 @@ body.it-cart-open #it-satc { display:none !important; }
   font-size:16px;font-weight:800;line-height:1;
   color:var(--it-accent,#d4af37);
 }
+#it-satc__price.is-reserva{color:#c2410c;font-size:12.5px;font-weight:700}
+[data-theme="dark"] #it-satc__price.is-reserva{color:#fb923c}
 #it-satc__btn{
   flex-shrink:0;
   height:46px;padding:0 22px;
@@ -63,55 +65,60 @@ body.it-cart-open #it-satc { display:none !important; }
   -webkit-tap-highlight-color:transparent;
 }
 #it-satc__btn:active{opacity:.75;transform:scale(.97)}
+#it-satc__btn[disabled]{opacity:.45;cursor:not-allowed}
 </style>
 
-{%- if itoro_satc_reserva -%}
-<form id="it-satc" action="/cart/add" method="post" aria-label="Reserva rápida">
-  <input type="hidden" name="id" value="{{ satc_reserva_vid }}">
-  <input type="hidden" name="return_to" value="/cart">
-  <input type="hidden" name="properties[iPhone reservado]" id="it-satc__reserva-prop"
-    value="{{ product.title }}{% if product.variants.size > 1 %} · {{ satc_variant.title }}{% endif %}">
-  <div id="it-satc__info">
-    <div id="it-satc__title">{{ product.title | escape }}</div>
-    <div id="it-satc__price" style="color:#c2410c;font-size:12.5px;font-weight:700">Bajo pedido &middot; Reserva 50&euro;</div>
-  </div>
-  <button id="it-satc__btn" type="submit">Reservar &middot; 50&euro;</button>
-</form>
-{%- else -%}
 <div id="it-satc" aria-label="Compra rápida">
   <div id="it-satc__info">
     <div id="it-satc__title">{{ product.title | escape }}</div>
     <div id="it-satc__price"
+      class="{% if satc_reserva %}is-reserva{% endif %}"
       data-cents="{{ satc_variant.price }}"
       data-currency="{{ shop.currency }}"
-    >{{- satc_variant.price | money -}}</div>
+    >
+      {%- if satc_reserva -%}
+        Bajo pedido &middot; Reserva 50&euro;
+      {%- else -%}
+        {{- satc_variant.price | money -}}
+      {%- endif -%}
+    </div>
   </div>
-  <button id="it-satc__btn" type="button"
-    {% unless satc_available %}disabled style="opacity:.45;cursor:not-allowed"{% endunless %}
-  >
-    {%- if satc_available -%}Comprar ahora{%- else -%}Agotado{%- endif -%}
+  <button id="it-satc__btn" type="button">
+    {%- if satc_reserva -%}Reservar &middot; 50&euro;{%- else -%}Comprar ahora{%- endif -%}
   </button>
 </div>
-{%- endif -%}
 
 <script>
 (function(){
   var bar   = document.getElementById('it-satc');
   var btn   = document.getElementById('it-satc__btn');
   var price = document.getElementById('it-satc__price');
+  var title = document.getElementById('it-satc__title');
   if(!bar || !btn) return;
 
-  var isReserva = bar.tagName === 'FORM';
+  /* Mapa de stock calculado en el servidor: inventory_quantity no se expone
+     al cliente, y variant.available es true para las variantes con politica
+     "continue" aunque esten a cero, asi que no sirve para decidir. */
+  var satcStock = {
+    {%- for v in product.variants -%}
+      "{{ v.id }}": {% if v.inventory_management == 'shopify' and v.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore' %}"reservar"{% else %}"comprar"{% endif %}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  };
 
-  var mainBtn = document.getElementById('ProductSubmitButton-{{ section_id }}')
-             || document.querySelector('.product-form__submit');
-
-  /* Modo compra normal: click → dispara el submit del formulario principal */
-  if(!isReserva){
-    btn.addEventListener('click', function(){
-      if(mainBtn && !mainBtn.disabled){ mainBtn.click(); }
-    });
+  /* El boton real se busca EN CADA CLICK: Dawn reemplaza el formulario de
+     producto al cambiar de variante, asi que guardar la referencia al cargar
+     la pagina la dejaba apuntando a un nodo ya descartado (boton muerto). */
+  function currentMainButton(){
+    return document.querySelector('#itoro-reserva-form .itoro-reserva-btn')
+        || document.querySelector('.itoro-reserva-btn')
+        || document.getElementById('ProductSubmitButton-{{ section_id }}')
+        || document.querySelector('.product-form__submit:not(#it-satc__btn)');
   }
+
+  btn.addEventListener('click', function(){
+    var target = currentMainButton();
+    if(target && !target.disabled){ target.click(); }
+  });
 
   /* Ocultar la barra cuando el carrito (cajón) está abierto, para no tapar
      el botón "Finalizar compra". Observa SOLO la clase del <cart-drawer>. */
@@ -132,38 +139,38 @@ body.it-cart-open #it-satc { display:none !important; }
     sync();
   })();
 
-  /* Actualizar al cambiar de variante (evento emitido por it-product-extras) */
-  document.addEventListener('variant:change', function(e){
-    var v = e.detail && (e.detail.variant || e.detail);
+  function formatMoney(cents){
+    if(window.Shopify && Shopify.formatMoney){
+      return Shopify.formatMoney(cents, '{% raw %}{{amount_with_comma_separator}}{% endraw %} €');
+    }
+    return (cents/100).toFixed(2).replace('.', ',') + ' €';
+  }
+
+  /* Repinta la barra segun la variante seleccionada: compra o reserva. */
+  function render(v){
     if(!v) return;
+    var isReserva = satcStock[v.id] === 'reservar';
 
     if(isReserva){
-      var propInput = document.getElementById('it-satc__reserva-prop');
-      if(propInput){
-        var base = {{ product.title | json }};
-        var label = base;
-        if(v.title && v.title !== 'Default Title'){ label += ' · ' + v.title; }
-        propInput.value = label;
-      }
+      price.classList.add('is-reserva');
+      price.innerHTML = 'Bajo pedido &middot; Reserva 50&euro;';
+      btn.innerHTML = 'Reservar &middot; 50&euro;';
     } else {
-      if(price && v.price != null){
-        var cents = v.price;
-        var formatted;
-        if(window.Shopify && Shopify.formatMoney){
-          formatted = Shopify.formatMoney(cents, '{{amount_with_comma_separator}} €');
-        } else {
-          formatted = (cents/100).toFixed(2).replace('.',',') + ' €';
-        }
-        price.textContent = formatted;
-      }
-      if(btn){
-        var avail = v.available !== false;
-        btn.disabled = !avail;
-        btn.textContent = avail ? 'Comprar ahora' : 'Agotado';
-        btn.style.opacity = avail ? '' : '.45';
-        btn.style.cursor  = avail ? '' : 'not-allowed';
-      }
+      price.classList.remove('is-reserva');
+      if(v.price != null){ price.textContent = formatMoney(v.price); }
+      btn.textContent = 'Comprar ahora';
     }
+
+    if(title && v.title && v.title !== 'Default Title'){
+      title.textContent = {{ product.title | json }} + ' · ' + v.title;
+    }
+
+    btn.disabled = false;
+  }
+
+  document.addEventListener('variant:change', function(e){
+    var v = e.detail && (e.detail.variant || e.detail);
+    render(v);
   });
 })();
 </script>
