@@ -1500,3 +1500,70 @@ a.product__text {
     border: none;
   }
 }
+
+/* ==========================================================================
+   Ancho de la galeria en escritorio — arreglo de nombres de clase
+
+   main-product.liquid traduce el ajuste "media_size" a otros nombres antes de
+   pintarlos: large -> product--two-thirds, small -> product--one-third. Pero
+   todas las reglas de anchura de este archivo apuntan a .product--large y
+   .product--small, que nunca llegan a existir en el HTML. Resultado: en
+   escritorio la columna de la imagen se quedaba sin anchura y la foto salia
+   diminuta en una esquina, con el resto del hueco vacio.
+
+   Se replican aqui las mismas anchuras para los nombres que el HTML usa de
+   verdad. No se toca el Liquid para no arrastrar el cambio a otros sitios.
+   ========================================================================== */
+@media screen and (min-width: 990px) {
+  .product--two-thirds:not(.product--no-media) .product__media-wrapper {
+    max-width: 65%;
+    width: calc(65% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .product--two-thirds:not(.product--no-media) .product__info-wrapper {
+    padding: 0 0 0 4rem;
+    max-width: 35%;
+    width: calc(35% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .product--two-thirds:not(.product--no-media).product--right .product__info-wrapper {
+    padding: 0 4rem 0 0;
+  }
+
+  .product--one-third:not(.product--no-media) .product__info-wrapper {
+    max-width: 55%;
+    width: calc(55% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .product--one-third:not(.product--no-media) .product__media-wrapper {
+    max-width: 45%;
+    width: calc(45% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+}
+
+/* La imagen principal debe ocupar el ancho de su columna en escritorio. */
+@media screen and (min-width: 750px) {
+  .product__media-wrapper .product__media-item {
+    width: 100%;
+  }
+  .product__media-wrapper .product__media img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ==========================================================================
+   Lupa / lightbox: la imagen se abria a su tamano real y quedaba
+   desproporcionada, mostrando solo un trozo enorme del producto. Se limita a
+   la pantalla para que se vea entera.
+   ========================================================================== */
+.product-media-modal__content > *,
+.product-media-modal__content img {
+  max-width: min(100%, 1400px);
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+}
