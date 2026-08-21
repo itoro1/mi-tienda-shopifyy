@@ -1541,14 +1541,12 @@ a.product__text {
   }
 }
 
-/* La imagen principal debe ocupar el ancho de su columna en escritorio. */
-@media screen and (min-width: 750px) {
+/* La imagen principal debe ocupar el ancho de su columna en escritorio.
+   Acotado a 990px: por debajo manda el carrusel de Dawn, que en movil ya se
+   veia bien y no hay que tocar. */
+@media screen and (min-width: 990px) {
   .product__media-wrapper .product__media-item {
     width: 100%;
-  }
-  .product__media-wrapper .product__media img {
-    width: 100%;
-    height: auto;
   }
 }
 
@@ -1591,24 +1589,22 @@ a.product__text {
    acota a .product__media-wrapper para no tocar ni las miniaturas ni el
    lightbox, que si dependen del comportamiento original.
    ========================================================================== */
-.product__media-wrapper .product__media-item .product__media img {
-  position: static !important;
-  height: auto !important;
-  max-width: 100%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  object-fit: contain;
-}
-
-/* El contenedor ya no necesita recortar nada. */
-.product__media-wrapper .product__media-item .product__media {
-  overflow: visible;
-}
-
-/* Movil y tablet: que ocupe el ancho disponible. */
-@media screen and (max-width: 989px) {
+/* SOLO ESCRITORIO. En movil el carrusel de Dawn ya funcionaba bien: al sacar
+   alli la imagen del posicionamiento absoluto quedaba un hueco blanco enorme
+   encima de cada foto, asi que por debajo de 990px no se toca nada. */
+@media screen and (min-width: 990px) {
   .product__media-wrapper .product__media-item .product__media img {
-    width: 100% !important;
+    position: static !important;
+    height: auto !important;
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+  }
+
+  /* El contenedor ya no necesita recortar nada. */
+  .product__media-wrapper .product__media-item .product__media {
+    overflow: visible;
   }
 }

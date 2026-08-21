@@ -1,0 +1,246 @@
+{%- liquid
+  assign hero_img = section.settings.hero_image
+  if hero_img == blank
+    assign hp = all_products['iphone-17-pro-max']
+    if hp != blank
+      assign hero_img = hp.featured_image
+    endif
+  endif
+-%}
+<section class="it-hp">
+  <div class="it-hp-inner">
+
+    <div class="it-hp-text">
+      <div class="it-hp-eyebrow-row">
+        <span class="it-hp-dot"></span>
+        <span class="it-hp-eyebrow">{{ section.settings.eyebrow | default: 'Nuevo 2026' }}</span>
+        {%- if section.settings.show_stock -%}
+        <span class="it-hp-stock-pill"><span class="it-hp-stock-dot"></span>{{ section.settings.stock_text | default: 'En stock' }}</span>
+        {%- endif -%}
+      </div>
+
+      <h1 class="it-hp-title">{{ section.settings.heading | default: 'iPhone 17 Pro Max' }}<br><span class="it-hp-title-sub">{{ section.settings.heading2 | default: 'al mejor precio de España.' }}</span></h1>
+
+      <div class="it-hp-price-row">
+        <span class="it-hp-price">&euro;{{ section.settings.price | default: '1.449' }}</span>
+        <span class="it-hp-price-old">&euro;{{ section.settings.price_compare | default: '1.649' }}</span>
+        <span class="it-hp-price-save">Ahorras &euro;{{ section.settings.price_save | default: '200' }}</span>
+      </div>
+
+      <div class="it-hp-pills">
+        <span class="it-hp-pill"><span class="it-hp-check"></span>Sellado de fábrica</span>
+        <span class="it-hp-pill"><span class="it-hp-check"></span>Garantía 3 años</span>
+        <span class="it-hp-pill"><span class="it-hp-check"></span>Envío 24h gratis</span>
+        <span class="it-hp-pill"><span class="it-hp-check"></span>100% original</span>
+      </div>
+
+      <div class="it-hp-actions">
+        <a href="{{ section.settings.cta1_url | default: '/products/iphone-17-pro-max' }}" class="it-hp-cta-primary">
+          {{ section.settings.cta1_text | default: 'Comprar ahora' }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        {%- comment -%}
+          El segundo boton solo se pinta si tiene texto Y enlace puestos en el
+          editor. Antes se pintaba siempre, porque llevaba
+            | default: 'Reservar por 50 €'
+            | default: '/products/reserva-de-pedido-iphone-itorostore'
+          y el filtro default de Liquid trata la cadena vacia como "sin valor":
+          vaciar el ajuste no quitaba el boton, lo dejaba clavado en el texto por
+          defecto. Encima ofrecia reservar un iPhone que esta disponible para
+          compra inmediata, y llevaba a la pagina suelta de reserva.
+        {%- endcomment -%}
+        {%- if section.settings.cta2_text != blank and section.settings.cta2_url != blank -%}
+          <a href="{{ section.settings.cta2_url }}" class="it-hp-cta-secondary">
+            {{ section.settings.cta2_text }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="it-hp-bottom">
+        <a href="/products/iphone-17-pro-512gb-azul-titanio" class="it-hp-color-link">
+          <span style="width:14px;height:14px;border-radius:50%;background:#1a2744;border:1.5px solid rgba(0,0,0,.15);display:inline-block"></span>Azul
+        </a>
+        <a href="/products/iphone-17-pro-max-512gb-plata-silver" class="it-hp-color-link">
+          <span style="width:14px;height:14px;border-radius:50%;background:#e8e4e0;border:1.5px solid rgba(0,0,0,.15);display:inline-block"></span>Plata
+        </a>
+        <a href="/products/iphone-17-pro-max" class="it-hp-color-link">Ver todos los modelos &rarr;</a>
+      </div>
+    </div>
+
+    <div class="it-hp-visual">
+      <span class="it-hp-glow"></span>
+      <div class="it-hp-frame">
+        <span class="it-hp-frame-chip"><span class="it-hp-chip-dot"></span>Sellado &middot; Nuevo</span>
+        {%- if hero_img != blank -%}
+          <img src="{{ hero_img | image_url: width: 800 }}" alt="iPhone 17 Pro Max" width="800" height="800" loading="eager" class="it-hp-img">
+        {%- else -%}
+          <div class="it-hp-img-ph">iPhone 17 Pro Max</div>
+        {%- endif -%}
+      </div>
+      <div class="it-hp-float it-hp-float-1">
+        <span class="it-hp-float-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </span>
+        <div><p class="it-hp-float-t">Entrega en 24h</p><p class="it-hp-float-s">Gratis con Correos</p></div>
+      </div>
+      <div class="it-hp-float it-hp-float-2">
+        <span class="it-hp-float-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </span>
+        <div><p class="it-hp-float-t">Garantía 3 años</p><p class="it-hp-float-s">100% original</p></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.it-hp{
+  background: linear-gradient(165deg, #ffffff 0%, #f7f6f3 58%, #f3f1ea 100%);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 0.5px solid rgba(0,0,0,0.07);
+}
+.it-hp::before{
+  content:'';
+  position:absolute;
+  bottom:-90px; right:-70px;
+  width:440px; height:440px;
+  background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 64%);
+  pointer-events:none;
+}
+.it-hp::after{
+  content:'';
+  position:absolute;
+  top:-70px; left:22%;
+  width:340px; height:340px;
+  background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 65%);
+  pointer-events:none;
+}
+.it-hp-inner{
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 24px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  position: relative;
+  z-index: 1;
+}
+.it-hp-text{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+.it-hp-eyebrow-row{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.it-hp-dot{ width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; animation: hp-pulse 2s ease-in-out infinite; flex-shrink: 0; }
+@keyframes hp-pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(59,130,246,.4)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(59,130,246,0)}}
+.it-hp-eyebrow{ font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #8a8a86; }
+.it-hp-stock-pill{ display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: rgba(21,128,61,.10); border: 0.5px solid rgba(21,128,61,.28); color: #15803d; }
+.it-hp-stock-dot{ width: 5px; height: 5px; border-radius: 50%; background: #22c55e; animation: hp-pulse 1.6s ease-in-out infinite; flex-shrink: 0; }
+.it-hp-title{ font-size: clamp(32px, 5.5vw, 56px); font-weight: 700; color: #0a0a0a; line-height: 1.05; letter-spacing: -0.03em; margin: 0; }
+.it-hp-title-sub{ font-weight: 300; color: #6b6b67; }
+.it-hp-price-row{ display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.it-hp-price{ font-size: clamp(28px, 4vw, 40px); font-weight: 600; color: #0a0a0a; letter-spacing: -0.02em; }
+.it-hp-price-old{ font-size: 18px; color: #b0b0ac; text-decoration: line-through; }
+.it-hp-price-save{ font-size: 12px; font-weight: 700; padding: 4px 11px; border-radius: 20px; background: rgba(21,128,61,.10); color: #15803d; border: 0.5px solid rgba(21,128,61,.22); }
+.it-hp-pills{ display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.it-hp-pill{ display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #55554f; padding: 5px 12px; border-radius: 20px; border: 0.5px solid rgba(0,0,0,.10); background: rgba(255,255,255,.7); white-space: nowrap; }
+.it-hp-check{ width: 13px; height: 13px; border-radius: 50%; background: rgba(21,128,61,.14); border: 0.5px solid rgba(21,128,61,.35); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.it-hp-check::after{content:'\2713';font-size:7px;color:#15803d}
+.it-hp-actions{ display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width:100%; }
+.it-hp-cta-primary{ display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: #0a0a0a; color: #fff; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 15px; transition: opacity .2s, transform .2s, box-shadow .25s; min-height: 52px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,.16); }
+.it-hp-cta-primary:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,.22);color:#fff}
+.it-hp-cta-secondary{ display: inline-flex; align-items: center; padding: 16px 28px; border: 1.5px solid rgba(0,0,0,.18); color: #0a0a0a; border-radius: 12px; text-decoration: none; font-size: 14px; font-weight:500; transition: all .2s; min-height: 52px; white-space: nowrap; background:#fff; }
+.it-hp-cta-secondary:hover{border-color:#0a0a0a;color:#0a0a0a;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.it-hp-bottom{ display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; padding-top: 18px; border-top: 0.5px solid rgba(0,0,0,.08); width: 100%; }
+.it-hp-color-link{ display:inline-flex;align-items:center;gap:5px; font-size:12px;color:#76766f; text-decoration:none;transition:color .2s;white-space:nowrap; }
+.it-hp-color-link:hover{color:#0a0a0a}
+.it-hp-visual{ position: relative; width: 100%; display: flex; align-items: center; justify-content: center; order: -1; }
+.it-hp-glow{ position: absolute; width: 88%; height: 88%; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,.20) 0%, rgba(212,175,55,.05) 44%, transparent 70%); filter: blur(22px); pointer-events: none; z-index: 0; }
+.it-hp-frame{ position: relative; z-index: 1; width: 100%; max-width: 380px; aspect-ratio: 1 / 1; border-radius: 26px; background: linear-gradient(155deg, #ffffff 0%, #f0f0f2 100%); border: 0.5px solid rgba(0,0,0,.06); box-shadow: 0 24px 60px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.it-hp-img{ width: 90%; height: 90%; object-fit: contain; filter: drop-shadow(0 12px 28px rgba(0,0,0,.18)); }
+.it-hp-img-ph{ color:#1d1d1f; font-weight:600; font-size:18px; opacity:.5; }
+.it-hp-frame-chip{ position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 100px; background: rgba(10,10,12,.82); backdrop-filter: blur(6px); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.18); }
+.it-hp-chip-dot{ width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0; }
+.it-hp-float{ position: absolute; z-index: 3; display: flex; align-items: center; gap: 9px; padding: 10px 13px; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border: 0.5px solid rgba(0,0,0,.08); border-radius: 13px; box-shadow: 0 12px 30px rgba(0,0,0,.14); }
+.it-hp-float-ic{ font-size:17px; line-height:1; flex-shrink:0; display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(212,175,55,.12); }
+.it-hp-float-ic svg{ width:16px;height:16px;stroke:#c49a0a; }
+.it-hp-float-t{ font-size:12px; font-weight:600; color:#0a0a0a; margin:0; line-height:1.25; white-space:nowrap; }
+.it-hp-float-s{ font-size:10.5px; color:#76766f; margin:0; line-height:1.25; white-space:nowrap; }
+.it-hp-float-1{ bottom: 24px; left: -6px; }
+.it-hp-float-2{ top: 30px; right: -6px; }
+[data-theme="dark"] .it-hp{ background: linear-gradient(160deg, #0a0a0a 0%, #111113 60%, #0d0d10 100%); border-bottom-color: rgba(255,255,255,0.07); }
+[data-theme="dark"] .it-hp::before{ background: radial-gradient(circle, rgba(212,175,55,0.10) 0%, transparent 64%); }
+[data-theme="dark"] .it-hp::after{ background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 65%); }
+[data-theme="dark"] .it-hp-eyebrow{ color: rgba(255,255,255,.42); }
+[data-theme="dark"] .it-hp-title{ color: #fff; }
+[data-theme="dark"] .it-hp-title-sub{ color: rgba(255,255,255,.55); }
+[data-theme="dark"] .it-hp-price{ color: #fff; }
+[data-theme="dark"] .it-hp-price-old{ color: rgba(255,255,255,.25); }
+[data-theme="dark"] .it-hp-pill{ color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.09); background: rgba(255,255,255,.03); }
+[data-theme="dark"] .it-hp-cta-primary{ background:#fff; color:#0a0a0a; box-shadow:0 6px 20px rgba(0,0,0,.4); }
+[data-theme="dark"] .it-hp-cta-primary:hover{ color:#0a0a0a; }
+[data-theme="dark"] .it-hp-cta-secondary{ background:transparent; border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.7); }
+[data-theme="dark"] .it-hp-cta-secondary:hover{ border-color: rgba(255,255,255,.45); color:#fff; }
+[data-theme="dark"] .it-hp-bottom{ border-top-color: rgba(255,255,255,.07); }
+[data-theme="dark"] .it-hp-color-link{ color: rgba(255,255,255,.4); }
+[data-theme="dark"] .it-hp-color-link:hover{ color: rgba(255,255,255,.75); }
+[data-theme="dark"] .it-hp-glow{ background: radial-gradient(circle, rgba(59,130,246,.30) 0%, rgba(59,130,246,.08) 42%, transparent 70%); }
+[data-theme="dark"] .it-hp-frame{ background: linear-gradient(155deg, #ffffff 0%, #eef0f3 100%); border-color: rgba(255,255,255,.14); box-shadow: 0 30px 70px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.6); }
+[data-theme="dark"] .it-hp-float{ background: rgba(20,20,22,.82); border-color: rgba(255,255,255,.12); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+[data-theme="dark"] .it-hp-float-t{ color:#fff; }
+[data-theme="dark"] .it-hp-float-s{ color: rgba(255,255,255,.55); }
+[data-theme="dark"] .it-hp-float-ic{ background:rgba(212,175,55,.15); }
+[data-theme="dark"] .it-hp-float-ic svg{ stroke:#d4af37; }
+@media(max-width:480px){
+  .it-hp-float-1{ left: 2px; bottom: 14px; }
+  .it-hp-float-2{ right: 2px; top: 16px; }
+  .it-hp-float-s{ display:none; }
+  .it-hp-float{ padding:8px 11px; }
+}
+@media(max-width:640px){
+  .it-hp-inner{padding:32px 16px 40px;gap:24px}
+  .it-hp-actions{flex-direction:column;width:100%}
+  .it-hp-cta-primary,.it-hp-cta-secondary{width:100%;justify-content:center;text-align:center}
+  .it-hp-title{font-size:30px}
+  .it-hp-price{font-size:28px}
+  .it-hp-frame{max-width:300px}
+}
+@media(min-width:900px){
+  .it-hp-inner{
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    align-items: center;
+    gap: 52px;
+    max-width: 1080px;
+    padding: 64px 48px;
+    text-align: left;
+  }
+  .it-hp-text{ align-items: flex-start; gap: 24px; }
+  .it-hp-eyebrow-row,.it-hp-price-row,.it-hp-pills,.it-hp-actions,.it-hp-bottom{ justify-content: flex-start; }
+  .it-hp-actions{ width:auto; }
+  .it-hp-visual{ order: 0; }
+  .it-hp-frame{ max-width: 420px; }
+}
+</style>
+
+{% schema %}
+{
+  "name":"Hero Premium",
+  "settings":[
+    {"type":"image_picker","id":"hero_image","label":"Imagen del hero (si se deja vacío usa la foto del iPhone 17 Pro Max)"},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Nuevo 2026"},
+    {"type":"text","id":"heading","label":"Titulo linea 1","default":"iPhone 17 Pro Max"},
+    {"type":"text","id":"heading2","label":"Titulo linea 2","default":"256 GB · al mejor precio de España."},
+    {"type":"text","id":"price","label":"Precio","default":"1.449"},
+    {"type":"text","id":"price_compare","label":"Precio tachado","default":"1.649"},
+    {"type":"text","id":"price_save","label":"Ahorro mostrado (ej: 200)","default":"200"},
+    {"type":"text","id":"cta1_text","label":"Boton 1","default":"Comprar ahora"},
+    {"type":"url","id":"cta1_url","label":"URL boton 1"},
+    {"type":"text","id":"cta2_text","label":"Boton 2 (dejar vacío para ocultarlo)"},
+    {"type":"url","id":"cta2_url","label":"URL boton 2 (dejar vacío para ocultarlo)"},
+    {"type":"checkbox","id":"show_stock","label":"Mostrar etiqueta de stock","default":false},
+    {"type":"text","id":"stock_text","label":"Texto stock","default":"En stock"}
+  ],
+  "presets":[{"name":"Hero Premium"}]
+}
+{% endschema %}
