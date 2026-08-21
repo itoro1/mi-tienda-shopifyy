@@ -1,0 +1,25 @@
+{%- comment -%}
+  ARCHIVO SIN USO — no lo renderiza nadie.
+
+  La barra de anuncios que se ve en la tienda es la SECCION del mismo nombre
+  (sections/it-announcement-bar.liquid), que theme.liquid carga con
+  {%- section 'it-announcement-bar' -%}. Este snippet es un resto de una
+  version anterior.
+
+  Se vacia porque su contenido afirmaba cosas que no son ciertas y habria
+  vuelto a la tienda si alguien lo llegaba a renderizar por error:
+
+    - "+500 clientes satisfechos · 4.9 estrellas en Google": la tienda tiene
+      13 pedidos y una sola resena en Google. Las 10 valoraciones de 4,9 son
+      de Wallapop, y ya se muestran como tales en su propia seccion.
+
+    - "Garantia oficial Apple 3 anos": Apple da 1 ano. Los 3 anos son la
+      garantia legal del vendedor en Espana, que es como se dice en la
+      seccion viva y en el bloque de garantias del producto.
+
+    - Codigos de descuento (PACK-IPHONE-CARGADOR, DOSIPHONES) atados a
+      promociones automaticas que hoy figuran como caducadas.
+
+  Si algun dia hace falta recuperar esta barra, copiar la seccion, que es la
+  que esta al dia.
+{%- endcomment -%}
