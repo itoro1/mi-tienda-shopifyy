@@ -258,7 +258,7 @@
           "type": "faq_item",
           "settings": {
             "question": "&iquest;Qu&eacute; m&eacute;todos de pago aceptais?",
-            "answer": "<p>Visa, Mastercard, Apple Pay y Google Pay, con pago seguro cifrado. Para dividir el pago en cuotas con <strong>Klarna</strong>, escr&iacute;benos por WhatsApp y lo gestionamos contigo.</p>"
+            "answer": "<p>Visa, Mastercard, PayPal, Apple Pay y Google Pay, con pago seguro cifrado. Para dividir el pago en cuotas con <strong>Klarna</strong>, escr&iacute;benos por WhatsApp y lo gestionamos contigo.</p>"
           }
         },
         "q7": {
