@@ -11,7 +11,12 @@
   Accepts: product, section_id
 {%- endcomment -%}
 {%- liquid
-  assign satc_variant = product.selected_or_first_available_variant
+  comment
+    Respaldo por si ninguna variante esta disponible: en ese caso Shopify
+    puede devolver nil y la barra mostraria "Comprar" en un producto que en
+    realidad solo se puede reservar.
+  endcomment
+  assign satc_variant = product.selected_or_first_available_variant | default: product.variants.first
   assign satc_reserva = false
   if satc_variant.inventory_management == 'shopify' and satc_variant.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore'
     assign satc_reserva = true

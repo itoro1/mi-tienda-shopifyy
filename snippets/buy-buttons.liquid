@@ -45,13 +45,22 @@
         assign quantity_rule_soldout = true
       endif
 
+      comment
+        Cuando ninguna variante esta disponible -todas a cero y sin venta a la
+        contra- Shopify puede devolver nil en selected_or_first_available_variant.
+        Si eso pasa, las dos condiciones de abajo darian falso y la ficha se
+        quedaria sin boton de reserva y sin boton de comprar: en blanco. Con este
+        respaldo siempre hay una variante de referencia.
+      endcomment
+      assign it_variant = product.selected_or_first_available_variant | default: product.variants.first
+
       assign is_reserva = false
-      if product.selected_or_first_available_variant.inventory_management == 'shopify' and product.selected_or_first_available_variant.inventory_quantity <= 0
+      if it_variant.inventory_management == 'shopify' and it_variant.inventory_quantity <= 0
         assign is_reserva = true
       endif
 
       assign itoro_reserva = false
-      if product.selected_or_first_available_variant.inventory_management == 'shopify' and product.selected_or_first_available_variant.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore'
+      if it_variant.inventory_management == 'shopify' and it_variant.inventory_quantity <= 0 and product.handle != 'reserva-de-pedido-iphone-itorostore'
         assign itoro_reserva = true
       endif
     -%}

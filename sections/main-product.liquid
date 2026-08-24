@@ -102,7 +102,11 @@
             {% when 'inventory' %}
               {%- if section.settings.inventory_availability != false -%}
                 <p class="product__inventory" id="Inventory-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- assign it_cvar = product.selected_or_first_available_variant -%}
+                  {%- comment -%}
+                    Con nil aqui, "inventory_management != 'shopify'" daria cierto y
+                    la ficha anunciaria "En stock" en un iPhone que no tenemos.
+                  {%- endcomment -%}
+                  {%- assign it_cvar = product.selected_or_first_available_variant | default: product.variants.first -%}
                   {%- if it_cvar.inventory_management != 'shopify' or it_cvar.inventory_quantity > 0 -%}
                     <span class="it-inv-dot"></span> En stock &middot; listo para enviar
                   {%- endif -%}
