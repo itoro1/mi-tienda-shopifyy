@@ -7,17 +7,24 @@
 /* ---------------------------------------------------------------------------
    Layout del cajon del carrito.
 
-   component-cart-drawer.css declara .drawer__inner dos veces: primero como
-   flex en columna y despues, mas abajo, como "display:grid;
-   grid-template-rows:1fr;align-items:center". Gana la segunda. Con grid de una
-   sola pista y overflow:hidden en el contenedor, los hijos que no caben se
-   recortan y ademas no hay forma de hacer scroll hasta ellos: por eso, con un
-   iPhone sin cargador en el carrito, el bloque de accesorios ocupaba la parte
-   de arriba y el boton de finalizar compra quedaba cortado y fuera de alcance.
+   Sintoma: con dos productos distintos dentro, el boton "Pagar pedido" queda
+   fuera de la pantalla y no hay manera de llegar hasta el ni arrastrando
+   arriba ni abajo; hay que borrar un producto para que vuelva a aparecer.
+   Se reproduce en cualquier pantalla de 650px de alto o menos: moviles
+   Android de 360x640, iPhone en horizontal, o el navegador con la barra de
+   direcciones y el teclado abiertos.
 
-   Se restituye la columna flexible: la zona de articulos hace scroll, el pie
-   con el boton de pagar queda fijo abajo, y el bloque de accesorios (order:1)
-   se coloca al final, donde no compite con el boton.
+   Causa: por debajo de esa altura Dawn le quita el scroll a
+   <cart-drawer-items> ("@media (max-height:650px){cart-drawer-items{
+   overflow:visible}}") y se lo pasa al contenedor .drawer__inner. Nuestra
+   regla de .drawer__inner pesa mas -lleva el tipo cart-drawer delante- y le
+   devolvia overflow:hidden, asi que la lista crecia hasta 899px dentro de una
+   ventana de 640px y no quedaba ningun elemento con scroll. El contenido
+   sobrante, el pie incluido, se recortaba sin salida.
+
+   Arreglo: la zona de articulos es SIEMPRE la que hace scroll, a cualquier
+   altura de pantalla, y el pie con el boton de pagar queda fijo abajo. El
+   bloque de accesorios (order:1) va al final, donde no compite con el boton.
    --------------------------------------------------------------------------- */
 cart-drawer .drawer__inner{
   display:flex;
@@ -26,18 +33,22 @@ cart-drawer .drawer__inner{
   overflow:hidden;
 }
 cart-drawer .drawer__header{flex:0 0 auto}
-cart-drawer .cart-drawer__form{
+/* Unica zona con scroll. El !important es para ganarle a la regla de Dawn de
+   max-height:650px, que es la que dejaba el boton de pagar inalcanzable. */
+cart-drawer cart-drawer-items{
   flex:1 1 auto;
   min-height:0;
+  overflow-y:auto !important;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+}
+cart-drawer .cart-drawer__form{
   display:flex;
   flex-direction:column;
-  overflow:hidden;
 }
 cart-drawer .drawer__contents{
-  flex:1 1 auto;
-  min-height:0;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
+  display:flex;
+  flex-direction:column;
 }
 cart-drawer .drawer__footer{flex:0 0 auto}
 .icp-upsell-wrap{order:1;flex:0 0 auto}
