@@ -52,6 +52,15 @@ cart-drawer .drawer__contents{
 }
 cart-drawer .drawer__footer{flex:0 0 auto}
 .icp-upsell-wrap{order:1;flex:0 0 auto}
+
+/* En escritorio el pie quedaba pegado al borde de abajo de la ventana: al
+   boton de pagar le sobraban 16px hasta el borde. Con eso, la barra de
+   administrador de Shopify -o cualquier barra del navegador- lo tapaba
+   entero. En movil ya habia 76px de margen por el mismo motivo; aqui se le
+   da su equivalente, sin comerse sitio de la lista de articulos. */
+@media screen and (min-width: 750px){
+  cart-drawer .drawer__inner{ padding-bottom:24px; }
+}
 .icp__upsell{margin:12px 16px;background:var(--icp-green-bg);border:.5px solid var(--icp-green);border-radius:12px;padding:12px 14px;display:none;transition:background .35s,border-color .35s}
 .icp__upsell--show{display:block}
 .icp__upsell-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--icp-green);margin-bottom:10px}
