@@ -13,55 +13,88 @@
   feed sale ya con el dato nuevo. No hay que subir nada a mano.
 
   QUE ENTRA Y QUE NO
-  idealo exige el EAN como campo imprescindible, asi que solo se incluyen las
-  variantes que tienen codigo de barras y stock. Con eso quedan fuera, y es lo
-  correcto:
-    - Los packs (son combinaciones nuestras, no llevan EAN de fabrica)
-    - Los iPhone (sin stock y sin codigo)
+  Se incluye una variante solo si cumple las tres cosas:
+    1. Tiene EAN (codigo de barras). idealo lo marca como imprescindible.
+    2. Tiene stock.
+    3. Su tipo de producto esta en la lista "tipos_incluidos" de abajo.
+
+  Con ese tercer filtro los iPhone quedan fuera aunque tengan codigo y stock,
+  igual que en Google Ads: idealo tambien se paga por clic y la estrategia es
+  la misma, promocionar accesorios. Si algun dia se quiere meter un iPhone,
+  basta con anadir 'Smartphone' a esa lista.
+
+  Los packs quedan fuera solos, sin necesidad de filtro: son combinaciones
+  nuestras y no tienen EAN de fabrica.
 
   FORMATO
-  Separador: punto y coma. Es lo estandar en Espana y lo que abre bien el
-  Excel de aqui. idealo permite cambiarlo si lo prefieren con coma o tabulador:
-  en ese caso, cambiar la variable "sep" de abajo.
-  Codificacion: UTF-8, que es una de las que acepta idealo.
-  Decimales: con punto (12.75), que es como vienen los ejemplos de su plantilla.
+  Separador: punto y coma. Es lo estandar en Espana y lo que abre bien el Excel
+  de aqui. idealo permite cambiarlo: si lo piden con coma o tabulador, se cambia
+  la variable "sep".
+  Codificacion: UTF-8, una de las que acepta idealo.
+  Decimales: con coma (8,50), como en los ejemplos de su propia plantilla, y
+  siempre con dos cifras.
 
-  OJO: el orden de las columnas es el de la plantilla que nos mandaron, pero su
-  PDF llegaba cortado. Antes de darles la URL conviene contrastar los titulos
-  con su fichero "CSV-Info.pdf" y reordenar aqui si hiciera falta.
+  OJO: el orden de las columnas sigue la plantilla que nos mandaron, pero su PDF
+  llegaba cortado. Antes de darles la URL conviene contrastar los titulos con su
+  fichero "CSV-Info.pdf" y reordenar aqui si hiciera falta.
   ---------------------------------------------------------------------------
 {%- endcomment -%}
 {%- layout none -%}
 {%- assign sep = ';' -%}
+{%- assign tipos_incluidos = 'Cargador,Cable' | split: ',' -%}
 {%- assign plazo_entrega = '24-48 horas' -%}
-{%- assign gastos_envio = '0.00' -%}
+{%- assign gastos_envio = '0,00' -%}
 Numero de articulo del comerciante{{ sep }}EAN{{ sep }}Numero del fabricante{{ sep }}Fabricante{{ sep }}Nombre del producto{{ sep }}Precio{{ sep }}Precio especial{{ sep }}Precio original{{ sep }}Plazo de entrega{{ sep }}Gastos de envio{{ sep }}URL del producto{{ sep }}URL de la imagen{{ sep }}Categoria{{ sep }}Descripcion
 {% for product in collections.all.products -%}
+  {%- unless tipos_incluidos contains product.type -%}{%- continue -%}{%- endunless -%}
   {%- for variant in product.variants -%}
-    {%- comment -%} Sin EAN o sin stock, idealo lo rechaza: mejor no mandarlo. {%- endcomment -%}
     {%- assign ean = variant.barcode | strip -%}
     {%- if ean == blank -%}{%- continue -%}{%- endif -%}
     {%- unless variant.available -%}{%- continue -%}{%- endunless -%}
 
-    {%- comment -%} Nombre: si el producto tiene variantes reales, se anade. {%- endcomment -%}
-    {%- capture nombre -%}
-      {{- product.title -}}
-      {%- unless variant.title contains 'Default' -%} — {{ variant.title }}{%- endunless -%}
+    {%- comment -%}
+      Nombre. El espacio antes de la raya va escrito con la entidad porque el
+      recorte de espacios de Liquid se come los espacios sueltos del borde.
+    {%- endcomment -%}
+    {%- capture nombre -%}{{ product.title }}{%- unless variant.title contains 'Default' -%}&#32;—&#32;{{ variant.title }}{%- endunless -%}{%- endcapture -%}
+
+    {%- comment -%}
+      Descripcion. Se sustituyen los cierres de parrafo y de lista por espacios
+      ANTES de quitar el HTML: si no, "hasta el 14." y "Longitud: 1 metro" salen
+      pegados en una sola palabra.
+    {%- endcomment -%}
+    {%- capture descripcion -%}
+      {{- product.description | replace: '</p>', ' ' | replace: '</li>', ' ' | replace: '<br>', ' ' | replace: '<br/>', ' ' | replace: '<br />', ' ' | replace: '</div>', ' ' | replace: '</h2>', ' ' | replace: '</h3>', ' ' | strip_html -}}
     {%- endcapture -%}
 
     {%- comment -%}
-      Los campos de texto se limpian de saltos de linea y del separador, que si
-      no romperian la fila y desplazarian todas las columnas siguientes.
+      Los campos de texto se limpian de saltos de linea y del separador: si no,
+      una fila se partiria en dos y desplazaria todas las columnas siguientes.
     {%- endcomment -%}
-    {%- assign nombre = nombre | strip | replace: sep, ' ' | replace: '"', '' | strip_newlines -%}
+    {%- assign nombre = nombre | strip | strip_newlines | replace: sep, ' ' | replace: '"', '' -%}
     {%- assign fabricante = product.vendor | replace: sep, ' ' | replace: '"', '' -%}
     {%- assign categoria = product.type | replace: sep, ' ' | replace: '"', '' -%}
-    {%- assign descripcion = product.description | strip_html | strip_newlines | replace: sep, ' ' | replace: '"', '' | truncate: 300 -%}
+    {%- assign descripcion = descripcion | strip_newlines | replace: sep, ' ' | replace: '"', '' | replace: '  ', ' ' | strip | truncate: 300 -%}
     {%- assign mpn = variant.sku | default: product.handle | replace: sep, ' ' -%}
+    {%- assign referencia = variant.sku | default: variant.id -%}
 
-    {%- assign precio = variant.price | divided_by: 100.0 -%}
+    {%- comment -%}
+      Precio con dos decimales siempre. Liquid no tiene formato de numero, asi
+      que se separan euros y centimos y se rellena con un cero si hace falta:
+      con "divided_by: 100.0" un precio de 8,50 saldria como "8.5".
+    {%- endcomment -%}
+    {%- assign p_eur = variant.price | divided_by: 100 -%}
+    {%- assign p_cent = variant.price | modulo: 100 -%}
+    {%- if p_cent < 10 -%}{%- assign p_cent = p_cent | prepend: '0' -%}{%- endif -%}
+    {%- capture precio -%}{{ p_eur }},{{ p_cent }}{%- endcapture -%}
+
     {%- capture precio_original -%}
-      {%- if variant.compare_at_price > variant.price -%}{{ variant.compare_at_price | divided_by: 100.0 }}{%- endif -%}
+      {%- if variant.compare_at_price > variant.price -%}
+        {%- assign o_eur = variant.compare_at_price | divided_by: 100 -%}
+        {%- assign o_cent = variant.compare_at_price | modulo: 100 -%}
+        {%- if o_cent < 10 -%}{%- assign o_cent = o_cent | prepend: '0' -%}{%- endif -%}
+        {{- o_eur }},{{ o_cent -}}
+      {%- endif -%}
     {%- endcapture -%}
 
     {%- capture url_imagen -%}
@@ -69,6 +102,6 @@ Numero de articulo del comerciante{{ sep }}EAN{{ sep }}Numero del fabricante{{ s
       {%- elsif product.featured_image -%}https:{{ product.featured_image | image_url: width: 1200 }}
       {%- endif -%}
     {%- endcapture -%}
-{{ variant.sku }}{{ sep }}{{ ean }}{{ sep }}{{ mpn }}{{ sep }}{{ fabricante }}{{ sep }}{{ nombre }}{{ sep }}{{ precio }}{{ sep }}{{ sep }}{{ precio_original | strip }}{{ sep }}{{ plazo_entrega }}{{ sep }}{{ gastos_envio }}{{ sep }}{{ shop.url }}{{ product.url }}?variant={{ variant.id }}{{ sep }}{{ url_imagen | strip }}{{ sep }}{{ categoria }}{{ sep }}{{ descripcion }}
+{{ referencia }}{{ sep }}{{ ean }}{{ sep }}{{ mpn }}{{ sep }}{{ fabricante }}{{ sep }}{{ nombre }}{{ sep }}{{ precio }}{{ sep }}{{ sep }}{{ precio_original | strip }}{{ sep }}{{ plazo_entrega }}{{ sep }}{{ gastos_envio }}{{ sep }}{{ shop.url }}{{ product.url }}?variant={{ variant.id }}{{ sep }}{{ url_imagen | strip }}{{ sep }}{{ categoria }}{{ sep }}{{ descripcion }}
   {%- endfor -%}
 {%- endfor -%}
